@@ -1,0 +1,40 @@
+<div class="auth">
+    <div class="row auth-card">
+        <div class="col-md-12 auth-forms">
+
+            <div class="row text-center">
+                <h1>PARI EN LIGNE</h1>
+            </div>
+
+            <form [formGroup]="authForm" (ngSubmit)="onLogin()">
+                <mat-form-field appearance="outline" class="input-full-width">
+                    <mat-label>
+                        <mat-icon>user</mat-icon> Pseudonyme
+                    </mat-label>
+                    <input matInput formControlName="pseudonyme" placeholder="Pseudonyme" autocomplete=false>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="input-full-width">
+                    <mat-label>
+                        <mat-icon>lock_open</mat-icon> Mot de passe
+                    </mat-label>
+                    <input matInput formControlName="password" placeholder="Mot de passe" autocomplete=false type="password">
+                </mat-form-field>
+
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4 text-center">
+                        <div class="button-row">
+                            <button type="submit" mat-raised-button color="accent">
+                                Se connecter
+                            </button>
+                            <button mat-raised-button color="primary" (click)="onSignUp()">
+                                S'inscrire
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

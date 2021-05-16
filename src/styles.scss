@@ -1,0 +1,86 @@
+/* You can add global styles to this file, and also import other style files */
+@import "assets/css/bootstrap-utilities.min.css";
+@import "assets/css/bootstrap-grid.min.css";
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin     : 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/**----------------------
+ *    SNACKBAR STYLE
+ *------------------------**/
+.success-snackbar {
+    background-color: #016936;
+}
+
+.warning-snackbar {
+    background-color: #E85C3C;
+}
+
+.info-snackbar {
+    background-color: #203764;
+}
+
+.success-snackbar,
+.warning-snackbar,
+.info-snackbar {
+    color: #fff !important;
+
+    .mat-simple-snackbar .mat-simple-snackbar-action .mat-button {
+        color: #fff !important;
+    }
+
+    &:not(.lower) {
+        text-transform: uppercase !important;
+    }
+}
+
+/* Fin snackbar style */
+
+
+/**----------------------
+ *    Input
+ *------------------------**/
+.input-full-width {
+    width: 100%;
+}
+
+/* fin Input */
+
+
+
+/**----------------------
+ *          Boutton
+ *------------------------**/
+.button-row {
+    display: table-cell;
+    width  : 490px;
+}
+
+.button-row .mat-button-base {
+    margin: 8px 8px 8px 0;
+}
+
+.flex-container {
+    display        : flex;
+    justify-content: space-between;
+    flex-wrap      : wrap;
+}
+
+.button-container {
+    display        : flex;
+    justify-content: center;
+    width          : 120px;
+}
+/* fin Button */
+
+
+.spacer {
+    flex: 1 1 auto;
+  }

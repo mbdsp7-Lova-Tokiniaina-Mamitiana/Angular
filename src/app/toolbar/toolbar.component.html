@@ -1,0 +1,13 @@
+<mat-toolbar color="primary">
+    <button mat-icon-button [routerLink]="['/home']">
+        <mat-icon>home</mat-icon>
+    </button>
+    <span>Pseudonyme</span>
+    <span class="spacer"></span>
+    <button mat-icon-button (click)="viewProfil()">
+        <mat-icon>account_circle</mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Se déconnecter">
+        <mat-icon>power_settings_new</mat-icon>
+    </button>
+</mat-toolbar>

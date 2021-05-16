@@ -37,6 +37,8 @@ import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
+import { ProfilComponent } from './profil/profil.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
 
 
 const routes: Routes = [
@@ -47,6 +49,10 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent
+  },
+  {
+    path: 'profil',
+    component: ProfilComponent
   }
 ]
 @NgModule({
@@ -54,6 +60,8 @@ const routes: Routes = [
     AppComponent,
     AuthComponent,
     HomeComponent,
+    ProfilComponent,
+    ToolbarComponent,
   ],
   imports: [
     BrowserModule,

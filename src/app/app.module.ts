@@ -31,14 +31,15 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { HttpClientModule } from '@angular/common/http';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatStepperModule } from "@angular/material/stepper";
+import { ToolbarComponent } from './toolbar/toolbar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 /** Import des components */
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
 import { ProfilComponent } from './profil/profil.component';
-import { ToolbarComponent } from './toolbar/toolbar.component';
+import { NewUserComponent } from './new-user/new-user.component';
 
 
 const routes: Routes = [
@@ -53,7 +54,39 @@ const routes: Routes = [
   {
     path: 'profil',
     component: ProfilComponent
+  },
+  {
+    path: 'nouvel-utilisateur',
+    component: NewUserComponent
   }
+]
+
+const angularModule = [
+  MatFormFieldModule, 
+  MatInputModule,
+  MatCardModule,
+  MatButtonModule,
+  MatIconModule,
+  MatCheckboxModule,
+  MatRadioModule,
+  MatSnackBarModule,
+  MatSelectModule,
+  MatDividerModule,
+  MatListModule,
+  MatButtonToggleModule,
+  MatTabsModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatBadgeModule,
+  MatExpansionModule,
+  MatToolbarModule,
+  MatDialogModule,
+  MatTooltipModule,
+  MatProgressSpinnerModule,
+  MatMenuModule,
+  MatStepperModule,
+  ScrollingModule,
+  DragDropModule
 ]
 @NgModule({
   declarations: [
@@ -62,36 +95,16 @@ const routes: Routes = [
     HomeComponent,
     ProfilComponent,
     ToolbarComponent,
+    NewUserComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-
     ReactiveFormsModule, 
+    HttpClientModule,
     FormsModule,
-    MatFormFieldModule, 
-    MatInputModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatCheckboxModule,
-    MatRadioModule,
-    MatSnackBarModule,
-    MatSelectModule,
-    MatDividerModule,
-    MatListModule,
-    MatButtonToggleModule,
-    MatTabsModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatBadgeModule,
-    MatExpansionModule,
-    MatToolbarModule,
-    MatDialogModule,
-    MatTooltipModule,
-    MatProgressSpinnerModule,
-    MatMenuModule,
-    MatStepperModule,
+    [...angularModule],
+    
 
     RouterModule.forRoot(routes)
 

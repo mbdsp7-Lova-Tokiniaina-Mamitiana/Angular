@@ -3,10 +3,26 @@
         <div class="col-md-12 auth-forms">
 
             <div class="row text-center">
-                <h1>PARI EN LIGNE</h1>
+                <h1>Nouveau membre</h1>
             </div>
 
-            <form [formGroup]="authForm" (ngSubmit)="onLogin()">
+            <form [formGroup]="signInForm" (ngSubmit)="onSignIn()">
+
+                <mat-form-field appearance="outline" class="input-full-width">
+                    <mat-label>
+                        <mat-icon>lock_open</mat-icon> Nom
+                    </mat-label>
+                    <input matInput formControlName="lastname" placeholder="Nom" autocomplete=false>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="input-full-width">
+                    <mat-label>
+                        <mat-icon>lock_open</mat-icon> Prénom(s)
+                    </mat-label>
+                    <input matInput formControlName="surname" placeholder="Prénom(s)" autocomplete=false>
+                </mat-form-field>
+
+
                 <mat-form-field appearance="outline" class="input-full-width">
                     <mat-label>
                         <mat-icon>account_circle</mat-icon> Pseudonyme
@@ -21,15 +37,17 @@
                     <input matInput formControlName="password" placeholder="Mot de passe" autocomplete=false type="password">
                 </mat-form-field>
 
+                
+
                 <div class="row">
-                    <div class="col-md-4"></div>
+                    <div class="col-md-8"></div>
                     <div class="col-md-4 text-center">
                         <div class="button-row">
-                            <button type="submit" mat-raised-button color="accent">
-                                Se connecter
+                            <button mat-raised-button color="primary" routerLink="/" >
+                               Se connecter
                             </button>
-                            <button mat-raised-button color="primary" (click)="onSignUp()" routerLink="/nouvel-utilisateur" >
-                                S'inscrire
+                            <button type="submit" mat-raised-button color="accent">
+                                Créer
                             </button>
                         </div>
                     </div>

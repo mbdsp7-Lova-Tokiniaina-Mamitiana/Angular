@@ -12,10 +12,32 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.container {
-    padding: 10px;
-    margin : 10px;
+.body {
+    padding: 10px !important;
+    margin : 10px !important;
 }
+
+/**----------------------
+ *    TEXT ALIGN
+ *------------------------**/
+.align-right {
+    text-align: right;
+}
+
+.align-left {
+    text-align: left;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-justify {
+    text-align: justify;
+}
+
+/* Fin TEXT ALIGN */
+
 
 /**----------------------
  *    SNACKBAR STYLE
@@ -89,4 +111,8 @@ body {
 
 .spacer {
     flex: 1 1 auto;
+}
+
+.box {
+    border     : .5px solid #E5E5E5;
 }

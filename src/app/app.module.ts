@@ -31,7 +31,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { HttpClientModule } from '@angular/common/http';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatStepperModule } from "@angular/material/stepper";
-import { ToolbarComponent } from './toolbar/toolbar.component';
+import { MatTableModule } from "@angular/material/table";
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 /** Import des components */
@@ -40,6 +41,11 @@ import { AuthComponent } from './auth/auth.component';
 import { HomeComponent } from './home/home.component';
 import { ProfilComponent } from './profil/profil.component';
 import { NewUserComponent } from './new-user/new-user.component';
+import { ListMatchComponent } from './pari/list-match/list-match.component';
+import { ListPariComponent } from './pari/list-pari/list-pari.component';
+import { HistoryComponent } from './pari/history/history.component';
+import { RapidInformationComponent } from './rapid-information/rapid-information.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
 
 
 const routes: Routes = [
@@ -86,8 +92,10 @@ const angularModule = [
   MatMenuModule,
   MatStepperModule,
   ScrollingModule,
-  DragDropModule
+  DragDropModule,
+  MatTableModule
 ]
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -96,6 +104,10 @@ const angularModule = [
     ProfilComponent,
     ToolbarComponent,
     NewUserComponent,
+    ListMatchComponent,
+    ListPariComponent,
+    HistoryComponent,
+    RapidInformationComponent
   ],
   imports: [
     BrowserModule,
@@ -104,8 +116,6 @@ const angularModule = [
     HttpClientModule,
     FormsModule,
     [...angularModule],
-    
-
     RouterModule.forRoot(routes)
 
   ],

@@ -6,22 +6,24 @@
             <mat-tab-group mat-align-tabs="center" animationDuration="1000ms">
                 <mat-tab label="Liste des matches">
                     <div class="p-3">
-                        Liste des matches
+                        <app-list-match></app-list-match>
                     </div>
                 </mat-tab>
                 <mat-tab label="Liste des Paris">
                     <div class="p-3">
-                        Liste des matches
+                        <app-list-pari></app-list-pari>
                     </div>
                 </mat-tab>
-                <mat-tab label="Third">Content 3</mat-tab>
+                <mat-tab label="Historique des paris">
+                    <div class="p-3">
+                        <app-history></app-history>
+                    </div>
+                </mat-tab>
             </mat-tab-group>
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-3 box p-3">
-            <h2 class="align-center">Informations rapides</h2>
-            <mat-divider class="mb-2"></mat-divider>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis, recusandae veniam? Incidunt sunt veniam veritatis quae. Natus, eius eveniet dolor illum reiciendis laboriosam est amet error dolorem accusantium animi labore.
+            <app-rapid-information></app-rapid-information>
         </div>
     </div>
 </div>

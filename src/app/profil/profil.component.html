@@ -1,6 +1,84 @@
 <app-toolbar></app-toolbar>
-
 <div class="container">
-    <h1>PROFIL</h1>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui totam nemo, fugit veniam, quo quae alias officiis magnam in voluptatum libero repellendus et quibusdam similique iste asperiores aliquid consequatur sequi.
+    <h1 class="align-center mt-5">{{user.login}}</h1>
+    <mat-divider></mat-divider>
+    
+    <div class="row mt-5">
+        <div class="col-6">
+            <form>
+                <mat-form-field appearance="outline" class="input-full-width">
+                    <mat-label>
+                        <mat-icon>account_circle</mat-icon> {{user.login}}
+                    </mat-label>
+                    <input matInput placeholder={{user.login}} autocomplete=false>
+                </mat-form-field>
+        
+                <mat-form-field appearance="outline" class="input-full-width">
+                    <mat-label>
+                        <mat-icon>mail</mat-icon> {{user.email}}
+                    </mat-label>
+                    <input matInput placeholder={{user.email}} autocomplete=false type="password">
+                </mat-form-field>
+        
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6 text-center">
+                        <div class="button-row">
+                            <button type="submit" mat-raised-button color="accent">
+                                Annuler
+                            </button>
+                            <button mat-raised-button color="primary" routerLink="/nouvel-utilisateur" >
+                                Valider le modifications
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
+            <h2 class="align-center mt-1">Historique de votre jeton</h2>
+            <div class="row mt-1">
+                <div class="col-md-4">
+                    <h3>Jeton actuel : </h3>
+                </div>
+                <div class="col-md-8">
+                    <h3><b>8090</b></h3>
+                </div>
+            </div>
+            <div class="row">
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="number">
+                      <th mat-header-cell *matHeaderCellDef> No. </th>
+                      <td mat-cell *matCellDef="let element"> {{element.number}} </td>
+                    </ng-container>
+                  
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="date">
+                      <th mat-header-cell *matHeaderCellDef> Date </th>
+                      <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+                    </ng-container>
+                  
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="mouvement">
+                      <th mat-header-cell *matHeaderCellDef> Mouvement </th>
+                      <td mat-cell *matCellDef="let element"> {{element.mouvement}} </td>
+                    </ng-container>
+                  
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="jeton">
+                      <th mat-header-cell *matHeaderCellDef> Jeton </th>
+                      <td mat-cell *matCellDef="let element"> {{element.jeton}} </td>
+                    </ng-container>
+                  
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  </table>
+                  
+            </div>
+        </div>
+        
+    </div>
+    
 </div>

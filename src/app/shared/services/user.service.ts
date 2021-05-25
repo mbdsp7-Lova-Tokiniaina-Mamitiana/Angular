@@ -18,7 +18,7 @@ export class UserService {
 
   private headersContent: any = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
   login(paramsLogin: any) {
-    return this.http.post<any>(`${this.endpoint}/auth`, paramsLogin, { headers: this.headersContent })
+    return this.http.post<any>(`${this.endpoint}/login`, paramsLogin, { headers: this.headersContent })
       .pipe(
         catchError(err => this.errorService.handleHttpError(err))
       )

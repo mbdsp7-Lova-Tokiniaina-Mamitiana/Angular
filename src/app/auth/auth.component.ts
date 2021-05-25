@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { DesignService } from '../shared/services/design.service';
+import { UserService } from '../shared/services/user.service';
 
 @Component({
   selector: 'app-auth',
@@ -13,12 +14,12 @@ export class AuthComponent implements OnInit {
 
   authForm: FormGroup;
   constructor(
-    private _snackBar: MatSnackBar,
+    private userService: UserService,
     public designService: DesignService,
     private router: Router
   ) {
     this.authForm = new FormGroup({
-      pseudonyme: new FormControl('', Validators.required),
+      login: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
     })
   }
@@ -27,14 +28,24 @@ export class AuthComponent implements OnInit {
   }
 
   onLogin() {
-    if (this.authForm.valid) {
-      this.router.navigate(['/home']);
+    if (this.authForm.valid) {;
+      this.userService.login(this.authForm.value).subscribe(
+        (loggedData) => {
+          if (loggedData.auth && loggedData.token) {
+            console.log("Professor logged in");
+              localStorage.setItem("token", loggedData.token);
+              this.router.navigateByUrl(`/home`);
+          } else {
+            this.designService.openSnackBar("warning", "Une erreur s'est produite, rééssayez plus tard", "OK");
+          }
+        }
+      )
     } else {
-      this.designService.openSnackBar('warning', 'Veuillez bien renseigner les informations nécessaires', 'OK');
+      this.designService.openSnackBar("warning", "Veuillez bien renseigner les informations nécessaires", "OK");
     }
   }
 
   onSignUp() {
-    console.log("Sign UP");
+    this.router.navigate(['/nouvel-utilisateur']);
   }
 }

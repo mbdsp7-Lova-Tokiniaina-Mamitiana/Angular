@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -35,6 +35,11 @@ import { MatTableModule } from "@angular/material/table";
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+
+/** Interceptor */
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HeaderInterceptor } from '../app/shared/interceptor/header.interceptor';
+
 /** Import des components */
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
@@ -46,6 +51,7 @@ import { ListPariComponent } from './pari/list-pari/list-pari.component';
 import { HistoryComponent } from './pari/history/history.component';
 import { RapidInformationComponent } from './rapid-information/rapid-information.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { ErrorService } from './shared/services/error.service';
 
 
 const routes: Routes = [
@@ -119,7 +125,10 @@ const angularModule = [
     RouterModule.forRoot(routes)
 
   ],
-  providers: [],
+  providers: [
+    { provide: ErrorHandler, useClass: ErrorService },
+    { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

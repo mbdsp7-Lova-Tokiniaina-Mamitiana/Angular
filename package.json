@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
+    "start-angualar": "ng serve -o",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -22,6 +23,7 @@
     "@angular/platform-browser-dynamic": "~11.2.3",
     "@angular/router": "~11.2.3",
     "express": "^4.17.1",
+    "jwt-decode": "^3.1.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"

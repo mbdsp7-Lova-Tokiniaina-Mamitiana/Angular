@@ -28,13 +28,13 @@ export class ProfilComponent implements OnInit {
   displayedColumns: string[] = ['number', 'date', 'mouvement', 'jeton'];
   dataSource = ELEMENT_DATA;
 
-  
+
 
 
   constructor(
     private userService: UserService
-  ) { 
-    this.user = new User("","",0);
+  ) {
+    this.user = new User('','','');
   }
 
   ngOnInit(): void {

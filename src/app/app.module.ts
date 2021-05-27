@@ -38,7 +38,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 /** Interceptor */
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HeaderInterceptor } from '../app/shared/interceptor/header.interceptor';
+import { HeaderInterceptor } from './shared/interceptor/header.interceptor';
 
 /** Import des components */
 import { AppComponent } from './app.component';
@@ -57,7 +57,7 @@ import { ErrorService } from './shared/services/error.service';
 const routes: Routes = [
   {
     path: '',
-    component: AuthComponent
+    component: HomeComponent
   },
   {
     path: 'home',
@@ -70,11 +70,15 @@ const routes: Routes = [
   {
     path: 'nouvel-utilisateur',
     component: NewUserComponent
-  }
+  },
+    {
+        path: 'auth',
+        component: AuthComponent
+    },
 ]
 
 const angularModule = [
-  MatFormFieldModule, 
+  MatFormFieldModule,
   MatInputModule,
   MatCardModule,
   MatButtonModule,
@@ -118,7 +122,7 @@ const angularModule = [
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule, 
+    ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
     [...angularModule],

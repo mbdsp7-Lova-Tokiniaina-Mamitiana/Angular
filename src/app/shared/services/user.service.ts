@@ -8,54 +8,54 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import jwt_decode from 'jwt-decode';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class UserService {
 
-    private readonly endpoint: string = environment.endpoint + '/api/users';
-    private headersContent: any = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
+  private readonly endpoint: string = environment.endpoint + '/api/users';
+  private headersContent: any = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
 
-    public isLogged = new BehaviorSubject<User>(new User('', '', ''));
+  public isLogged = new BehaviorSubject<User>(new User('', '', ''));
 
-    constructor(
-        private http: HttpClient,
-        private errorService: ErrorService
-    ) {
-    }
+  constructor(
+    private http: HttpClient,
+    private errorService: ErrorService
+  ) {
+  }
 
-    login(paramsLogin: any): Observable<any> {
-        return this.http.post<any>(`${this.endpoint}/login`, paramsLogin, {headers: this.headersContent})
-            .pipe(
-                catchError(err => this.errorService.handleHttpError(err))
-            );
-    }
+  login(paramsLogin: any): Observable<any> {
+    return this.http.post<any>(`${this.endpoint}/login`, paramsLogin, {headers: this.headersContent})
+      .pipe(
+        catchError(err => this.errorService.handleHttpError(err))
+      );
+  }
 
-    register(newUserParams: any): Observable<any> {
-        return this.http.post<any>(`${this.endpoint}/register`, newUserParams, {headers: this.headersContent})
-            .pipe(
-                catchError(err => this.errorService.handleHttpError(err))
-            );
-    }
+  register(newUserParams: any): Observable<any> {
+    return this.http.post<any>(`${this.endpoint}/register`, newUserParams, {headers: this.headersContent})
+      .pipe(
+        catchError(err => this.errorService.handleHttpError(err))
+      );
+  }
 
-    logOut(): any {
-        return this.http.post<any>(`${this.endpoint}/logout`, {headers: this.headersContent})
-            .pipe(
-                catchError(err => this.errorService.handleHttpError(err))
-            );
-    }
+  logOut(): any {
+    return this.http.post<any>(`${this.endpoint}/logout`, {headers: this.headersContent})
+      .pipe(
+        catchError(err => this.errorService.handleHttpError(err))
+      );
+  }
 
-    getCurrentUser() {
-        return this.http.get<any>(`${this.endpoint}/login`, {headers: this.headersContent})
-            .pipe(
-                catchError(err => this.errorService.handleHttpError(err))
-            );
-    }
+  getCurrentUser() {
+    return this.http.get<any>(`${this.endpoint}/login`, {headers: this.headersContent})
+      .pipe(
+        catchError(err => this.errorService.handleHttpError(err))
+      );
+  }
 
-    getUserProfil(userId: string): User {
-        return new User('Fivintich77', 'MarcMChamberlin@fleckens.hu', '');
-    }
+  getUserProfil(userId: string): User {
+    return new User('Fivintich77', 'MarcMChamberlin@fleckens.hu', '');
+  }
 
-    decodeToken(token: string): any {
-        return jwt_decode(token);
-    }
+  decodeToken(token: string): any {
+    return jwt_decode(token);
+  }
 }

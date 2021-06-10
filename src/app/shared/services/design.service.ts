@@ -11,31 +11,71 @@ export class DesignService {
   ) { }
 
   /**------------------------------------------------------------------------------------------------
+   * snackBarData = {
    *    status: [success, info, warning, ...] (OBLIGATOIRE),
    *    message: message to display,
    *    action: message to display to close the snackbar
+   * }
    *------------------------------------------------------------------------------------------------**/
-  openSnackBar(status: string, message: string, action: string) {
-    switch (status) {
+  _openSnackBar(snackBarData: any) {
+    switch (snackBarData.status) {
       case 'success':
-        this._snackBar.open(message, action, {
-          panelClass: ['success-snackbar'],
-          duration: 2500,
-        })
+        this._snackBar.open(
+          snackBarData.message,
+          snackBarData.action, {
+            panelClass: ['success-snackbar'],
+            duration: 2500,
+          }
+        );
         break;
-      case 'warning':
-        this._snackBar.open(message, action, {
-          panelClass: ['warning-snackbar'],
-          duration: 2500,
-        })
+      case 'info':
+        this._snackBar.open(
+          snackBarData.message,
+          snackBarData.action, {
+            panelClass: ['info-snackbar'],
+            duration: 3000,
+          }
+        );
         break;
       default:
-        this._snackBar.open(message, action, {
-          panelClass: ['info-snackbar'],
-          duration: 2500,
-        })
+        this._snackBar.open(
+          snackBarData.message,
+          snackBarData.action, {
+            panelClass: ['warning-snackbar'],
+            duration: 3500,
+          }
+        );
         break;
     }
   }
+
+  openSnackBar(message: string, statut: string, action: string) {
+    let snackBar = {
+      snackBar: this._snackBar,
+      message: message,
+      action: action,
+      status: statut
+    }
+    this._openSnackBar(snackBar);
+  }
+
+  openErrorSnackBar(message: string) {
+    let snackBar = {
+      snackBar: this._snackBar,
+      message: message,
+      action: "OK",
+      status: "warning"
+    }
+    this._openSnackBar(snackBar);
+  }
+
+  openSuccessSnackBar(message: string) {
+    let snackBar = {
+      snackBar: this._snackBar,
+      message: message,
+      action: "OK",
+      status: "success"
+    }
+    this._openSnackBar(snackBar);
+  }
 }
-status

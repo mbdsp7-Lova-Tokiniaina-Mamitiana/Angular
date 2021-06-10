@@ -1,19 +1,20 @@
 <mat-toolbar color="primary">
-    <button mat-icon-button [routerLink]="['/home']">
-        <mat-icon>home</mat-icon>
-    </button>
-    <span *ngIf="loggedUser.login">{{loggedUser.login}}</span>
-    <span class="spacer"></span>
-    <button mat-icon-button (click)="viewProfil()" *ngIf="loggedUser.email" matTooltip="Votre profil">
-        <mat-icon>account_circle</mat-icon>
-    </button>
-    <button *ngIf="loggedUser.email!=''; else signIn_template" mat-icon-button matTooltip="Se déconnecter" (click)="onLogOut()">
-        <mat-icon>power_settings_new</mat-icon>
-    </button>
+  <button mat-icon-button [routerLink]="['/home']">
+    <mat-icon>home</mat-icon>
+  </button>
+  <span *ngIf="loggedUser.login">{{loggedUser.login}}</span>
+  <span class="spacer"></span>
+  <button mat-icon-button (click)="viewProfil()" *ngIf="loggedUser.email" matTooltip="Votre profil">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <button *ngIf="loggedUser.email!=''; else signIn_template" mat-icon-button matTooltip="Se déconnecter"
+          (click)="onLogOut()">
+    <mat-icon>power_settings_new</mat-icon>
+  </button>
 
-    <ng-template #signIn_template>
-        <button mat-icon-button matTooltip="Se connecter" [routerLink]="['/auth']">
-            <mat-icon>login</mat-icon>
-        </button>
-    </ng-template>
+  <ng-template #signIn_template>
+    <button mat-icon-button matTooltip="Se connecter" [routerLink]="['/auth']">
+      <mat-icon>login</mat-icon>
+    </button>
+  </ng-template>
 </mat-toolbar>

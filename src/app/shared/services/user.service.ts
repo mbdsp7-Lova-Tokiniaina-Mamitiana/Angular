@@ -44,7 +44,7 @@ export class UserService {
             );
     }
 
-    getCurrentUser() {
+    getCurrentUser(): Observable<any> {
         return this.http.get<any>(`${this.endpoint}/login`, {headers: this.headersContent})
             .pipe(
                 catchError(err => this.errorService.handleHttpError(err))

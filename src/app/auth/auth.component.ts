@@ -27,7 +27,7 @@ export class AuthComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    onLogin() {
+    onLogin(): void {
         if (this.authForm.valid) {
             this.userService.login(this.authForm.value).subscribe(
                 (loggedData) => {
@@ -35,7 +35,7 @@ export class AuthComponent implements OnInit {
                         console.log('Professor logged in');
                         localStorage.setItem('token', loggedData.token);
                         localStorage.setItem('isLogged', 'true');
-                        this.router.navigateByUrl(`/home`);
+                        this.router.navigateByUrl(`/home`).then(() => null);
                     } else {
                         this.designService.openSnackBar('warning', 'Une erreur s\'est produite, rééssayez plus tard', 'OK');
                     }
@@ -46,7 +46,7 @@ export class AuthComponent implements OnInit {
         }
     }
 
-    onSignUp() {
-        this.router.navigate(['/nouvel-utilisateur']);
+    onSignUp(): void {
+        this.router.navigate(['/nouvel-utilisateur']).then(() => null);
     }
 }

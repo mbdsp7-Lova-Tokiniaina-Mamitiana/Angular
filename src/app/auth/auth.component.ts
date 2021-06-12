@@ -29,13 +29,12 @@ export class AuthComponent implements OnInit {
 
     onLogin() {
         if (this.authForm.valid) {
-            ;
             this.userService.login(this.authForm.value).subscribe(
                 (loggedData) => {
                     if (loggedData.auth && loggedData.token) {
                         console.log('Professor logged in');
                         localStorage.setItem('token', loggedData.token);
-                        localStorage.setItem('isLogged', 'true')
+                        localStorage.setItem('isLogged', 'true');
                         this.router.navigateByUrl(`/home`);
                     } else {
                         this.designService.openSnackBar('warning', 'Une erreur s\'est produite, rééssayez plus tard', 'OK');

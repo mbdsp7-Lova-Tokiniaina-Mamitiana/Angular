@@ -21,21 +21,20 @@ export class DesignService {
         this._snackBar.open(message, action, {
           panelClass: ['success-snackbar'],
           duration: 2500,
-        })
+        });
         break;
       case 'warning':
         this._snackBar.open(message, action, {
           panelClass: ['warning-snackbar'],
           duration: 2500,
-        })
+        });
         break;
       default:
         this._snackBar.open(message, action, {
           panelClass: ['info-snackbar'],
           duration: 2500,
-        })
+        });
         break;
     }
   }
 }
-status

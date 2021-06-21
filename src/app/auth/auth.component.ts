@@ -27,25 +27,24 @@ export class AuthComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onLogin() {
-    if (this.authForm.valid) {
-      ;
-      this.userService.login(this.authForm.value).subscribe(
-        (loggedData) => {
-          if (loggedData.auth && loggedData.token) {
-            console.log('Professor logged in');
-            localStorage.setItem('token', loggedData.token);
-            localStorage.setItem('isLogged', 'true');
-            this.router.navigateByUrl(`/home`);
-          } else {
-            this.designService.openSnackBar('warning', 'Une erreur s\'est produite, rééssayez plus tard', 'OK');
-          }
+    onLogin(): void {
+        if (this.authForm.valid) {
+            this.userService.login(this.authForm.value).subscribe(
+                (loggedData) => {
+                    if (loggedData.auth && loggedData.token) {
+                        console.log('Professor logged in');
+                        localStorage.setItem('token', loggedData.token);
+                        localStorage.setItem('isLogged', 'true');
+                        this.router.navigateByUrl(`/home`).then(() => null);
+                    } else {
+                        this.designService.openSnackBar('warning', 'Une erreur s\'est produite, rééssayez plus tard', 'OK');
+                    }
+                }
+            );
+        } else {
+            this.designService.openSnackBar('warning', 'Veuillez bien renseigner les informations nécessaires', 'OK');
         }
-      );
-    } else {
-      this.designService.openSnackBar('warning', 'Veuillez bien renseigner les informations nécessaires', 'OK');
     }
-  }
 
   onSignUp() {
     this.router.navigate(['/nouvel-utilisateur']);

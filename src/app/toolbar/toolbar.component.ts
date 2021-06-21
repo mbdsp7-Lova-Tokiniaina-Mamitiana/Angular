@@ -22,24 +22,34 @@ export class ToolbarComponent implements OnInit {
 
   ngOnInit(): void {
     // TOKEN , GET CURRENT USER
-    if (localStorage.getItem('token') != null) {
-      this.token = localStorage.getItem('token');
-      let tokenData = this.userService.decodeToken(this.token)['user'];
-      if (tokenData) {
-        this.loggedUser = tokenData;
-      }
-    }
-    //console.log('User token data => ', localStorage.getItem("token"));
-
     if (this.userService.isLogged.value.email) {
       this.userService.getCurrentUser().subscribe(
         (dataUser) => {
           this.loggedUser = dataUser;
           console.log('User => ', dataUser);
-        }
-      );
-    }
+
+          // TOKEN , GET CURRENT USER
+          if (localStorage.getItem('token') != null) {
+            this.token = localStorage.getItem('token');
+            const tokenData = this.userService.decodeToken(this.token).user;
+            if (tokenData) {
+              this.loggedUser = tokenData;
+            }
+          }
+          // console.log('User token data => ', localStorage.getItem("token"));
+
+          if (this.userService.isLogged.value.email) {
+            this.userService.getCurrentUser().subscribe(
+              (dataUser) => {
+                this.loggedUser = dataUser;
+                console.log('User => ', dataUser);
+              }
+            );
+          }
+    });
   }
+  }
+
 
   viewProfil() {
     this.router.navigate(['/profil']);

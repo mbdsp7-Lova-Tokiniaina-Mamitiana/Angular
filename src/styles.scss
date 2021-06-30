@@ -116,3 +116,80 @@ body {
 .box {
     border     : .5px solid #E5E5E5;
 }
+
+.card-list {
+  margin: 5px;
+}
+
+
+/**----------------------
+ *    Display date
+ *------------------------**/
+
+.uni-entry-body {
+  width: 100%;
+  height: auto;
+  padding-top: 2%;
+  padding-left: 0px;
+  display: flex;
+  justify-content: center;
+}
+
+
+
+.uni-entry-time {
+  float: left;
+  width: 80px;
+  height: 100px;
+  background-color: #ffffff;
+  -webkit-box-shadow: inset 0px 24px 0 0 #3f97da;
+  box-shadow: inset 0px 24px 0 0 #3f97da;
+  border: solid 1px #3f97da;
+}
+.uni-entry-time li {
+  list-style: none;
+}
+.uni-entry-time li.year {
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.71;
+  letter-spacing: normal;
+  color: #ffffff;
+  text-align: center;
+}
+.uni-entry-time li.day {
+  font-size: 36px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #3f97da;
+  padding-top: 20px;
+}
+.uni-entry-time li.month {
+  font-size: 14px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.71;
+  letter-spacing: normal;
+  text-align: center;
+  color: #3f97da;
+  text-transform: uppercase;
+}
+
+/**----------------------
+ *    Display COTE PARI
+ *------------------------**/
+.cote-class {
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.btn-parier {
+  width: 400px;
+  height: 50px;
+}

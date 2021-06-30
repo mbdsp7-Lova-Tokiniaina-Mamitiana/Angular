@@ -2,10 +2,11 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {environment} from 'src/environments/environment';
 import {ErrorService} from './error.service';
-import {catchError} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 import {User} from '../models/user';
 import {BehaviorSubject, Observable} from 'rxjs';
 import jwt_decode from 'jwt-decode';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,20 +14,33 @@ import jwt_decode from 'jwt-decode';
 export class UserService {
 
 
-  private readonly endpoint: string = environment.endpoint + '/api/users';
+  private readonly endpoint: string = environment.endpoint + '/users';
   private headersContent: any = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
-  public isLogged = new BehaviorSubject<User>(new User('', '', ''));
+  public userLogged = new BehaviorSubject<User | null>(null);
 
     constructor(
         private http: HttpClient,
-        private errorService: ErrorService
+        private errorService: ErrorService,
+        private router: Router
     ) {
     }
 
     login(paramsLogin: any): Observable<any> {
         return this.http.post<any>(`${this.endpoint}/login`, paramsLogin, {headers: this.headersContent})
             .pipe(
-                catchError(err => this.errorService.handleHttpError(err))
+                map(response => {
+                  const user = response.connected;
+                  this.userLogged.next(user);
+                  const userInfo = {
+                    _id: user._id,
+                    login: user.login,
+                    email: user.email,
+                    role: user.role
+                  }
+                  localStorage.setItem("_userInfo_", JSON.stringify(userInfo));
+                  return response;
+                }),
+              catchError(err => this.errorService.handleHttpError(err))
             );
     }
 
@@ -37,11 +51,13 @@ export class UserService {
             );
     }
 
-    logOut(): any {
-        return this.http.post<any>(`${this.endpoint}/logout`, {headers: this.headersContent})
-            .pipe(
-                catchError(err => this.errorService.handleHttpError(err))
-            );
+    isLoggedIn() {
+      return !!this.userLogged.getValue()
+    }
+
+    signOut() {
+      localStorage.removeItem("_userInfo_");
+      this.router.navigateByUrl(`/login`);
     }
 
     getCurrentUser(): Observable<any> {
@@ -51,8 +67,8 @@ export class UserService {
             );
     }
 
-    getUserProfil(userId: string): User {
-        return new User('Fivintich77', 'MarcMChamberlin@fleckens.hu', '');
+    getUserProfil() {
+      return JSON.parse(localStorage.getItem("_userInfo_")!);
     }
 
     decodeToken(token: string): any {

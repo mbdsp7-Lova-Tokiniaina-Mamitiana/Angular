@@ -9,11 +9,11 @@ import {User} from '../shared/models/user';
 })
 export class HomeComponent implements OnInit {
 
-    loggedUser: User = new User('','','');
+    loggedUser: any;
     constructor(
         private userService: UserService
     ) {
-        this.userService.isLogged.subscribe(
+        this.userService.getCurrentUser().subscribe(
             (currentUser) => {
                 this.loggedUser = currentUser
             }

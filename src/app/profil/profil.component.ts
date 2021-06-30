@@ -38,7 +38,7 @@ export class ProfilComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user = this.userService.getUserProfil("userId");
+    this.user = this.userService.getUserProfil();
   }
 
 }

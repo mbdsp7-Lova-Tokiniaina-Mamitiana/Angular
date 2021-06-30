@@ -8,5 +8,5 @@ export interface Match {
   equipe1: Equipe,
   equipe2: Equipe,
   etat: Boolean,
-  pari: Pari,
+  pari: Pari[],
 }

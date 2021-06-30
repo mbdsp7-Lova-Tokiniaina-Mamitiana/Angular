@@ -15,8 +15,8 @@ export class MatchService {
     private errorService: ErrorService
   ) { }
 
-  getAll(params:any) {
-    return this.http.post<any>(`${this.api}/matchs/search`, params)
+  getAll() {
+    return this.http.get<any>(`${this.api}/matchs`)
       .pipe(
         catchError(err => this.errorService.handleHttpError(err))
       );

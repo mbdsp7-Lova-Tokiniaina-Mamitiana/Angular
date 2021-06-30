@@ -78,4 +78,14 @@ export class DesignService {
     }
     this._openSnackBar(snackBar);
   }
+
+  openInfoSnackBar(message: string) {
+    let snackBar = {
+      snackBar: this._snackBar,
+      message: message,
+      action: "OK",
+      status: "info"
+    }
+    this._openSnackBar(snackBar);
+  }
 }

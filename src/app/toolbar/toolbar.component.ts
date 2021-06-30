@@ -22,7 +22,7 @@ export class ToolbarComponent implements OnInit {
 
   ngOnInit(): void {
     // TOKEN , GET CURRENT USER
-    if (this.userService.isLogged.value.email) {
+    if (this.userService.isLoggedIn()) {
       this.userService.getCurrentUser().subscribe(
         (dataUser) => {
           this.loggedUser = dataUser;
@@ -38,7 +38,7 @@ export class ToolbarComponent implements OnInit {
           }
           // console.log('User token data => ', localStorage.getItem("token"));
 
-          if (this.userService.isLogged.value.email) {
+          if (this.userService.isLoggedIn()) {
             this.userService.getCurrentUser().subscribe(
               (dataUser) => {
                 this.loggedUser = dataUser;
@@ -57,11 +57,6 @@ export class ToolbarComponent implements OnInit {
 
 
   onLogOut() {
-    this.userService.logOut().subscribe(
-      () => {
-        localStorage.removeItem('token');
-        window.location.reload();
-      }
-    );
+    this.userService.signOut();
   }
 }

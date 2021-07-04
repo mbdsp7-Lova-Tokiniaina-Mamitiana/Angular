@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  endpoint: 'http://localhost:8010/api'
-  //endpoint: 'https://pari-node.herokuapp.com/api'
+  //endpoint: 'http://localhost:8010/api'
+  endpoint: 'https://pari-node.herokuapp.com/api'
 };
 
 /*

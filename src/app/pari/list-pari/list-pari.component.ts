@@ -28,8 +28,6 @@ export class ListPariComponent implements OnInit {
   getListPari() {
     this.pariService.getAll().subscribe(
       (dataResult) => {
-        console.log("Liste des paris : ");
-        console.log(dataResult);
         this.listPari = dataResult;
       }, (error: ErrorTracker) => {
         const errors = (error.userMessage != undefined) ? error.userMessage : 'Une erreur s\'est produite, recommencer l\'opération';

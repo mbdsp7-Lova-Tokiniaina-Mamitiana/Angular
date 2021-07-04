@@ -38,7 +38,7 @@ export class ProfilComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user = this.userService.getUserProfil();
+    this.user = this.userService.getCurrentUser();
   }
 
 }

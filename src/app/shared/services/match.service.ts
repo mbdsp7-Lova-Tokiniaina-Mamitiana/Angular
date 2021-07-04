@@ -21,4 +21,11 @@ export class MatchService {
         catchError(err => this.errorService.handleHttpError(err))
       );
   }
+
+  getById(idMatch: string) {
+    return this.http.get<any>(`${this.api}/match/${idMatch}`)
+      .pipe(
+        catchError(err => this.errorService.handleHttpError(err))
+      );
+  }
 }

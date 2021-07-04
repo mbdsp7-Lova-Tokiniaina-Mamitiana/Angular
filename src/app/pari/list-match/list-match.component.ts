@@ -7,6 +7,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {UserService} from '../../shared/services/user.service';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-list-match',
@@ -27,16 +28,15 @@ export class ListMatchComponent implements OnInit, AfterViewInit  {
   constructor(
     private matchService: MatchService,
     private designService: DesignService,
-    private userService: UserService
+    private userService: UserService,
+    private _dialog: MatDialog
   ) {
   }
 
   getListMatch() {
     this.matchService.getAll().subscribe(
       (dataResult) => {
-        console.log("Liste des matchs : ");
         this.listMatch = dataResult;
-        console.log(dataResult);
         this.dataSource = new MatTableDataSource(this.listMatch);
       }, (error: ErrorTracker) => {
         const errors = (error.userMessage != undefined) ? error.userMessage : 'Une erreur s\'est produite, recommencer l\'opération';

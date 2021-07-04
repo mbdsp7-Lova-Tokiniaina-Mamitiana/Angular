@@ -2,13 +2,9 @@
   <div *ngFor="let match of listMatch"  class="col-md-11 card-list box">
     <h2 class="text-center"><b>{{match.equipe1.nom}}</b> VS <b>{{match.equipe2.nom}}</b></h2>
     <div class="row">
-      <div class="col-md-2"></div>
-      <div class="col-md-8">
-        <p class="text-center">
-          Localisation : {{match.localisation}}
-        </p>
+      <div class="col-md-10">
           <div class="row">
-            <div *ngFor="let pari of match.pari" class="col-md-4">
+            <div *ngFor="let pari of match.pari" class="col-md-3">
               <button mat-flat-button color="primary" class="p-2" matBadge="{{pari.cote}}" matBadgePosition="after" matBadgeColor="accent">{{pari.description}}</button>
             </div>
           </div>
@@ -23,7 +19,10 @@
         </div>
       </div>
       <div class="col-md-12 align-right mt-2 mb-2">
-        <button mat-raised-button color="warn" class="btn-parier" (click)="parier()">PARIER</button>
+<!--        <button mat-raised-button color="warn" class="btn-parier" (click)="parier()">PARIER</button>-->
+        <button mat-fab color="primary" matTooltip="Plus d'informations">
+          <mat-icon routerLink="/detail-match/{{match._id}}">info</mat-icon>
+        </button>
       </div>
     </div>
   </div>

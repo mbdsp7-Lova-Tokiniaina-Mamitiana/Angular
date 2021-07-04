@@ -1,6 +1,6 @@
-import { ErrorHandler, NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule, Routes } from '@angular/router';
+import {ErrorHandler, NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {RouterModule, Routes} from '@angular/router';
 
 /** Import des modules angular */
 import {ReactiveFormsModule} from '@angular/forms';
@@ -37,32 +37,38 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 /** Interceptor */
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HeaderInterceptor } from './shared/interceptor/header.interceptor';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HeaderInterceptor} from './shared/interceptor/header.interceptor';
 
 /** Import des components */
-import { AppComponent } from './app.component';
-import { AuthComponent } from './auth/auth.component';
-import { HomeComponent } from './home/home.component';
-import { ProfilComponent } from './profil/profil.component';
-import { NewUserComponent } from './new-user/new-user.component';
-import { ListMatchComponent } from './pari/list-match/list-match.component';
-import { ListPariComponent } from './pari/list-pari/list-pari.component';
-import { HistoryComponent } from './pari/history/history.component';
-import { RapidInformationComponent } from './rapid-information/rapid-information.component';
-import { ToolbarComponent } from './toolbar/toolbar.component';
-import { ErrorService } from './shared/services/error.service';
-import { ConvertmonthDatePipe } from './shared/pipes/convertmonth-date.pipe';
+import {AppComponent} from './app.component';
+import {AuthComponent} from './auth/auth.component';
+import {HomeComponent} from './home/home.component';
+import {ProfilComponent} from './profil/profil.component';
+import {NewUserComponent} from './new-user/new-user.component';
+import {ListMatchComponent} from './pari/list-match/list-match.component';
+import {ListPariComponent} from './pari/list-pari/list-pari.component';
+import {HistoryComponent} from './pari/history/history.component';
+import {RapidInformationComponent} from './rapid-information/rapid-information.component';
+import {ToolbarComponent} from './toolbar/toolbar.component';
+import {ErrorService} from './shared/services/error.service';
+import {ConvertmonthDatePipe} from './shared/pipes/convertmonth-date.pipe';
+import {ParierMatchComponent} from './shared/modal/parier-match/parier-match.component';
+import {DetailMatchComponent} from './detail-match/detail-match.component';
 
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent
+  },
+  {
+    path: 'auth',
+    component: AuthComponent
   },
   {
     path: 'home',
@@ -76,11 +82,12 @@ const routes: Routes = [
     path: 'nouvel-utilisateur',
     component: NewUserComponent
   },
-    {
-        path: 'auth',
-        component: AuthComponent
-    },
-]
+  {
+    path: 'detail-match/:idMatch',
+    component: DetailMatchComponent
+  }
+
+];
 
 const materialModule = [
   ReactiveFormsModule,
@@ -127,7 +134,9 @@ const materialModule = [
     ListPariComponent,
     HistoryComponent,
     RapidInformationComponent,
-    ConvertmonthDatePipe
+    ConvertmonthDatePipe,
+    ParierMatchComponent,
+    DetailMatchComponent
   ],
   imports: [
     BrowserModule,
@@ -140,9 +149,10 @@ const materialModule = [
 
   ],
   providers: [
-    { provide: ErrorHandler, useClass: ErrorService },
-    { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true }
+    {provide: ErrorHandler, useClass: ErrorService},
+    {provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

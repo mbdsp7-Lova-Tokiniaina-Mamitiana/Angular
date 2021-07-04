@@ -52,22 +52,16 @@ export class UserService {
     }
 
     isLoggedIn() {
-      return !!this.userLogged.getValue()
+      const userValue = localStorage.getItem("_userInfo_");
+      return (userValue != null);
     }
 
     signOut() {
       localStorage.removeItem("_userInfo_");
-      this.router.navigateByUrl(`/login`);
+      window.location.reload();
     }
 
-    getCurrentUser(): Observable<any> {
-        return this.http.get<any>(`${this.endpoint}/login`, {headers: this.headersContent})
-            .pipe(
-                catchError(err => this.errorService.handleHttpError(err))
-            );
-    }
-
-    getUserProfil() {
+    getCurrentUser(){
       return JSON.parse(localStorage.getItem("_userInfo_")!);
     }
 

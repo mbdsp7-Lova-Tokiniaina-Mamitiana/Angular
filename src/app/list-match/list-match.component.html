@@ -1,0 +1,64 @@
+<div class="row today-match">
+    <h1 class="text-center">Match du jour</h1>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+
+    <div class="col-md-10 card-list">
+        <div class="box m-1 link-detail-match m-3 p-3" *ngFor="let match of listMatch">
+            <a routerLink="/detail-match/{{match._id}}">
+                <div class="row">
+                    <div class="col-md-1" *ngIf="!match.etat;else finishedMatch">
+                        <div class="uni-entry-body text-left">
+                            <div class="uni-entry-time">
+                                <li class="year"> {{match.date_match | date: 'yyyy'}} </li>
+                                <li class="day"> {{match.date_match | date: 'dd'}} </li>
+                                <li class="month"> {{match.date_match | date : 'MM' | convertmonthDate }} </li>
+                            </div>
+                        </div>
+                    </div>
+                    <ng-template #finishedMatch>
+                        <div class="col-md-1">
+                            <div class="finished-match">
+                                <li class="match">Match</li>
+                                <li class="finished">terminé</li>
+                            </div>
+                        </div>
+                    </ng-template>
+
+                    <div class="col-md-11">
+                        <div class="header-card">
+                            <div class="row">
+                                <div class="col-md-1"></div>
+
+                                <div class="col-md-3 text-center p-4 equipe-title">{{match.equipe1.nom}}</div>
+                                <div class="col-md-1"><img src="{{match.equipe1.avatar}}" alt="" class="equipe-avatar">
+                                </div>
+
+                                <div class="col-md-2 text-center p-4 vs-title">VS</div>
+
+                                <div class="col-md-1"><img src="{{match.equipe2.avatar}}" alt="" class="equipe-avatar">
+                                </div>
+                                <div class="col-md-3 text-center p-4 equipe-title">{{match.equipe2.nom}}</div>
+
+                                <div class="col-md-1"></div>
+                            </div>
+                        </div>
+                        <mat-divider></mat-divider>
+                        <div class="col-md-10">
+                            <div class="row pt-4">
+                                <div *ngFor="let pari of match.pari" class="col-md-3">
+                                    <button class="btn-yellow" matBadge="{{pari.cote}}" matBadgePosition="after"
+                                            matBadgeColor="accent">{{pari.description}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+
+</div>

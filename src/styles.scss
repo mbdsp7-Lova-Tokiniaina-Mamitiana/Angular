@@ -2,19 +2,61 @@
 @import "assets/css/bootstrap-utilities.min.css";
 @import "assets/css/bootstrap-grid.min.css";
 
+
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
 html,
 body {
+    position: relative;
     height: 100%;
 }
 
 body {
-    margin     : 0;
+    color: #373542;
+    background: #fff;
+    overflow-x: hidden;
+    font: 400 14px/20px 'Open Sans', Arial, Helvetica, sans-serif;
+}
+
+@font-face {
+    font-family: 'legacy';
+    src: url('assets/font/Legacy.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SablonupCollege';
+    src: url('assets/font/SablonupCollege.otf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'asap';
+    src: url('assets/font/Asap-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+
+html,
+body {
+    height: 100%;
+    background-image: url("assets/img/bg.png");
+}
+
+body {
+    margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 .body {
     padding: 10px !important;
-    margin : 10px !important;
+    margin: 10px !important;
 }
 
 /**----------------------
@@ -81,13 +123,12 @@ body {
 /* fin Input */
 
 
-
 /**----------------------
  *          Boutton
  *------------------------**/
 .button-row {
     display: table-cell;
-    width  : 490px;
+    width: 120px;
 }
 
 .button-row .mat-button-base {
@@ -95,15 +136,15 @@ body {
 }
 
 .flex-container {
-    display        : flex;
+    display: flex;
     justify-content: space-between;
-    flex-wrap      : wrap;
+    flex-wrap: wrap;
 }
 
 .button-container {
-    display        : flex;
+    display: flex;
     justify-content: center;
-    width          : 120px;
+    width: 120px;
 }
 
 /* fin Button */
@@ -114,130 +155,93 @@ body {
 }
 
 .box {
-    border     : .5px solid #E5E5E5;
+    border: .5px solid #E5E5E5;
 }
 
-.card-list {
-  margin: 5px;
-}
-
-
-/**----------------------
- *    Display date
- *------------------------**/
-
-.uni-entry-body {
-  width: 100%;
-  height: auto;
-  padding-top: 2%;
-  padding-left: 0px;
-  display: flex;
-  justify-content: center;
-}
-
-
-
-.uni-entry-time {
-  float: left;
-  width: 80px;
-  height: 100px;
-  background-color: #ffffff;
-  -webkit-box-shadow: inset 0px 24px 0 0 #3f97da;
-  box-shadow: inset 0px 24px 0 0 #3f97da;
-  border: solid 1px #3f97da;
-}
-.uni-entry-time li {
-  list-style: none;
-}
-.uni-entry-time li.year {
-  font-size: 14px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.71;
-  letter-spacing: normal;
-  color: #ffffff;
-  text-align: center;
-}
-.uni-entry-time li.day {
-  font-size: 36px;
-  font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  letter-spacing: normal;
-  text-align: center;
-  color: #3f97da;
-  padding-top: 20px;
-}
-.uni-entry-time li.month {
-  font-size: 14px;
-  font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.71;
-  letter-spacing: normal;
-  text-align: center;
-  color: #3f97da;
-  text-transform: uppercase;
-}
 
 /**----------------------
  *    Display COTE PARI
  *------------------------**/
 .cote-class {
-  font-weight: bold;
-  font-size: 30px;
+    font-weight: bold;
+    font-size: 30px;
 }
 
 .btn-parier {
-  width: 400px;
-  height: 50px;
+    width: 400px;
+    height: 50px;
 }
-
 
 
 .uni-btn-primary {
-  width: 100%;
-  display: inline-block;
-  font-size: 14px;
-  font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 44px;
-  letter-spacing: normal;
-  text-align: center;
-  color: #333333;
-  padding: 0 15px;
-  border: solid 2px #3f97da !important;
-  -webkit-transition: all 0.5s;
-  -o-transition: all 0.5s;
-  transition: all 0.5s;
-  background-color: white;
-  &:hover {
-    color: #ffffff;
-    background-color: #3f97da;
-  }
-  cursor: pointer;
+    margin: 5px;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 44px;
+    letter-spacing: normal;
+    text-align: center;
+    color: #333333;
+    padding: 0 15px;
+    border: solid 2px #FFCC33 !important;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+    background-color: white;
+    &:hover {
+        color: #ffffff;
+        background-color: #FFCC33;
+    }
+    cursor: pointer;
 }
 
 .uni-btn-danger {
-  width: 100%;
-  display: inline-block;
-  font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 44px;
-  letter-spacing: normal;
-  text-align: center;
-  color: #333333;
-  padding: 0 15px;
-  background-color: white;
-  border: solid 2px #FD6524 !important;
-  -webkit-transition: all 0.5s;
-  -o-transition: all 0.5s;
-  transition: all 0.5s;
-  &:hover {
-    color: #ffffff;
-    background-color: #FD6524;
-  }
+    cursor: pointer;
+    margin: 5px;
+    display: inline-block;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 44px;
+    letter-spacing: normal;
+    text-align: center;
+    color: #333333;
+    padding: 0 15px;
+    background-color: white;
+    border: solid 2px #FD6524 !important;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+
+    &:hover {
+        color: #ffffff;
+        background-color: #FD6524;
+    }
+}
+
+.equipe-avatar {
+    width: 60px;
+    margin: 10px;
+}
+
+
+.equipe-title {
+    font-family: "legacy", serif;
+    font-size: 30px;
+    font-weight: 400;
+    font-stretch: condensed;
+}
+
+.vs-title {
+    font-family: "SablonupCollege", serif;
+    font-size: 40px;
+    color: #FFCC33;
+}
+
+
+.toolbar {
+    background-color: #373542;
+    color: #FFCC33;
 }

@@ -19,7 +19,7 @@ const ELEMENT_DATA: any[] = [
 @Component({
   selector: 'app-profil',
   templateUrl: './profil.component.html',
-  styleUrls: ['./profil.component.scss']
+  styleUrls: ['./profil.component.scss', '../../assets/css/template/main.scss']
 })
 
 export class ProfilComponent implements OnInit {

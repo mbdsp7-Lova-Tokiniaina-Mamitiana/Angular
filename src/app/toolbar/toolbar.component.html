@@ -1,5 +1,5 @@
-<mat-toolbar color="primary">
-  <button mat-icon-button [routerLink]="['/home']">
+<mat-toolbar class="toolbar">
+  <button mat-icon-button [routerLink]="['/']">
     <mat-icon>home</mat-icon>
   </button>
   <span *ngIf="loggedUser.login">{{loggedUser.login}}</span>
@@ -13,7 +13,7 @@
   </button>
 
   <ng-template #signIn_template>
-    <button mat-icon-button matTooltip="Se connecter" [routerLink]="['/auth']">
+    <button mat-icon-button matTooltip="Se connecter" (click)="signIn()">
       <mat-icon>login</mat-icon>
     </button>
   </ng-template>

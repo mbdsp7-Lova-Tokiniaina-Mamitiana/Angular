@@ -1,40 +1,27 @@
-<div class="auth">
-    <div class="row auth-card">
-        <div class="col-md-12 auth-forms">
+<form [formGroup]="authForm" (ngSubmit)="onLogin()">
+    <mat-dialog-content class="mat-typography">
+        <h1 class="text-center">PARI EN LIGNE</h1>
+        <mat-form-field appearance="outline" class="input-full-width">
+            <mat-label>
+                <mat-icon>account_circle</mat-icon>
+                Pseudonyme
+            </mat-label>
+            <input matInput formControlName="login" placeholder="Pseudonyme" autocomplete=false>
+        </mat-form-field>
 
-            <div class="row text-center">
-                <h1>PARI EN LIGNE</h1>
-            </div>
-
-            <form [formGroup]="authForm" (ngSubmit)="onLogin()">
-                <mat-form-field appearance="outline" class="input-full-width">
-                    <mat-label>
-                        <mat-icon>account_circle</mat-icon> Pseudonyme
-                    </mat-label>
-                    <input matInput formControlName="login" placeholder="Pseudonyme" autocomplete=false>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="input-full-width">
-                    <mat-label>
-                        <mat-icon>lock_open</mat-icon> Mot de passe
-                    </mat-label>
-                    <input matInput formControlName="password" placeholder="Mot de passe" autocomplete=false type="password">
-                </mat-form-field>
-
-                <div class="row">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4 text-center">
-                        <div class="button-row">
-                            <button type="submit" mat-raised-button color="accent">
-                                Se connecter
-                            </button>
-                            <button mat-raised-button color="primary" (click)="onSignUp()" routerLink="/nouvel-utilisateur" >
-                                S'inscrire
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+        <mat-form-field appearance="outline" class="input-full-width">
+            <mat-label>
+                <mat-icon>lock_open</mat-icon>
+                Mot de passe
+            </mat-label>
+            <label>
+                <input matInput formControlName="password" placeholder="Mot de passe" autocomplete=false
+                       type="password">
+            </label>
+        </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+        <button type="submit" class="uni-btn-danger" [mat-dialog-close]="true">Se connecter</button>
+        <button class="uni-btn-primary" (click)="onSignUp()" routerLink="/nouvel-utilisateur" [mat-dialog-close]="true" cdkFocusInitial> S'inscrire </button>
+    </mat-dialog-actions>
+</form>

@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class ConvertmonthDatePipe implements PipeTransform {
 
-  transform(value: number): string {
+  transform(value: string): string {
     let monthListShort: { [key: string]: string } = {
       "01": "JANV",
       "02": "FEV",

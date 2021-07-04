@@ -47,10 +47,9 @@ import {HeaderInterceptor} from './shared/interceptor/header.interceptor';
 /** Import des components */
 import {AppComponent} from './app.component';
 import {AuthComponent} from './auth/auth.component';
-import {HomeComponent} from './home/home.component';
 import {ProfilComponent} from './profil/profil.component';
 import {NewUserComponent} from './new-user/new-user.component';
-import {ListMatchComponent} from './pari/list-match/list-match.component';
+import {ListMatchComponent} from './list-match/list-match.component';
 import {ListPariComponent} from './pari/list-pari/list-pari.component';
 import {HistoryComponent} from './pari/history/history.component';
 import {RapidInformationComponent} from './rapid-information/rapid-information.component';
@@ -64,15 +63,11 @@ import {DetailMatchComponent} from './detail-match/detail-match.component';
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: ListMatchComponent
   },
   {
     path: 'auth',
     component: AuthComponent
-  },
-  {
-    path: 'home',
-    component: HomeComponent
   },
   {
     path: 'profil',
@@ -126,7 +121,6 @@ const materialModule = [
   declarations: [
     AppComponent,
     AuthComponent,
-    HomeComponent,
     ProfilComponent,
     ToolbarComponent,
     NewUserComponent,

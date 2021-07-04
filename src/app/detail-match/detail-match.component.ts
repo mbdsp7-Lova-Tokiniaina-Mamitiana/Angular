@@ -8,7 +8,7 @@ import {DesignService} from '../shared/services/design.service';
 @Component({
   selector: 'app-detail-match',
   templateUrl: './detail-match.component.html',
-  styleUrls: ['./detail-match.component.scss']
+  styleUrls: ['./detail-match.component.scss', '../../assets/css/template/main.scss']
 })
 export class DetailMatchComponent implements OnInit {
 

@@ -35,7 +35,7 @@ export class AuthComponent implements OnInit {
                         console.log('Professor logged in');
                         localStorage.setItem('token', loggedData.token);
                         localStorage.setItem('isLogged', 'true');
-                        this.router.navigateByUrl(`/home`).then(() => null);
+                        window.location.reload();
                     } else {
                         this.designService.openSnackBar('warning', 'Une erreur s\'est produite, rééssayez plus tard', 'OK');
                     }

@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {User} from '../shared/models/user';
 import {UserService} from '../shared/services/user.service';
+import {MatDialog} from '@angular/material/dialog';
+import {AuthComponent} from '../auth/auth.component';
 
 
 @Component({
@@ -16,7 +18,8 @@ export class ToolbarComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private _dialog: MatDialog
   ) {
   }
 
@@ -35,5 +38,12 @@ export class ToolbarComponent implements OnInit {
 
   onLogOut() {
     this.userService.signOut();
+  }
+
+  signIn() {
+    const dialogRef = this._dialog.open(AuthComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }

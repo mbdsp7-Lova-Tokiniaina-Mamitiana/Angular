@@ -1,0 +1,44 @@
+.slick-slide img {
+    display: initial !important;
+}
+
+.slick-slider {
+    width: 88%;
+    margin: auto;
+}
+
+
+body .slick-prev,
+body .slick-next {
+    height: 45px;
+    width: 40px;
+    background: grey !important;
+    z-index: 100;
+}
+
+
+.card-slick-slider {
+    text-align: center;
+    height: 140px;
+    background-image: url("../../../assets/img/bg-flag.jpg");
+    &:hover {
+        .card-slick-content {
+            color: #FFCC33;
+            font-weight: bold;
+        }
+        cursor: pointer;
+    }
+}
+
+.card-slick-content {
+    color: white;
+    font-family: "Oswald", serif;
+    font-size: 16px;
+    line-height: 16px;
+    text-align: center;
+    padding: 5px;
+}
+
+.slick-next, .slick-arrow {
+    background-color: red !important;
+}

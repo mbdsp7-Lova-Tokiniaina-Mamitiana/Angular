@@ -9,7 +9,7 @@ import {catchError} from 'rxjs/operators';
 })
 export class PariService {
 
-  private readonly api = environment.endpoint;
+  private readonly api = environment.node_endpoint;
 
   constructor(
     private http: HttpClient,

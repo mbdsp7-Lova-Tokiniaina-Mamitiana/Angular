@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-    production: false,
+  production: false,
+  endpoint: 'http://localhost:8010/api',
+  //endpoint: 'https://pari-node.herokuapp.com/api',
     photo_endpoint : 'http://localhost:8010/',
     //photo_endpoint : 'https://pari-node.herokuapp.com/',
     node_endpoint: 'http://localhost:8010/api',

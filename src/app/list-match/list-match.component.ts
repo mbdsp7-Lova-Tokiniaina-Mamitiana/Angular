@@ -17,12 +17,16 @@ import {Pagination} from '../shared/interfaces/pagination';
 @Component({
     selector: 'app-list-match',
     templateUrl: './list-match.component.html',
-    styleUrls: ['./list-match.component.scss', '../../assets/css/template/main.scss','../../assets/css/template/slick-scrolling.scss']
+    styleUrls: ['./list-match.component.scss',
+      '../../assets/css/template/main.scss',
+      '../../assets/css/template/slick-scrolling.scss',
+      '../../assets/css/template/widget.scss']
 })
 export class ListMatchComponent implements OnInit {
     listMatch: Match[] = [];
     listPari: Pari[] = [];
     listEquipe: Equipe[] = [];
+    userCount: number = 0;
 
     page: number = 1;
     limit:number = 2;
@@ -88,6 +92,15 @@ export class ListMatchComponent implements OnInit {
         this.getListMatch();
         this.getListPari();
         this.getListEquipe();
+
+        this.userService.userCount().subscribe(
+          (data) => {
+            this.userCount = data;
+          }, (error: ErrorTracker) => {
+            const errors = (error.userMessage != undefined) ? error.userMessage : 'Une erreur s\'est produite, recommencer l\'opération';
+            this.designService.openErrorSnackBar(errors);
+          }
+        )
     }
 
     parier() {
@@ -99,7 +112,7 @@ export class ListMatchComponent implements OnInit {
     }
 
 
-    slideConfig = {"slidesToShow": 10, "slidesToScroll": 1};
+    slideConfig = {"slidesToShow": 10, "slidesToScroll": 4};
 
 
     slickInit(e) {

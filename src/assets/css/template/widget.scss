@@ -1,0 +1,67 @@
+.tg-widget {
+  text-align: center;
+  h3 {
+    font-family: "Oswald", serif;
+    width: 100%;
+    float: left;
+    margin: 0;
+    color: white;
+    padding: 20px;
+    font-size: 18px;
+    line-height: 14px;
+    background: #000;
+    text-transform: uppercase;
+  }
+  h4 {
+    width: 100%;
+    float: left;
+    margin: 0;
+    color: #000;
+    padding: 20px;
+    font-size: 16px;
+    line-height: 16px;
+    text-transform: uppercase;
+  }
+}
+.tg-widget ul {
+  width: 100%;
+  float: left;
+  margin: 0;
+  background:#fafafa;
+  list-style: none;
+  padding: 5px 20px;
+}
+.tg-widget ul li {
+  width: 100%;
+  float: left;
+  padding: 14px 0;
+  line-height: normal;
+  list-style-type: none;
+}
+.tg-widget ul li + li {border-top: 1px solid #ddd;}
+.tg-widget ul li a {
+  width: 100%;
+  float: left;
+  display: block;
+  color: #373542;
+}
+.tg-widget ul li a:hover {
+  text-decoration: none;
+  color: #2C2C2C;
+  font-weight: bold;
+}
+.tg-widget ul li a em,
+.tg-widget ul li a i {
+  font-style: normal;
+  font-family: 'Droid Sans', Arial, Helvetica, sans-serif;
+  color: #373542;
+}
+.tg-widget ul li a em {float: left;}
+.tg-widget ul li a i {
+  font-family: "asap", serif;
+  float: right;
+  font-size: 18px;
+  line-height: 20px;
+  padding: 0 5px;
+  background: #f5f5f5;
+}

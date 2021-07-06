@@ -9,12 +9,13 @@ import {environment} from '../../environments/environment';
 @Component({
     selector: 'app-detail-match',
     templateUrl: './detail-match.component.html',
-    styleUrls: ['./detail-match.component.scss', '../../assets/css/template/main.scss']
+    styleUrls: ['./detail-match.component.scss', '../../assets/css/template/main.scss', '../../assets/css/template/widget.scss']
 })
 export class DetailMatchComponent implements OnInit {
 
     photo_url: string = environment.photo_endpoint;
     match?: Match;
+    qrCode: any;
 
     constructor(
         private route: ActivatedRoute,
@@ -37,5 +38,6 @@ export class DetailMatchComponent implements OnInit {
 
     ngOnInit(): void {
         this.getMatchDetail();
+        this.qrCode = this.route.snapshot.params.idMatch;
     }
 }

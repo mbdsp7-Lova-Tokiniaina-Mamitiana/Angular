@@ -27,10 +27,14 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {HttpClientModule} from '@angular/common/http';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatStepperModule} from '@angular/material/stepper';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -46,6 +50,7 @@ import {AuthComponent} from './auth/auth.component';
 import {ProfilComponent} from './profil/profil.component';
 import {NewUserComponent} from './new-user/new-user.component';
 import {ListMatchComponent} from './list-match/list-match.component';
+import {ListPariComponent} from './pari/list-pari/list-pari.component';
 import {HistoryComponent} from './pari/history/history.component';
 import {RapidInformationComponent} from './rapid-information/rapid-information.component';
 import {ToolbarComponent} from './toolbar/toolbar.component';
@@ -53,96 +58,95 @@ import {ErrorService} from './shared/services/error.service';
 import {ConvertmonthDatePipe} from './shared/pipes/convertmonth-date.pipe';
 import {ParierMatchComponent} from './shared/modal/parier-match/parier-match.component';
 import {DetailMatchComponent} from './detail-match/detail-match.component';
-import {ScrollingModule} from '@angular/cdk/scrolling';
 
-import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 const routes: Routes = [
-    {
-        path: '',
-        component: ListMatchComponent
-    },
-    {
-        path: 'auth',
-        component: AuthComponent
-    },
-    {
-        path: 'profil',
-        component: ProfilComponent
-    },
-    {
-        path: 'nouvel-utilisateur',
-        component: NewUserComponent
-    },
-    {
-        path: 'detail-match/:idMatch',
-        component: DetailMatchComponent
-    }
+  {
+    path: '',
+    component: ListMatchComponent
+  },
+  {
+    path: 'auth',
+    component: AuthComponent
+  },
+  {
+    path: 'profil',
+    component: ProfilComponent
+  },
+  {
+    path: 'nouvel-utilisateur',
+    component: NewUserComponent
+  },
+  {
+    path: 'detail-match/:idMatch',
+    component: DetailMatchComponent
+  }
 
 ];
 
 const materialModule = [
-    ReactiveFormsModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatCheckboxModule,
-    MatRadioModule,
-    MatSnackBarModule,
-    MatSelectModule,
-    MatDividerModule,
-    MatListModule,
-    MatButtonToggleModule,
-    MatTabsModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatBadgeModule,
-    MatExpansionModule,
-    MatToolbarModule,
-    MatDialogModule,
-    MatTooltipModule,
-    MatProgressSpinnerModule,
-    MatMenuModule,
-    MatPaginatorModule,
-    MatTableModule,
-    MatSortModule,
-    HttpClientModule,
-    ScrollingModule
+  ReactiveFormsModule,
+  FormsModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatCardModule,
+  MatButtonModule,
+  MatIconModule,
+  MatCheckboxModule,
+  MatRadioModule,
+  MatSnackBarModule,
+  MatSelectModule,
+  MatDividerModule,
+  MatListModule,
+  MatButtonToggleModule,
+  MatTabsModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatBadgeModule,
+  MatExpansionModule,
+  MatToolbarModule,
+  MatDialogModule,
+  MatTooltipModule,
+  MatProgressSpinnerModule,
+  MatMenuModule,
+  MatStepperModule,
+  MatPaginatorModule,
+  MatTableModule,
+  MatSortModule,
+  MatSlideToggleModule,
+  HttpClientModule
 ];
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        AuthComponent,
-        ProfilComponent,
-        ToolbarComponent,
-        NewUserComponent,
-        ListMatchComponent,
-        HistoryComponent,
-        RapidInformationComponent,
-        ConvertmonthDatePipe,
-        ParierMatchComponent,
-        DetailMatchComponent
-    ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        FormsModule,
-        [...materialModule],
-        SlickCarouselModule,
-        RouterModule.forRoot(routes)
+  declarations: [
+    AppComponent,
+    AuthComponent,
+    ProfilComponent,
+    ToolbarComponent,
+    NewUserComponent,
+    ListMatchComponent,
+    ListPariComponent,
+    HistoryComponent,
+    RapidInformationComponent,
+    ConvertmonthDatePipe,
+    ParierMatchComponent,
+    DetailMatchComponent
+  ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    FormsModule,
+    [...materialModule],
+    RouterModule.forRoot(routes)
 
-    ],
-    providers: [
-        {provide: ErrorHandler, useClass: ErrorService},
-        {provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true}
-    ],
-    bootstrap: [AppComponent]
+  ],
+  providers: [
+    {provide: ErrorHandler, useClass: ErrorService},
+    {provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true}
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }

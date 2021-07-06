@@ -1,9 +1,10 @@
 <div class="row today-match">
     <h1 class="text-center">Match du jour</h1>
 </div>
-
 <div class="row">
-    <div class="col-md-8 card-list">
+    <div class="col-md-1"></div>
+
+    <div class="col-md-10 card-list">
         <div class="box m-1 link-detail-match m-3 p-3" *ngFor="let match of listMatch">
             <a routerLink="/detail-match/{{match._id}}">
                 <div class="row">
@@ -13,9 +14,6 @@
                                 <li class="year"> {{match.date_match | date: 'yyyy'}} </li>
                                 <li class="day"> {{match.date_match | date: 'dd'}} </li>
                                 <li class="month"> {{match.date_match | date : 'MM' | convertmonthDate }} </li>
-                                <li class="hour">
-                                    <mat-icon svgIcon="clock" class="svgIcon"></mat-icon>
-                                    {{match.date_match | date : 'hh:mm'}} </li>
                             </div>
                         </div>
                     </div>
@@ -34,14 +32,12 @@
                                 <div class="col-md-1"></div>
 
                                 <div class="col-md-3 text-center p-4 equipe-title">{{match.equipe1.nom}}</div>
-                                <div class="col-md-1"><img src="{{photo_url + match.equipe1.avatar}}" alt=""
-                                                           class="equipe-avatar">
+                                <div class="col-md-1"><img src="{{match.equipe1.avatar}}" alt="" class="equipe-avatar">
                                 </div>
 
                                 <div class="col-md-2 text-center p-4 vs-title">VS</div>
 
-                                <div class="col-md-1"><img src="{{photo_url + match.equipe2.avatar}}" alt=""
-                                                           class="equipe-avatar">
+                                <div class="col-md-1"><img src="{{match.equipe2.avatar}}" alt="" class="equipe-avatar">
                                 </div>
                                 <div class="col-md-3 text-center p-4 equipe-title">{{match.equipe2.nom}}</div>
 
@@ -63,70 +59,6 @@
             </a>
         </div>
     </div>
-    <div class="col-md-3 list-pari">
-        <div class="section-heading">
-        </div>
+    <div class="col-md-1"></div>
 
-        <div class="tg-widget tg-catagories-widget">
-            <h3>Différents types de pari</h3>
-            <ul *ngFor="let pari of listPari">
-                <li>
-                    <a><em>{{pari.description}}</em><i>{{pari.cote}}</i></a>
-                </li>
-            </ul>
-        </div>
-    </div>
 </div>
-
-
-<div class="row text-center">
-    <div class="col-sm-12 col-xs-12">
-        <div class="tg-statistics">
-            <div class="tg-statistic">
-                <h2><span class="tg-statistic-count" data-from="0" data-to="2700" data-speed="8000"
-                          data-refresh-interval="50">{{listMatch.length}}</span></h2>
-                <h3>Matchs</h3>
-            </div>
-            <div class="tg-statistic">
-                <h2><span class="tg-statistic-count" data-from="0" data-to="1673" data-speed="8000"
-                          data-refresh-interval="50">1673</span></h2>
-                <h3>Parieurs actifs</h3>
-            </div>
-            <div class="tg-statistic">
-                <h2><span class="tg-statistic-count" data-from="0" data-to="236" data-speed="8000"
-                          data-refresh-interval="50">{{listPari.length}}</span></h2>
-                <h3>Pari</h3>
-            </div>
-            <div class="tg-statistic">
-                <h2><span class="tg-statistic-count" data-from="0" data-to="236" data-speed="8000"
-                          data-refresh-interval="50">{{listEquipe.length}}</span></h2>
-                <h3>Equipes</h3>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row mt-5 card-slick">
-    <div class="section-heading">
-    </div>
-    <div class="row">
-        <ngx-slick-carousel class="carousel"
-                            #slickModal="slick-carousel"
-                            [config]="slideConfig"
-                            (init)="slickInit($event)"
-                            (breakpoint)="breakpoint($event)"
-                            (afterChange)="afterChange($event)"
-                            (beforeChange)="beforeChange($event)">
-            <div ngxSlickItem *ngFor="let slide of listEquipe" class="slide">
-                <div class="card-slick-slider box">
-                    <img class="equipe-avatar" src="{{ photo_url + slide.avatar }}" alt="">
-                    <div class="card-slick-content">
-                        {{slide.nom}}
-                    </div>
-                </div>
-            </div>
-        </ngx-slick-carousel>
-    </div>
-    <div class="section-heading">
-    </div>
-</div>
-

@@ -14,19 +14,19 @@ import {Router} from '@angular/router';
 export class UserService {
 
 
-  private readonly node_endpoint: string = environment.node_endpoint + '/users';
-  private readonly grails_endpoint: string = environment.grails_endpoint + '/users';
+  private readonly endpoint: string = environment.endpoint + '/users';
   private headersContent: any = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
   public userLogged = new BehaviorSubject<User | null>(null);
 
     constructor(
         private http: HttpClient,
-        private errorService: ErrorService
+        private errorService: ErrorService,
+        private router: Router
     ) {
     }
 
     login(paramsLogin: any): Observable<any> {
-        return this.http.post<any>(`${this.node_endpoint}/login`, paramsLogin, {headers: this.headersContent})
+        return this.http.post<any>(`${this.endpoint}/login`, paramsLogin, {headers: this.headersContent})
             .pipe(
                 map(response => {
                   const user = response.connected;
@@ -45,7 +45,7 @@ export class UserService {
     }
 
     register(newUserParams: any): Observable<any> {
-        return this.http.post<any>(`${this.node_endpoint}/register`, newUserParams, {headers: this.headersContent})
+        return this.http.post<any>(`${this.endpoint}/register`, newUserParams, {headers: this.headersContent})
             .pipe(
                 catchError(err => this.errorService.handleHttpError(err))
             );
@@ -67,13 +67,5 @@ export class UserService {
 
     decodeToken(token: string): any {
         return jwt_decode(token);
-    }
-
-    profil() {
-        const userInfo = JSON.parse(localStorage.getItem("_userInfo_")!);
-        return this.http.get<any>(`${this.grails_endpoint}/profil?id=${userInfo._id}`)
-            .pipe(
-                catchError(err => this.errorService.handleHttpError(err))
-            );
     }
 }

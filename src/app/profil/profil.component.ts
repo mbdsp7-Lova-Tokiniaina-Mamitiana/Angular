@@ -38,11 +38,6 @@ export class ProfilComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this.userService.profil().subscribe(
-          (user) => {
-              console.log(user);
-          }
-      )
     this.user = this.userService.getCurrentUser();
   }
 

@@ -10,7 +10,9 @@ export const environment = {
     //photo_endpoint : 'https://pari-node.herokuapp.com/',
     node_endpoint: 'http://localhost:8010/api',
     //node_endpoint: 'https://pari-node.herokuapp.com/api',
-    grails_endpoint: 'https://mbdsp7-grails-app.herokuapp.com/'
+    grails_endpoint: 'https://mbdsp7-grails-app.herokuapp.com/',
+  qr_code_endpoint: 'https://unitag-management-api.p.rapidapi.com/lives',
+  qr_code_key: '11d1f7eaa5msh8d72fecedf4d594p113a02jsne2fc50e762f6'
 };
 
 /*

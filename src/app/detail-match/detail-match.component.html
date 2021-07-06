@@ -10,6 +10,11 @@
         <div class="col-md-3 text-center p-4 equipe-title">{{match?.equipe2.nom}}</div>
 
         <div class="col-md-1"></div>
+        <div class="col-md-5"></div>
+        <div class="col-md-2 text-center p-4 vs-title">
+            {{match?.date_match | date : 'hh:mm'}}
+        </div>
+        <div class="col-md-5"></div>
     </div>
     <mat-divider></mat-divider>
     <div class="row mt-5">
@@ -21,15 +26,39 @@
                 <div class="row">
                     <div *ngFor="let pari of match?.pari" class="col-md-3">
                         <button class="btn-yellow p-2" matBadge="{{pari.cote}}" matBadgePosition="after"
-                                matBadgeColor="accent" matTooltip="Parier">{{pari.description}}</button>
+                                matBadgeColor="accent" matTooltip="PaSrier">{{pari.description}}</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-10 box m-5">
-            <h2>Localisation</h2>
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-3">
+            <div class="tg-widget tg-catagories-widget">
+                <h4>Scanner et Parier</h4>
+                <ngx-kjua
+                        [text]=qrCode
+                        [render]="'svg'"
+                        [crisp]="true"
+                        [minVersion]="1"
+                        [ecLevel]="'H'"
+                        [size]="200"
+                        [fill]="'#F5C433'"
+                        [back]="'#373542'"
+                        [rounded]="100"
+                        [quiet]="1"
+                        [mode]="'plain'"
+                        [mSize]="30"
+                        [mPosX]="50"
+                        [mPosY]="50"
+                ></ngx-kjua>
+            </div>
         </div>
-        <div class="col-md-1"></div>
+
+        <div class="col-md-9 box">
+            <div class="tg-widget tg-catagories-widget">
+                <h4>Localisation</h4>
+            </div>
+        </div>
     </div>
 </div>

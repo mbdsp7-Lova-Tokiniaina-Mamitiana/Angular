@@ -2,6 +2,7 @@ import {ErrorHandler, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouterModule, Routes} from '@angular/router';
 
+import { NgxKjuaModule } from 'ngx-kjua';
 /** Import des modules angular */
 import {ReactiveFormsModule} from '@angular/forms';
 import {FormsModule} from '@angular/forms';
@@ -135,6 +136,7 @@ const materialModule = [
         FormsModule,
         [...materialModule],
         SlickCarouselModule,
+        NgxKjuaModule,
         RouterModule.forRoot(routes)
 
     ],

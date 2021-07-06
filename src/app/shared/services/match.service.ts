@@ -10,9 +10,6 @@ import {catchError} from 'rxjs/operators';
 export class MatchService {
 
   private readonly api = environment.node_endpoint;
-  private readonly qr_code_api = environment.qr_code_endpoint;
-  private readonly qr_code_key = environment.qr_code_key;
-
   constructor(
     private http: HttpClient,
     private errorService: ErrorService

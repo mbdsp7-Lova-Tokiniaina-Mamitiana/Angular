@@ -17,7 +17,7 @@
         <div class="col-md-5"></div>
     </div>
     <mat-divider></mat-divider>
-    <div class="row mt-5">
+    <div class="row mt-1">
         <div class="col-md-12 m-5">
             <div class="col-md-10">
                 <div class="section-heading">
@@ -43,8 +43,6 @@
                         [minVersion]="1"
                         [ecLevel]="'H'"
                         [size]="200"
-                        [fill]="'#F5C433'"
-                        [back]="'#373542'"
                         [rounded]="100"
                         [quiet]="1"
                         [mode]="'plain'"
@@ -55,10 +53,11 @@
             </div>
         </div>
 
-        <div class="col-md-9 box">
+        <div class="col-md-9 map">
             <div class="tg-widget tg-catagories-widget">
                 <h4>Localisation</h4>
             </div>
+            <div class="map" #mapCard id="map" class="match-parent"></div>
         </div>
     </div>
 </div>

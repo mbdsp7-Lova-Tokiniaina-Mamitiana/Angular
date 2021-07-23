@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Match} from '../shared/interfaces/match';
 import {MatchService} from '../shared/services/match.service';
@@ -49,7 +49,7 @@ export class DetailMatchComponent implements OnInit {
   }
 
   viewMap(longitude: number, latitude: number) {
-    /*this.mapboxContent = new mapboxgl.Map({
+    this.mapboxContent = new mapboxgl.Map({
         container: this.mapCard.nativeElement,
         style: mapboxConfig.style,
         zoom: 13,
@@ -59,7 +59,7 @@ export class DetailMatchComponent implements OnInit {
     this.mapboxContent.addControl(new mapboxgl.NavigationControl());
     new mapboxgl.Marker()
       .setLngLat([longitude, latitude])
-      .addTo(this.mapboxContent);*/
+      .addTo(this.mapboxContent);
   }
 
   getMatchDetail() {

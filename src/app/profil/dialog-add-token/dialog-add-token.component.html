@@ -1,0 +1,14 @@
+<h2 mat-dialog-title class="text-center">Ajouter votre jeton</h2>
+<form [formGroup]="addTokenForm" (ngSubmit)="onAddToken()">
+<mat-dialog-content class="mat-typography">
+        <mat-form-field appearance="outline" class="input-full-width">
+            <mat-label>Jeton</mat-label>
+            <input matInput placeholder="Ex. 10" formControlName="token">
+        </mat-form-field>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-icon-button mat-dialog-close><mat-icon svgIcon="back"></mat-icon></button>
+    <button mat-icon-button [mat-dialog-close]="true" cdkFocusInitial type="submit"><mat-icon svgIcon="piggy-bank"></mat-icon></button>
+</mat-dialog-actions>
+</form>

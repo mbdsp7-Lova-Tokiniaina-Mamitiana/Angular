@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../shared/models/user';
 import { UserService } from '../shared/services/user.service';
+import {MatDialog} from '@angular/material/dialog';
+import {DialogAddTokenComponent} from './dialog-add-token/dialog-add-token.component';
+import {DesignService} from '../shared/services/design.service';
+import {NgxUiLoaderService} from 'ngx-ui-loader';
 
 
 const ELEMENT_DATA: any[] = [
@@ -27,23 +31,49 @@ export class ProfilComponent implements OnInit {
   user: User;
   displayedColumns: string[] = ['number', 'date', 'mouvement', 'jeton'];
   dataSource = ELEMENT_DATA;
-
-
-
+  actualToken: number = 0;
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private _dialog: MatDialog,
+    private designService: DesignService,
+    private ngxLoader: NgxUiLoaderService
   ) {
     this.user = new User('','','');
   }
 
-  ngOnInit(): void {
-      this.userService.profil().subscribe(
-          (user) => {
-              console.log(user);
-          }
-      )
-    this.user = this.userService.getCurrentUser();
+  initializeProfil() {
+    this.ngxLoader.startLoader('loader-profil');
+    this.userService.profil().subscribe(
+      (user) => {
+        console.log(user);
+        this.actualToken = user.solde;
+        this.ngxLoader.stopLoader('loader-profil');
+      }
+    )
   }
 
+  personalHistories() {
+    this.userService.personnalHistories().subscribe(
+      (dataResult) => {
+        console.log(dataResult);
+      }
+    )
+  }
+
+  ngOnInit(): void {
+      this.initializeProfil();
+      this.user = this.userService.getCurrentUser();
+      this.personalHistories();
+  }
+
+  addToken() {
+    const dialogRef = this._dialog.open(DialogAddTokenComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.designService.openSuccessSnackBar("Ajout de jeton avec succès !!!");
+        this.initializeProfil();
+      }
+    });
+  }
 }

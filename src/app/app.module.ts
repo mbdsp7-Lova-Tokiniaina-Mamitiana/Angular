@@ -3,6 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {RouterModule, Routes} from '@angular/router';
 
 import { NgxKjuaModule } from 'ngx-kjua';
+import { NgxUiLoaderModule } from "ngx-ui-loader";
 /** Import des modules angular */
 import {ReactiveFormsModule} from '@angular/forms';
 import {FormsModule} from '@angular/forms';
@@ -55,6 +56,7 @@ import {ConvertmonthDatePipe} from './shared/pipes/convertmonth-date.pipe';
 import {ParierMatchComponent} from './shared/modal/parier-match/parier-match.component';
 import {DetailMatchComponent} from './detail-match/detail-match.component';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import {DialogAddTokenComponent} from './profil/dialog-add-token/dialog-add-token.component';
 
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 
@@ -111,7 +113,8 @@ const materialModule = [
     MatTableModule,
     MatSortModule,
     HttpClientModule,
-    ScrollingModule
+    ScrollingModule,
+    NgxUiLoaderModule
 ];
 
 @NgModule({
@@ -126,7 +129,8 @@ const materialModule = [
         RapidInformationComponent,
         ConvertmonthDatePipe,
         ParierMatchComponent,
-        DetailMatchComponent
+        DetailMatchComponent,
+        DialogAddTokenComponent
     ],
     imports: [
         BrowserModule,

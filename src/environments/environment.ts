@@ -4,10 +4,9 @@
 
 export const environment = {
   production: false,
-  //photo_endpoint : 'http://localhost:8010/',
-    photo_endpoint : 'https://pari-node.herokuapp.com/',
-    node_endpoint: 'https://pari-node.herokuapp.com/api',
-    grails_endpoint: 'https://mbdsp7-grails-app.herokuapp.com/',
+  photo_endpoint : 'http://localhost:8010/',
+  node_endpoint: 'http://localhost:8010/api',
+  grails_endpoint: 'https://mbdsp7-grails-app.herokuapp.com/api',
 };
 
 /*

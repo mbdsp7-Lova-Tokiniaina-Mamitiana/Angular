@@ -1,34 +1,60 @@
 <div class="body">
     <div class="row mb-1 header">
-        <div class="col-md-1"></div>
+        <!-- Date du match -->
+        <div class="col-md-1">
+            <div class="uni-entry-body text-left">
+                <div class="uni-entry-time">
+                    <li class="day"> {{match?.date_match | date: 'dd'}} </li>
+                    <li class="month"> {{match?.date_match | date : 'MM' | convertmonthDate }} </li>
+                    <li class="year"> {{match?.date_match | date: 'yyyy'}} </li>
+                </div>
+            </div>
+        </div>
+
+        <!-- Equipe 1 -->
         <div class="col-md-3 text-center p-4 equipe-title">{{match?.equipe1.nom}}</div>
         <div class="col-md-1"><img src="{{photo_url + match?.equipe1.avatar}}" alt="" width="120px"></div>
 
+        <!-- VS -->
         <div class="col-md-2 text-center p-4 vs-title">VS</div>
 
+        <!-- Equipe 2 -->
         <div class="col-md-1"><img src="{{photo_url + match?.equipe2.avatar}}" alt="" width="120px"></div>
         <div class="col-md-3 text-center p-4 equipe-title">{{match?.equipe2.nom}}</div>
 
         <div class="col-md-1"></div>
         <div class="col-md-5"></div>
+
+        <!-- Heure du match -->
         <div class="col-md-2 text-center p-4 vs-title">
-            {{match?.date_match | date : 'hh:mm'}}
+            {{match?.date_match | date : 'HH:mm'}}
         </div>
         <div class="col-md-5"></div>
     </div>
+
     <mat-divider></mat-divider>
+
     <div class="row mt-1">
-        <div class="col-md-12 m-5">
-            <div class="col-md-10">
+        <div class="col-md-12 mt-5 row">
+            <div class="col-md-10 offset-1">
                 <div class="section-heading">
                     <h2>Les paris disponibles pour ce match</h2>
                 </div>
-                <div class="row">
-                    <div *ngFor="let pari of match?.pari" class="col-md-3">
-                        <button class="btn-yellow p-2" matBadge="{{pari.cote}}" matBadgePosition="after"
-                                matBadgeColor="accent" matTooltip="PaSrier">{{pari.description}}</button>
+
+                <div class="row" *ngIf="!match?.etat;else finishedPari">
+                    <div class="col-sm-3 pari-detail" *ngFor="let pari of match?.pari">
+                        <div class="pari-detail-content py-3">
+                            <div class="pari-detail-title">{{pari.description}}</div>
+                            <div class="pari-detail-cote">{{pari.cote}}</div>
+                            <div class="pari-detail-action">
+                                <a class="btn-yellow" (click)="onBetting(pari._id, pari.cote, pari.description)"> Parier
+                                    &nbsp;<mat-icon svgIcon="token"></mat-icon>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -61,3 +87,26 @@
         </div>
     </div>
 </div>
+
+<!--Templates-->
+<ng-template #finishedPari>
+    <h3 class="text-center finishedPari">
+        <mat-icon svgIcon="flag"></mat-icon>&nbsp;Le match est déjà terminé !!!&nbsp;<mat-icon
+            svgIcon="flag"></mat-icon>
+    </h3>
+</ng-template>
+
+<ngx-ui-loader [loaderId]="'loader-info'"
+               [fgsType]="'square-jelly-box'"
+               [hasProgressBar]="false"
+               [fgsColor]="loaderColor"
+               [text]="loaderText"
+               [overlayColor]="'rgba(50,53,57,0.8)'">
+</ngx-ui-loader>
+<ngx-ui-loader [loaderId]="'loader-bet'"
+               [fgsType]="'square-jelly-box'"
+               [hasProgressBar]="false"
+               [fgsColor]="loaderColor"
+               [text]="loaderTextParier"
+               [overlayColor]="'rgba(50,53,57,0.8)'">
+</ngx-ui-loader>

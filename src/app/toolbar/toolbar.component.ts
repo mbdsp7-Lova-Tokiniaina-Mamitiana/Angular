@@ -27,6 +27,8 @@ export class ToolbarComponent implements OnInit {
     // TOKEN , GET CURRENT USER
     if (this.userService.isLoggedIn()) {
       this.loggedUser = this.userService.getCurrentUser();
+    } else {
+      this.router.navigateByUrl(`/`);
     }
   }
 
@@ -40,7 +42,7 @@ export class ToolbarComponent implements OnInit {
     this.userService.signOut();
   }
 
-  signIn() {
+  auth() {
     const dialogRef = this._dialog.open(AuthComponent);
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);

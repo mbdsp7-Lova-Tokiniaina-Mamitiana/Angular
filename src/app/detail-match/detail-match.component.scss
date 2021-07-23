@@ -6,3 +6,57 @@
         margin-top: 20px;
     }
 }
+
+
+.pari-detail {
+    font-family: "asap", serif;
+    cursor: pointer;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.pari-detail-title {
+    padding: 2px;
+    font-size: 14px;
+    line-height: 14px;
+}
+
+.pari-detail-action {
+    a {
+        width: initial;
+        padding: 0 25px;
+    }
+    padding-top: 5px;
+}
+.pari-detail-cote {
+    font-size: 25px;
+}
+
+.pari-detail-content {
+    flex-grow: 1;
+    background-color: #2C2C2C;
+}
+
+
+.uni-entry-time li.year {
+    color: white !important;
+    font-size: 30px !important;
+}
+
+.uni-entry-time li.day, .uni-entry-time li.month {
+    color: #FFCC33 !important;
+    font-size: 30px !important;
+}
+
+.match, .finished {
+    color: #E85C3C !important;
+    font-size: 18px !important;
+}
+
+.finishedPari {
+    font-family: "asap", serif;
+    color: #E85C3C !important;
+    font-size: 20px !important;
+}

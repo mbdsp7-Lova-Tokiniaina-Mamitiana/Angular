@@ -3,6 +3,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {DesignService} from '../shared/services/design.service';
 import {UserService} from '../shared/services/user.service';
+import {MatDialog} from '@angular/material/dialog';
+import {NewUserComponent} from '../new-user/new-user.component';
 
 @Component({
   selector: 'app-auth',
@@ -16,7 +18,8 @@ export class AuthComponent implements OnInit {
   constructor(
     private userService: UserService,
     public designService: DesignService,
-    private router: Router
+    private router: Router,
+    private _dialog: MatDialog
   ) {
     this.authForm = new FormGroup({
       login: new FormControl('', Validators.required),
@@ -47,6 +50,9 @@ export class AuthComponent implements OnInit {
     }
 
   onSignUp() {
-    this.router.navigate(['/nouvel-utilisateur']);
+    const dialogRef = this._dialog.open(NewUserComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }

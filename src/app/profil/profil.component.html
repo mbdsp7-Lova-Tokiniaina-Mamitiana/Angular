@@ -4,7 +4,7 @@
     </div>
 
     <div class="row mt-5">
-        <div class="col-6">
+        <div class="col-md-6" style="position: relative">
             <form>
                 <mat-form-field appearance="outline" class="input-full-width">
                     <mat-label>
@@ -34,19 +34,25 @@
                     </div>
                 </div>
             </form>
+            <ngx-ui-loader [loaderId]="'loader-profil'"></ngx-ui-loader>
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-5">
             <h2 class="align-center mt-1">Historique de votre jeton</h2>
             <div class="row mt-1">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <h3>Jeton actuel : </h3>
                 </div>
-                <div class="col-md-8">
-                    <h3><b>8090</b></h3>
+                <div class="col-md-3">
+                    <h3><b>{{actualToken}}</b></h3>
+                </div>
+                <div class="col-md-6">
+                    <button class="uni-btn-primary" (click)="addToken()">
+                        Ajouter mes jetons &nbsp;<mat-icon svgIcon="token"></mat-icon>
+                    </button>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" style="position: relative">
                 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
                     <!-- Position Column -->
                     <ng-container matColumnDef="number">
@@ -75,7 +81,7 @@
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                   </table>
-
+                <ngx-ui-loader [loaderId]="'loader-histo-personnel'"></ngx-ui-loader>
             </div>
         </div>
 

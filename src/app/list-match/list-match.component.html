@@ -1,80 +1,164 @@
-<div class="row today-match">
-    <h1 class="text-center">Match du jour</h1>
+<div class="today-match">
+    <img src="../../assets/gif/bell-gif.gif" alt="" class="gif" width="100"/>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-3 text-center p-4 equipe-title">{{listMatch[0]?.equipe1.nom}}</div>
+        <div class="col-md-1"><img src="{{photo_url + listMatch[0]?.equipe1.avatar}}" alt="" class="equipe-avatar">
+        </div>
+
+        <div class="col-md-2 text-center p-4">{{listMatch[0]?.date_match | date : 'HH:mm'}}</div>
+
+        <div class="col-md-1"><img src="{{photo_url + listMatch[0]?.equipe2.avatar}}" alt="" class="equipe-avatar">
+        </div>
+        <div class="col-md-3 text-center p-4 equipe-title">{{listMatch[0]?.equipe2.nom}}</div>
+        <div class="col-md-1"></div>
+    </div>
 </div>
 
 <div class="row">
     <div class="col-md-8 card-list">
-        <div class="box m-1 link-detail-match m-3 p-3" *ngFor="let match of listMatch">
-            <a routerLink="/detail-match/{{match._id}}">
-                <div class="row">
-                    <div class="col-md-1" *ngIf="!match.etat;else finishedMatch">
-                        <div class="uni-entry-body text-left">
-                            <div class="uni-entry-time">
-                                <li class="year"> {{match.date_match | date: 'yyyy'}} </li>
-                                <li class="day"> {{match.date_match | date: 'dd'}} </li>
-                                <li class="month"> {{match.date_match | date : 'MM' | convertmonthDate }} </li>
-                                <li class="hour">
-                                    <mat-icon svgIcon="clock" class="svgIcon"></mat-icon>
-                                    {{match.date_match | date : 'hh:mm'}} </li>
+        <div style="position: relative" bgsColor="#00ACC1" >
+            <!-- Recherche munticritère -->
+            <div class="m-2">
+                <mat-accordion class="headers-align" multi>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Recherche
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                Recherche avec des critères
+                                <mat-icon svgIcon="search"></mat-icon>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Equipe</mat-label>
+                                    <label>
+                                        <input matInput [(ngModel)]="equipe">
+                                    </label>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-3">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Pari</mat-label>
+                                    <label>
+                                        <input matInput [(ngModel)]="pari">
+                                    </label>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Entrer la date du match</mat-label>
+                                    <mat-date-range-input [formGroup]="matchDate" [rangePicker]="picker">
+                                        <input matStartDate formControlName="start" placeholder="Début">
+                                        <input matEndDate formControlName="end" placeholder="Fin">
+                                    </mat-date-range-input>
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-date-range-picker #picker></mat-date-range-picker>
+
+                                    <mat-error *ngIf="matchDate.controls.start.hasError('matStartDateInvalid')">Invalid
+                                        start date
+                                    </mat-error>
+                                    <mat-error *ngIf="matchDate.controls.end.hasError('matEndDateInvalid')">Invalid end
+                                        date
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-2">
+                                <button mat-button class="btn-yellow" (click)="search()">Rechercher</button>
                             </div>
                         </div>
-                    </div>
-                    <ng-template #finishedMatch>
-                        <div class="col-md-1">
-                            <div class="finished-match">
-                                <li class="match">Match</li>
-                                <li class="finished">terminé</li>
-                            </div>
-                        </div>
-                    </ng-template>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+            <!-- Recherche munticritère -->
 
-                    <div class="col-md-11">
-                        <div class="header-card">
-                            <div class="row">
-                                <div class="col-md-1"></div>
-
-                                <div class="col-md-3 text-center p-4 equipe-title">{{match.equipe1.nom}}</div>
-                                <div class="col-md-1"><img src="{{photo_url + match.equipe1.avatar}}" alt=""
-                                                           class="equipe-avatar">
+            <!-- Liste des matchs -->
+            <cdk-virtual-scroll-viewport itemSize="200" class="viewport box">
+                <div class="box m-1 link-detail-match m-3 p-3" *cdkVirtualFor="let match of listMatch">
+                    <a routerLink="/detail-match/{{match._id}}">
+                        <div class="row">
+                            <div class="col-md-1" *ngIf="!match.etat;else finishedMatch">
+                                <div class="uni-entry-body text-left">
+                                    <div class="uni-entry-time">
+                                        <li class="day"> {{match.date_match | date: 'dd'}} </li>
+                                        <li class="month"> {{match.date_match | date : 'MM' | convertmonthDate }} </li>
+                                        <li class="year"> {{match.date_match | date: 'yyyy'}} </li>
+                                        <li class="hour">
+                                            <mat-icon svgIcon="clock" class="svgIcon"></mat-icon>
+                                            {{match.date_match | date : 'HH:mm'}} </li>
+                                    </div>
                                 </div>
-
-                                <div class="col-md-2 text-center p-4 vs-title">VS</div>
-
-                                <div class="col-md-1"><img src="{{photo_url + match.equipe2.avatar}}" alt=""
-                                                           class="equipe-avatar">
-                                </div>
-                                <div class="col-md-3 text-center p-4 equipe-title">{{match.equipe2.nom}}</div>
-
-                                <div class="col-md-1"></div>
                             </div>
-                        </div>
-                        <mat-divider></mat-divider>
-                        <div class="col-md-10">
-                            <div class="row pt-4">
-                                <div *ngFor="let pari of match.pari" class="col-md-3">
-                                    <button class="btn-yellow" matBadge="{{pari.cote}}" matBadgePosition="after"
-                                            matBadgeColor="accent">{{pari.description}}</button>
+                            <ng-template #finishedMatch>
+                                <div class="col-md-1">
+                                    <div class="finished-match">
+                                        <li class="match">Match</li>
+                                        <li class="finished">terminé</li>
+                                    </div>
+                                </div>
+                            </ng-template>
+
+                            <div class="col-md-11">
+                                <div class="header-card">
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+
+                                        <div class="col-md-3 text-center p-4 equipe-title">{{match.equipe1.nom}}</div>
+                                        <div class="col-md-1"><img src="{{photo_url + match.equipe1.avatar}}" alt=""
+                                                                   class="equipe-avatar">
+                                        </div>
+
+                                        <div class="col-md-2 text-center p-4 vs-title">VS</div>
+
+                                        <div class="col-md-1"><img src="{{photo_url + match.equipe2.avatar}}" alt=""
+                                                                   class="equipe-avatar">
+                                        </div>
+                                        <div class="col-md-3 text-center p-4 equipe-title">{{match.equipe2.nom}}</div>
+
+                                        <div class="col-md-1"></div>
+                                    </div>
+                                </div>
+                                <mat-divider></mat-divider>
+                                <div class="col-md-10">
+                                    <div class="row pt-4">
+                                        <div *ngFor="let pari of match.pari" class="col-md-3">
+                                            <button class="btn-yellow" matBadge="{{pari.cote}}"
+                                                    matBadgePosition="after"
+                                                    matBadgeColor="accent">{{pari.description}}</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
+                        </div>
+                    </a>
                 </div>
-            </a>
+            </cdk-virtual-scroll-viewport>
+            <!-- Liste des matchs -->
+            <ngx-ui-loader [loaderId]="'loader-liste-match'"
+                           [fgsType]="'square-jelly-box'"
+                           [hasProgressBar]="false"
+                           [fgsColor]="loaderColor"
+                           [text]="loaderText"
+                           [overlayColor]="'rgba(50,53,57,0.8)'"></ngx-ui-loader>
         </div>
     </div>
     <div class="col-md-3 list-pari">
-        <div class="section-heading">
-        </div>
+            <div class="section-heading">
+            </div>
 
-        <div class="tg-widget tg-catagories-widget">
-            <h3>Différents types de pari</h3>
-            <ul *ngFor="let pari of listPari">
-                <li>
-                    <a><em>{{pari.description}}</em><i>{{pari.cote}}</i></a>
-                </li>
-            </ul>
-        </div>
+            <div class="tg-widget tg-catagories-widget">
+                <h3>Différents types de pari</h3>
+                <ul *ngFor="let pari of listPari">
+                    <li>
+                        <a><em>{{pari.description}}</em><i>{{pari.cote}}</i></a>
+                    </li>
+                </ul>
+                <!--<ngx-ui-loader [loaderId]="'loader-liste-pari'"></ngx-ui-loader>-->
+            </div>
     </div>
 </div>
 
@@ -108,7 +192,7 @@
 <div class="row mt-5 card-slick">
     <div class="section-heading">
     </div>
-    <div class="row">
+    <div style="position: relative" class="row">
         <ngx-slick-carousel class="carousel"
                             #slickModal="slick-carousel"
                             [config]="slideConfig"
@@ -125,8 +209,9 @@
                 </div>
             </div>
         </ngx-slick-carousel>
-    </div>
-    <div class="section-heading">
+        <div class="section-heading">
+        </div>
+        <ngx-ui-loader [loaderId]="'loader-liste-equipe'" [hasProgressBar]="false"></ngx-ui-loader>
     </div>
 </div>
-
+<ngx-ui-loader></ngx-ui-loader>

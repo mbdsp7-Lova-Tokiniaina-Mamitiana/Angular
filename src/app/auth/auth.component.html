@@ -1,12 +1,13 @@
 <form [formGroup]="authForm" (ngSubmit)="onLogin()">
     <mat-dialog-content class="mat-typography">
-        <h1 class="text-center">PARI EN LIGNE</h1>
+        <h1 class="text-center">Se connecter</h1>
         <mat-form-field appearance="outline" class="input-full-width">
             <mat-label>
-                <mat-icon>account_circle</mat-icon>
                 Pseudonyme
             </mat-label>
-            <input matInput formControlName="login" placeholder="Pseudonyme" autocomplete=false>
+            <label>
+                <input matInput formControlName="login" placeholder="Pseudonyme" autocomplete=false>
+            </label>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="input-full-width">
@@ -22,6 +23,6 @@
     </mat-dialog-content>
     <mat-dialog-actions align="center">
         <button type="submit" class="uni-btn-danger" [mat-dialog-close]="true">Se connecter</button>
-        <button class="uni-btn-primary" (click)="onSignUp()" routerLink="/nouvel-utilisateur" [mat-dialog-close]="true" cdkFocusInitial> S'inscrire </button>
+        <button class="uni-btn-primary" (click)="onSignUp()" [mat-dialog-close]="true" cdkFocusInitial> S'inscrire </button>
     </mat-dialog-actions>
 </form>

@@ -17,14 +17,9 @@ export class MatchService {
   }
 
 
-  getAll(page?: number, limit?: number) {
-    let url: string;
-    if (page && limit) {
-      url = `${this.api}/matchs?page=${page}&limit=${limit}`;
-    } else {
-      url = `${this.api}/matchs`;
-    }
-    return this.http.get<any>(url)
+  getAll(params) {
+    let url: string = `${this.api}/matchs/search`;
+    return this.http.post<any>(url, params)
       .pipe(
         catchError(err => this.errorService.handleHttpError(err))
       );

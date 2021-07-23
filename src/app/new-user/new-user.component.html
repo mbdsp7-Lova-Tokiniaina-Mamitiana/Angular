@@ -1,51 +1,53 @@
-<div class="auth">
-    <div class="row auth-card">
-        <div class="col-md-12 auth-forms">
+<form [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
+    <mat-dialog-content class="mat-typography">
+        <h1 class="text-center">S'inscrire</h1>
+        <mat-form-field appearance="outline" class="input-full-width">
+            <mat-label>
+                <mat-icon>account_circle</mat-icon>
+                Pseudonyme
+            </mat-label>
+            <input matInput formControlName="login" placeholder="Pseudonyme" autocomplete=false>
+        </mat-form-field>
 
-            <div class="row text-center">
-                <h1>Nouveau membre</h1>
-            </div>
+        <mat-form-field appearance="outline" class="input-full-width">
+            <mat-label>
+                <mat-icon>account_circle</mat-icon>
+                Nom
+            </mat-label>
+            <input matInput formControlName="nom" placeholder="Nom" autocomplete=false>
+        </mat-form-field>
 
-            <form [formGroup]="signInForm" (ngSubmit)="onSignIn()">
+        <mat-form-field appearance="outline" class="input-full-width">
+            <mat-label>
+                <mat-icon>account_circle</mat-icon>
+                Prénom
+            </mat-label>
+            <input matInput formControlName="prenom" placeholder="Prénom" autocomplete=false>
+        </mat-form-field>
 
-                <mat-form-field appearance="outline" class="input-full-width">
-                    <mat-label>
-                        <mat-icon>email</mat-icon> Email
-                    </mat-label>
-                    <input matInput formControlName="email" placeholder="Email" autocomplete=false type="email">
-                </mat-form-field>
+        <mat-form-field appearance="outline" class="input-full-width">
+            <mat-label>
+                <mat-icon>account_circle</mat-icon>
+                Email
+            </mat-label>
+            <label>
+                <input matInput formControlName="email" placeholder="Email" autocomplete="email" type="email">
+            </label>
+        </mat-form-field>
 
-
-                <mat-form-field appearance="outline" class="input-full-width">
-                    <mat-label>
-                        <mat-icon>account_circle</mat-icon> Pseudonyme
-                    </mat-label>
-                    <input matInput formControlName="login" placeholder="Pseudonyme" autocomplete=false>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="input-full-width">
-                    <mat-label>
-                        <mat-icon>lock_open</mat-icon> Mot de passe
-                    </mat-label>
-                    <input matInput formControlName="password" placeholder="Mot de passe" autocomplete=false type="password">
-                </mat-form-field>
-
-                
-
-                <div class="row">
-                    <div class="col-md-8"></div>
-                    <div class="col-md-4 text-center">
-                        <div class="button-row">
-                            <button mat-raised-button color="primary" routerLink="/" >
-                               Se connecter
-                            </button>
-                            <button type="submit" mat-raised-button color="accent">
-                                Créer
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+        <mat-form-field appearance="outline" class="input-full-width">
+            <mat-label>
+                <mat-icon>lock_open</mat-icon>
+                Mot de passe
+            </mat-label>
+            <label>
+                <input matInput formControlName="password" placeholder="Mot de passe" autocomplete=false
+                       type="password">
+            </label>
+        </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+        <button class="uni-btn-danger" [mat-dialog-close]="true">Fermer</button>
+        <button type="submit"  class="uni-btn-primary" [mat-dialog-close]="true" cdkFocusInitial> S'inscrire </button>
+    </mat-dialog-actions>
+</form>

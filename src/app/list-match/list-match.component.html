@@ -1,17 +1,32 @@
 <div class="today-match">
     <img src="../../assets/gif/bell-gif.gif" alt="" class="gif" width="100"/>
     <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-3 text-center p-4 equipe-title">{{listMatch[0]?.equipe1.nom}}</div>
-        <div class="col-md-1"><img src="{{photo_url + listMatch[0]?.equipe1.avatar}}" alt="" class="equipe-avatar">
-        </div>
+        <ul class="flex-container" *ngIf="listMatchToday.length>0, else noTodayMatch">
+            <li class="flex-item" *ngFor="let todayMatch of listMatchToday">
+                <div class="row">
+                    <div class="col-md-1"></div>
 
-        <div class="col-md-2 text-center p-4">{{listMatch[0]?.date_match | date : 'HH:mm'}}</div>
+                    <div class="col-md-3 text-center p-4 equipe-title">{{todayMatch.equipe1.nom}}</div>
+                    <div class="col-md-1"><img src="{{photo_url + todayMatch.equipe1.avatar}}" alt=""
+                                               class="equipe-avatar">
+                    </div>
 
-        <div class="col-md-1"><img src="{{photo_url + listMatch[0]?.equipe2.avatar}}" alt="" class="equipe-avatar">
-        </div>
-        <div class="col-md-3 text-center p-4 equipe-title">{{listMatch[0]?.equipe2.nom}}</div>
-        <div class="col-md-1"></div>
+                    <div class="col-md-2 text-center vs-title-today-match">{{todayMatch.date_match | date : 'HH:mm'}}</div>
+
+                    <div class="col-md-1"><img src="{{photo_url + todayMatch.equipe2.avatar}}" alt=""
+                                               class="equipe-avatar">
+                    </div>
+                    <div class="col-md-3 text-center p-4 equipe-title">{{todayMatch.equipe2.nom}}</div>
+
+                    <div class="col-md-1"></div>
+                </div>
+            </li>
+        </ul>
+        <ng-template #noTodayMatch>
+            <div class="flex-item no-today-match">
+                Aucuns matchs disponible pour aujourd'hui !
+            </div>
+        </ng-template>
     </div>
 </div>
 
@@ -75,6 +90,10 @@
             </div>
             <!-- Recherche munticritère -->
 
+            <div class="box m-1 link-detail-match m-3 p-3 text-center" *ngIf="listMatch.length == 0, else noSearchResult">
+                Aucuns résultats
+            </div>
+            <ng-template #noSearchResult>
             <!-- Liste des matchs -->
             <cdk-virtual-scroll-viewport itemSize="200" class="viewport box">
                 <div class="box m-1 link-detail-match m-3 p-3" *cdkVirtualFor="let match of listMatch">
@@ -137,6 +156,7 @@
                     </a>
                 </div>
             </cdk-virtual-scroll-viewport>
+            </ng-template>
             <!-- Liste des matchs -->
             <ngx-ui-loader [loaderId]="'loader-liste-match'"
                            [fgsType]="'square-jelly-box'"
@@ -161,8 +181,6 @@
             </div>
     </div>
 </div>
-
-
 <div class="row text-center">
     <div class="col-sm-12 col-xs-12">
         <div class="tg-statistics d-flex">

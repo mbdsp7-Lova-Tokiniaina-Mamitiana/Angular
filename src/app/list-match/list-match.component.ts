@@ -1,4 +1,4 @@
-import {Component, NgZone, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ErrorTracker} from '../shared/models/error-tracker';
 import {DesignService} from '../shared/services/design.service';
 import {Match} from '../shared/interfaces/match';
@@ -8,10 +8,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {Pari} from '../shared/interfaces/pari';
 import {PariService} from '../shared/services/pari.service';
 import {environment} from 'src/environments/environment';
-import { PageEvent } from '@angular/material/paginator';
 import {EquipeService} from '../shared/services/equipe.service';
 import {Equipe} from '../shared/interfaces/equipe';
-import {Pagination} from '../shared/interfaces/pagination';
 import {FormControl, FormGroup} from '@angular/forms';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import {AppLoader} from '../shared/constant';
@@ -33,18 +31,14 @@ export class ListMatchComponent implements OnInit {
   listMatch: Match[] = [];
   listPari: Pari[] = [];
   listEquipe: Equipe[] = [];
+  listMatchToday: Match[] = [];
   userCount: number = 0;
 
   page: number = 1;
   limit:number = 2;
 
-  matchPagination: Pagination = null;
-  equipePagination: Pagination = null;
   photo_url: string = environment.photo_endpoint;
 
-
-  pageSizeOptions: number[] = [5, 10, 25];
-  pageEvent: PageEvent;
 
   matchDate: FormGroup;
 
@@ -52,14 +46,9 @@ export class ListMatchComponent implements OnInit {
   pari: string = '';
 
 
-  list_match_params = {
+  list_match_pagination = {
     limit: 10000,
-    page: 1,
-    pari: "undefined",
-    equipe: "undefined",
-    etat: "undefined",
-    periode: "undefined",
-    isToday: "undefined"
+    page: 1
   }
 
   constructor(
@@ -71,10 +60,6 @@ export class ListMatchComponent implements OnInit {
     private equipeService: EquipeService,
     private ngxLoader: NgxUiLoaderService
   ) {
-    const today = new Date();
-    const month = today.getMonth();
-    const year = today.getFullYear();
-
     this.matchDate = new FormGroup({
       start: new FormControl(),
       end: new FormControl()
@@ -92,6 +77,21 @@ export class ListMatchComponent implements OnInit {
         this.designService.openErrorSnackBar(errors);
       }
     );
+  }
+
+  getListMatchToday() {
+    let paramsListMatchToday = {
+      ...this.list_match_pagination,
+      isToday: true
+    }
+    this.matchService.getAll(paramsListMatchToday).subscribe(
+      (dataResult) => {
+        this.listMatchToday = dataResult.docs;
+      }, (error: ErrorTracker) => {
+        const errors = (error.userMessage != undefined) ? error.userMessage : 'Une erreur s\'est produite, recommencer l\'opération';
+        this.designService.openErrorSnackBar(errors);
+      }
+    )
   }
 
   getListEquipe() {
@@ -121,9 +121,10 @@ export class ListMatchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getListMatch(this.list_match_params);
+    this.getListMatch(this.list_match_pagination);
     this.getListPari();
     this.getListEquipe();
+    this.getListMatchToday();
 
     this.userService.userCount().subscribe(
       (data) => {
@@ -164,9 +165,37 @@ export class ListMatchComponent implements OnInit {
   }
 
   search() {
-    this.list_match_params.equipe = (this.equipe.length>0)?this.equipe:"undefined";
-    this.list_match_params.pari = (this.pari.length>0)?this.pari:"undefined";
-    this.getListMatch(this.list_match_params);
+    let match_params: any;
+    if (this.equipe.length > 0 && this.pari.length > 0 && this.matchDate) {
+      match_params = {
+        ...this.list_match_pagination,
+        pari: this.pari,
+        equipe: this.equipe,
+        periode : {
+          date_debut : new Date(this.matchDate.controls.start.value).toLocaleDateString('fr-CA'),
+          date_fin: new Date(this.matchDate.controls.end.value).toLocaleDateString('fr-CA')
+        }
+      }
+    } else if (this.equipe.length > 0) {
+      match_params = {
+        ...this.list_match_pagination,
+        equipe: this.equipe
+      }
+    } else if(this.pari.length > 0) {
+      match_params = {
+        ...this.list_match_pagination,
+        pari: this.pari
+      }
+    } else if (this.matchDate) {
+      match_params = {
+        ...this.list_match_pagination,
+        periode : {
+          date_debut : new Date(this.matchDate.controls.start.value).toLocaleDateString('fr-CA'),
+          date_fin: new Date(this.matchDate.controls.end.value).toLocaleDateString('fr-CA')
+        }
+      }
+    }
+    this.getListMatch(match_params);
   }
 
 }

@@ -82,9 +82,9 @@ export class UserService {
       );
   }
 
-  personnalHistories() {
+  personnalHistories(max:number, offset: number, statut:number) {
     const userInfo = JSON.parse(localStorage.getItem('_userInfo_')!);
-    return this.http.get<any>(`${this.grails_endpoint}/historiquepersonnels?id=${userInfo._id}`)
+    return this.http.get<any>(`${this.grails_endpoint}/historiquepersonnels?id=${userInfo._id}&max=${max}&offset=${offset}&statut=${statut}`)
       .pipe(
         catchError(err => this.errorService.handleHttpError(err))
       );

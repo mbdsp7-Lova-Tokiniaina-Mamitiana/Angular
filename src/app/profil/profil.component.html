@@ -4,40 +4,48 @@
     </div>
 
     <div class="row mt-5">
-        <div class="col-md-6" style="position: relative">
+        <div class="col-md-4" style="position: relative">
             <form>
                 <mat-form-field appearance="outline" class="input-full-width">
                     <mat-label>
-                        <mat-icon>account_circle</mat-icon> {{user.login}}
+                        <mat-icon>account_circle</mat-icon>
+                        {{user.login}}
                     </mat-label>
                     <input matInput placeholder={{user.login}} autocomplete=false>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="input-full-width">
                     <mat-label>
-                        <mat-icon>mail</mat-icon> {{user.email}}
+                        <mat-icon>mail</mat-icon>
+                        {{user.email}}
                     </mat-label>
                     <input matInput placeholder={{user.email}} autocomplete=false type="password">
                 </mat-form-field>
 
                 <div class="row">
-                    <div class="col-md-6"></div>
-                    <div class="col-md-6 text-center">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10 text-center">
                         <div class="button-row">
                             <button type="submit" class="uni-btn-danger">
                                 Annuler
                             </button>
-                            <button class="uni-btn-primary" routerLink="/nouvel-utilisateur" >
+                            <button class="uni-btn-primary" routerLink="/nouvel-utilisateur">
                                 Valider le modifications
                             </button>
                         </div>
                     </div>
                 </div>
             </form>
-            <ngx-ui-loader [loaderId]="'loader-profil'"></ngx-ui-loader>
+            <ngx-ui-loader [loaderId]="'loader-profil'"
+                           [fgsType]="'square-jelly-box'"
+                           [hasProgressBar]="false"
+                           [fgsColor]="loaderColor"
+                           [text]="loaderText"
+                           [overlayColor]="'rgba(50,53,57,0.8)'"></ngx-ui-loader>
         </div>
+
         <div class="col-md-1"></div>
-        <div class="col-md-5">
+        <div class="col-md-7">
             <h2 class="align-center mt-1">Historique de votre jeton</h2>
             <div class="row mt-1">
                 <div class="col-md-3">
@@ -54,37 +62,50 @@
             </div>
             <div class="row" style="position: relative">
                 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-                    <!-- Position Column -->
-                    <ng-container matColumnDef="number">
-                      <th mat-header-cell *matHeaderCellDef> No. </th>
-                      <td mat-cell *matCellDef="let element"> {{element.number}} </td>
+                    <!-- Date du pari Column -->
+                    <ng-container matColumnDef="dateHisto">
+                        <th mat-header-cell *matHeaderCellDef> Date du pari</th>
+                        <td mat-cell *matCellDef="let element"> {{element.dateHisto | date : 'dd/MM/YYYY'}} </td>
                     </ng-container>
 
-                    <!-- Name Column -->
-                    <ng-container matColumnDef="date">
-                      <th mat-header-cell *matHeaderCellDef> Date </th>
-                      <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+                    <!--'dateHisto', 'textePari', 'montant', 'nomEquipe1', 'avatarEquipe1', 'nomEquipe1', 'avatarEquipe1', 'cote', 'dateMatch'-->
+                    <!-- Texte du pari Column -->
+                    <ng-container matColumnDef="textePari">
+                        <th mat-header-cell *matHeaderCellDef> Pari</th>
+                        <td mat-cell *matCellDef="let element"> {{element.textePari}} </td>
                     </ng-container>
 
-                    <!-- Weight Column -->
-                    <ng-container matColumnDef="mouvement">
-                      <th mat-header-cell *matHeaderCellDef> Mouvement </th>
-                      <td mat-cell *matCellDef="let element"> {{element.mouvement}} </td>
+                    <!-- Montant (Mise) Column -->
+                    <ng-container matColumnDef="montant">
+                        <th mat-header-cell *matHeaderCellDef> Mise</th>
+                        <td mat-cell *matCellDef="let element"> {{element.montant}} </td>
                     </ng-container>
 
-                    <!-- Symbol Column -->
-                    <ng-container matColumnDef="jeton">
-                      <th mat-header-cell *matHeaderCellDef> Jeton </th>
-                      <td mat-cell *matCellDef="let element"> {{element.jeton}} </td>
+                    <!-- Cote Column -->
+                    <ng-container matColumnDef="cote">
+                        <th mat-header-cell *matHeaderCellDef> Cote</th>
+                        <td mat-cell *matCellDef="let element"> {{element.cote}} </td>
+                    </ng-container>
+
+                    <!-- Date du match Column -->
+                    <ng-container matColumnDef="dateMatch">
+                        <th mat-header-cell *matHeaderCellDef> Date du match</th>
+                        <td mat-cell *matCellDef="let element"> {{element.dateMatch | date : 'dd/MM/YYYY'}} </td>
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                  </table>
-                <ngx-ui-loader [loaderId]="'loader-histo-personnel'"></ngx-ui-loader>
+                </table>
+                <ngx-ui-loader [loaderId]="'loader-histo-personnel'"
+                               [fgsType]="'three-bounce'"
+                               [hasProgressBar]="false"
+                               [fgsColor]="loaderColor"
+                               [text]="loaderText"
+                               [overlayColor]="'rgba(50,53,57,0.8)'"></ngx-ui-loader>
             </div>
         </div>
 
     </div>
 
 </div>
+

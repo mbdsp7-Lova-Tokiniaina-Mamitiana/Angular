@@ -43,15 +43,46 @@
 
                 <div class="row" *ngIf="!match?.etat;else finishedPari">
                     <div class="col-sm-3 pari-detail" *ngFor="let pari of match?.pari">
-                        <div class="pari-detail-content py-3">
+                        <!--<div class="pari-detail-content py-3">
                             <div class="pari-detail-title">{{pari.description}}</div>
                             <div class="pari-detail-cote">{{pari.cote}}</div>
+                            <mat-form-field appearance="outline" class="form-field-amount">
+                                <mat-label>Montant</mat-label>
+                                <label>
+                                    <input matInput [(ngModel)]="montant" type="number">
+                                </label>
+                            </mat-form-field>
                             <div class="pari-detail-action">
                                 <a class="btn-yellow" (click)="onBetting(pari._id, pari.cote, pari.description)"> Parier
                                     &nbsp;<mat-icon svgIcon="token"></mat-icon>
                                 </a>
                             </div>
-                        </div>
+                        </div>-->
+                        <mat-accordion class="headers-align m-2" multi>
+                            <mat-expansion-panel class="pari-detail-content">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        <div class="pari-detail-content form-content">
+                                            <div class="pari-detail-title">{{pari.description}}</div>
+                                            <div class="pari-detail-cote">{{pari.cote}}</div>
+                                        </div>
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <div class="row p-3 form-content">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Mise</mat-label>
+                                        <label>
+                                            <input matInput [(ngModel)]="mise" type="number" min="1">
+                                        </label>
+                                    </mat-form-field>
+                                    <div class="pari-detail-action">
+                                        <a class="btn-yellow" (click)="onBetting(pari._id, pari.cote, pari.description)"> Parier
+                                            &nbsp;<mat-icon svgIcon="token"></mat-icon>
+                                        </a>
+                                    </div>
+                                </div>
+                            </mat-expansion-panel>
+                        </mat-accordion>
                     </div>
                 </div>
 

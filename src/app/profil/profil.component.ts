@@ -5,33 +5,38 @@ import {MatDialog} from '@angular/material/dialog';
 import {DialogAddTokenComponent} from './dialog-add-token/dialog-add-token.component';
 import {DesignService} from '../shared/services/design.service';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
-
-
-const ELEMENT_DATA: any[] = [
-  {number: 1, date: '2021-12-01', mouvement: 'Entrée', jeton: 200},
-  {number: 2, date: '2021-11-25', mouvement: 'Sorti', jeton: 20},
-  {number: 3, date: '2021-11-20', mouvement: 'Sorti', jeton: 100},
-  {number: 4, date: '2021-10-01', mouvement: 'Entrée', jeton: 1500},
-  {number: 5, date: '2021-04-11', mouvement: 'Sorti', jeton: 20},
-  {number: 6, date: '2021-04-10', mouvement: 'Entrée', jeton: 200},
-  {number: 7, date: '2021-03-03', mouvement: 'Sorti', jeton: 11},
-  {number: 8, date: '2021-03-01', mouvement: 'Entrée', jeton: 350},
-  {number: 9, date: '2021-02-28', mouvement: 'Sorti', jeton: 15},
-  {number: 10, date: '2021-01-15', mouvement: 'Entrée', jeton: 100},
-];
+import {AppLoader} from '../shared/constant';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import {MatTableDataSource} from '@angular/material/table';
+import {ErrorTracker} from '../shared/models/error-tracker';
 
 @Component({
   selector: 'app-profil',
   templateUrl: './profil.component.html',
-  styleUrls: ['./profil.component.scss', '../../assets/css/template/main.scss']
+  styleUrls: ['./profil.component.scss', '../../assets/css/template/main.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 
 export class ProfilComponent implements OnInit {
 
   user: User;
-  displayedColumns: string[] = ['number', 'date', 'mouvement', 'jeton'];
-  dataSource = ELEMENT_DATA;
+  //displayedColumns: string[] = ['dateHisto', 'textePari', 'montant', 'nomEquipe1', 'avatarEquipe1', 'nomEquipe1', 'avatarEquipe1', 'cote', 'dateMatch'];
+  displayedColumns: string[] = ['dateHisto', 'textePari', 'montant', 'cote', 'dateMatch'];
+  //displayedColumns: string[] = ['Date du pari', 'Pari', 'Mise', 'Cote', 'Date du match'];
+  histoPersoList: any[] = [];
+  dataSource = new MatTableDataSource(this.histoPersoList);
   actualToken: number = 0;
+  expandedElement: any | null;
+
+  loaderLogo = AppLoader.loaderLogo;
+  loaderColor = AppLoader.loaderColor;
+  loaderText = AppLoader.loaderTextMatch;
 
   constructor(
     private userService: UserService,
@@ -46,17 +51,25 @@ export class ProfilComponent implements OnInit {
     this.ngxLoader.startLoader('loader-profil');
     this.userService.profil().subscribe(
       (user) => {
-        console.log(user);
         this.actualToken = user.solde;
         this.ngxLoader.stopLoader('loader-profil');
+      }, (error: ErrorTracker) => {
+        const errors = (error.userMessage != undefined) ? error.userMessage : 'Une erreur s\'est produite, recommencer l\'opération';
+        this.designService.openErrorSnackBar(errors);
       }
     )
   }
 
-  personalHistories() {
-    this.userService.personnalHistories().subscribe(
+  personalHistories(max:number, offset:number, statut:number) {
+    this.ngxLoader.startLoader('loader-histo-personnel');
+    this.userService.personnalHistories(max, offset, statut).subscribe(
       (dataResult) => {
-        console.log(dataResult);
+        this.dataSource = dataResult;
+        console.log(this.dataSource);
+        this.ngxLoader.stopLoader('loader-histo-personnel');
+      }, (error: ErrorTracker) => {
+        const errors = (error.userMessage != undefined) ? error.userMessage : 'Une erreur s\'est produite, recommencer l\'opération';
+        this.designService.openErrorSnackBar(errors);
       }
     )
   }
@@ -64,13 +77,14 @@ export class ProfilComponent implements OnInit {
   ngOnInit(): void {
       this.initializeProfil();
       this.user = this.userService.getCurrentUser();
-      this.personalHistories();
+      this.personalHistories(10,0,0);
   }
 
   addToken() {
     const dialogRef = this._dialog.open(DialogAddTokenComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        console.log("Result", result);
         this.designService.openSuccessSnackBar("Ajout de jeton avec succès !!!");
         this.initializeProfil();
       }

@@ -60,3 +60,19 @@
     color: #E85C3C !important;
     font-size: 20px !important;
 }
+
+.form-content {
+    color: white !important;
+}
+
+$color-outline: whitesmoke;
+mat-form-field {
+    // to change border color
+    ::ng-deep .mat-form-field-outline {
+        color: $color-outline !important;
+    }
+    // to change label color
+    ::ng-deep .mat-form-field-label {
+        color: $color-outline !important;
+    }
+}

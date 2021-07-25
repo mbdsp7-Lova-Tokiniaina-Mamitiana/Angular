@@ -53,7 +53,7 @@ export class DetailMatchComponent implements OnInit {
   }
 
   viewMap(longitude: number, latitude: number) {
-    /*this.mapboxContent = new mapboxgl.Map({
+    this.mapboxContent = new mapboxgl.Map({
       container: this.mapCard.nativeElement,
       style: mapboxConfig.style,
       zoom: 13,
@@ -63,7 +63,7 @@ export class DetailMatchComponent implements OnInit {
     this.mapboxContent.addControl(new mapboxgl.NavigationControl());
     new mapboxgl.Marker()
       .setLngLat([longitude, latitude])
-      .addTo(this.mapboxContent);*/
+      .addTo(this.mapboxContent);
   }
 
   getMatchDetail() {
@@ -101,26 +101,6 @@ export class DetailMatchComponent implements OnInit {
         });
       }, 1000);
     } else {
-      /*this.userService.profil().subscribe(
-        (user) => {
-          console.log(user);
-          if (cote > user.solde) {
-            this.ngxLoader.stopLoader('loader-bet');
-            this.designService.openErrorSnackBar('Vous n\'avez pas assez de jeton pour parier. Pensez à recharger votre compte !!!');
-            setTimeout(() => {
-            }, 1000);
-          } else {
-
-          }
-        }, (error: ErrorTracker) => {
-          this.ngxLoader.stopLoader('loader-bet');
-          const errors = (error.userMessage != undefined) ? error.userMessage : 'Une erreur s\'est produite, recommencer l\'opération';
-          setTimeout(() => {
-            this.designService.openErrorSnackBar(errors);
-          }, 1000);
-        }
-      );*/
-
       if (+this.mise <= 0) {
         this.ngxLoader.stopLoader('loader-bet');
         setTimeout(() => {

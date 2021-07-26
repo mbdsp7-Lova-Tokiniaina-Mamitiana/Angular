@@ -6,21 +6,20 @@
     <div class="row mt-5">
         <div class="col-md-4" style="position: relative">
             <form>
-                <mat-form-field appearance="outline" class="input-full-width">
-                    <mat-label>
-                        <mat-icon>account_circle</mat-icon>
-                        {{user.login}}
-                    </mat-label>
-                    <input matInput placeholder={{user.login}} autocomplete=false>
-                </mat-form-field>
+                <div class="tg-form">
+                    <fieldset>
+                        <input matInput placeholder='Login : {{user.login}}' autocomplete=false class="form-control">
+                    </fieldset>
+                </div>
 
-                <mat-form-field appearance="outline" class="input-full-width">
-                    <mat-label>
-                        <mat-icon>mail</mat-icon>
-                        {{user.email}}
-                    </mat-label>
-                    <input matInput placeholder={{user.email}} autocomplete=false type="password">
-                </mat-form-field>
+
+                <div class="tg-form">
+                    <fieldset>
+                        <input matInput placeholder='Email : {{user.email}}' autocomplete=false type="password" class="form-control">
+                    </fieldset>
+                </div>
+
+
 
                 <div class="row">
                     <div class="col-md-1"></div>

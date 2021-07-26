@@ -83,6 +83,17 @@
     background-image: url("../../assets/img/bg-flag.jpg");
     color: whitesmoke;
 
+    .vs-title-today-match {
+        font-family: "Oswald", serif;
+        font-size: 30px;
+        color: #FFCC33;
+    }
+
+    .no-today-match {
+        font-family: "Oswald", serif;
+        font-size: 30px;
+    }
+
     .flex-container {
         padding: 0;
         margin: 0;
@@ -109,14 +120,13 @@
         text-align: center;
         flex-grow: 1;
     }
-    .vs-title-today-match {
-        font-family: "Oswald", serif;
-        font-size: 30px;
-        color: #FFCC33;
-    }
+}
 
-    .no-today-match {
-        font-family: "Oswald", serif;
-        font-size: 30px;
-    }
+.result-count {
+    font-family: "Oswald", serif;
+    font-size: 20px;
+    text-align: center;
+    padding: 5px;
+    background-color: #373542;
+    color: whitesmoke;
 }

@@ -76,3 +76,45 @@ mat-form-field {
         color: $color-outline !important;
     }
 }
+
+.suggests-matchs {
+    .tg-section-name{
+        left:10px;
+        z-index:1;
+        position:absolute;
+        border-bottom:2px solid #FFCC33;
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+        transform: rotate(90deg);
+        -webkit-transform-origin: 20px 20px;
+        -moz-transform-origin: 20px 20px;
+        -ms-transform-origin: 20px 20px;
+        -o-transform-origin: 20px 20px;
+        transform-origin: 20px 20px;
+    }
+    .tg-section-name:after{
+        bottom:-2px;
+        content:'';
+        width:100px;
+        height:2px;
+        z-index:-1;
+        background:#373542;
+        position:absolute;
+    }
+    .tg-section-name h2{
+        width:100%;
+        float:left;
+        margin:0 0 15px;
+        font-size:18px;
+        line-height:18px;
+    }
+
+    .suggests-matchs-content {
+        background-color: green;
+        margin-left: 30px;
+    }
+
+}
+

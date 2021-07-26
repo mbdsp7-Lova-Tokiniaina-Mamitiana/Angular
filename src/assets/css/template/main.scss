@@ -213,3 +213,26 @@
     padding: 0 0 15px;
     border-bottom: 1px solid #aeaeae;
 }
+
+
+
+.tg-form{
+    width:100%;
+    float:left;
+    padding:0 0 30px;
+}
+
+.tg-form fieldset{
+    width:80%;
+    float:left;
+    margin:0;
+    padding:0;
+    border:0;
+}
+.tg-form fieldset .form-control{
+    height:40px;
+    line-height:38px;
+    background:#fff;
+    padding:0 20px;
+    border:1px solid #ddd;
+}

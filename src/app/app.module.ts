@@ -1,9 +1,12 @@
 import {ErrorHandler, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouterModule, Routes} from '@angular/router';
-
+import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { DATE_FORMATS } from './shared/Date-format';
 import { NgxKjuaModule } from 'ngx-kjua';
 import { NgxUiLoaderModule } from "ngx-ui-loader";
+
+import { CountUpModule } from 'ngx-countup';
 /** Import des modules angular */
 import {ReactiveFormsModule} from '@angular/forms';
 import {FormsModule} from '@angular/forms';
@@ -141,12 +144,14 @@ const materialModule = [
         [...materialModule],
         SlickCarouselModule,
         NgxKjuaModule,
+        CountUpModule,
         RouterModule.forRoot(routes)
-
     ],
     providers: [
         {provide: ErrorHandler, useClass: ErrorService},
-        {provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true}
+        {provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true},
+        { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
+        { provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS }
     ],
     bootstrap: [AppComponent]
 })

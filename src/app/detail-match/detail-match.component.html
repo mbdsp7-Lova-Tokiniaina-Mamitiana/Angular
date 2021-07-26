@@ -1,5 +1,5 @@
 <div class="body">
-    <div class="row mb-1 header">
+    <div class="row mb-1 header pt-3 pb-3">
         <!-- Date du match -->
         <div class="col-md-1">
             <div class="uni-entry-body text-left">
@@ -12,24 +12,33 @@
         </div>
 
         <!-- Equipe 1 -->
-        <div class="col-md-3 text-center p-4 equipe-title">{{match?.equipe1.nom}}</div>
+        <div class="col-md-3 text-end p-4 equipe-title">{{match?.equipe1.nom}}</div>
         <div class="col-md-1"><img src="{{photo_url + match?.equipe1.avatar}}" alt="" width="120px"></div>
 
         <!-- VS -->
-        <div class="col-md-2 text-center p-4 vs-title">VS</div>
+        <div class="col-md-1 text-center p-4 vs-title">VS <!-- Heure du match -->
+            <p class="pt-5">{{match?.date_match | date : 'HH:mm'}}</p></div>
 
         <!-- Equipe 2 -->
         <div class="col-md-1"><img src="{{photo_url + match?.equipe2.avatar}}" alt="" width="120px"></div>
-        <div class="col-md-3 text-center p-4 equipe-title">{{match?.equipe2.nom}}</div>
+        <div class="col-md-3 text-start p-4 equipe-title">{{match?.equipe2.nom}}</div>
 
-        <div class="col-md-1"></div>
-        <div class="col-md-5"></div>
-
-        <!-- Heure du match -->
-        <div class="col-md-2 text-center p-4 vs-title">
-            {{match?.date_match | date : 'HH:mm'}}
+        <div class="col-md-1">
+            <ngx-kjua
+                    [text]=qrCode
+                    [render]="'svg'"
+                    [crisp]="true"
+                    [minVersion]="1"
+                    [ecLevel]="'H'"
+                    [size]="200"
+                    [rounded]="100"
+                    [quiet]="1"
+                    [mode]="'plain'"
+                    [mSize]="30"
+                    [mPosX]="50"
+                    [mPosY]="50"
+            ></ngx-kjua>
         </div>
-        <div class="col-md-5"></div>
     </div>
 
     <mat-divider></mat-divider>
@@ -40,24 +49,8 @@
                 <div class="section-heading">
                     <h2>Les paris disponibles pour ce match</h2>
                 </div>
-
                 <div class="row" *ngIf="!match?.etat;else finishedPari">
                     <div class="col-sm-3 pari-detail" *ngFor="let pari of match?.pari">
-                        <!--<div class="pari-detail-content py-3">
-                            <div class="pari-detail-title">{{pari.description}}</div>
-                            <div class="pari-detail-cote">{{pari.cote}}</div>
-                            <mat-form-field appearance="outline" class="form-field-amount">
-                                <mat-label>Montant</mat-label>
-                                <label>
-                                    <input matInput [(ngModel)]="montant" type="number">
-                                </label>
-                            </mat-form-field>
-                            <div class="pari-detail-action">
-                                <a class="btn-yellow" (click)="onBetting(pari._id, pari.cote, pari.description)"> Parier
-                                    &nbsp;<mat-icon svgIcon="token"></mat-icon>
-                                </a>
-                            </div>
-                        </div>-->
                         <mat-accordion class="headers-align m-2" multi>
                             <mat-expansion-panel class="pari-detail-content">
                                 <mat-expansion-panel-header>
@@ -85,32 +78,21 @@
                         </mat-accordion>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
     <div class="row mt-5">
-        <div class="col-md-3">
-            <div class="tg-widget tg-catagories-widget">
-                <h4>Scanner et Parier</h4>
-                <ngx-kjua
-                        [text]=qrCode
-                        [render]="'svg'"
-                        [crisp]="true"
-                        [minVersion]="1"
-                        [ecLevel]="'H'"
-                        [size]="200"
-                        [rounded]="100"
-                        [quiet]="1"
-                        [mode]="'plain'"
-                        [mSize]="30"
-                        [mPosX]="50"
-                        [mPosY]="50"
-                ></ngx-kjua>
+        <div class="col-md-4 suggests-matchs mt-5">
+            <div class="tg-section-name">
+                <h2>Les matchs à venir</h2>
             </div>
+            <div class="suggests-matchs-content p-2">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusantium asperiores at atque cumque, debitis earum id illum ipsum nam nemo nisi odit quidem, rem, similique soluta sunt vitae voluptas.
+            </div>
+
         </div>
 
-        <div class="col-md-9 map">
+        <div class="col-md-8 map">
             <div class="tg-widget tg-catagories-widget">
                 <h4>Localisation</h4>
             </div>

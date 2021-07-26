@@ -34,6 +34,8 @@ export class ListMatchComponent implements OnInit {
   listMatchToday: Match[] = [];
   userCount: number = 0;
 
+  matchCount: number = 0;
+
   page: number = 1;
   limit:number = 2;
 
@@ -51,6 +53,11 @@ export class ListMatchComponent implements OnInit {
     page: 1
   }
 
+   options = {
+    startVal: 0,
+    duration: 5,
+    separator: " "
+  };
   constructor(
     private matchService: MatchService,
     private designService: DesignService,
@@ -72,6 +79,17 @@ export class ListMatchComponent implements OnInit {
       (dataResult) => {
         this.listMatch = dataResult.docs;
         this.ngxLoader.stopLoader('loader-liste-match');
+      }, (error: ErrorTracker) => {
+        const errors = (error.userMessage != undefined) ? error.userMessage : 'Une erreur s\'est produite, recommencer l\'opération';
+        this.designService.openErrorSnackBar(errors);
+      }
+    );
+  }
+
+  getMatchCount(params) {
+    this.matchService.getAll(params).subscribe(
+      (dataResult) => {
+        this.matchCount = dataResult.docs.length;
       }, (error: ErrorTracker) => {
         const errors = (error.userMessage != undefined) ? error.userMessage : 'Une erreur s\'est produite, recommencer l\'opération';
         this.designService.openErrorSnackBar(errors);
@@ -122,6 +140,7 @@ export class ListMatchComponent implements OnInit {
 
   ngOnInit(): void {
     this.getListMatch(this.list_match_pagination);
+    this.getMatchCount(this.list_match_pagination);
     this.getListPari();
     this.getListEquipe();
     this.getListMatchToday();
@@ -166,36 +185,42 @@ export class ListMatchComponent implements OnInit {
 
   search() {
     let match_params: any;
-    if (this.equipe.length > 0 && this.pari.length > 0 && this.matchDate) {
+    const date_debut = this.matchDate.controls.start.value;
+    const date_fin = this.matchDate.controls.end.value;
+    const equipe = this.equipe;
+    const pari = this.pari;
+
+    match_params = {
+      ...this.list_match_pagination
+    }
+    if (equipe.length > 0 ) {
       match_params = {
-        ...this.list_match_pagination,
-        pari: this.pari,
-        equipe: this.equipe,
-        periode : {
-          date_debut : new Date(this.matchDate.controls.start.value).toLocaleDateString('fr-CA'),
-          date_fin: new Date(this.matchDate.controls.end.value).toLocaleDateString('fr-CA')
-        }
+        ...match_params,
+        equipe: equipe
       }
-    } else if (this.equipe.length > 0) {
+    } if (pari.length > 0) {
       match_params = {
-        ...this.list_match_pagination,
-        equipe: this.equipe
+        ...match_params,
+        pari: pari
       }
-    } else if(this.pari.length > 0) {
+    } if (date_debut) {
       match_params = {
-        ...this.list_match_pagination,
-        pari: this.pari
+        ...match_params,
+        date_debut: new Date(date_debut).toLocaleDateString('fr-CA')
       }
-    } else if (this.matchDate) {
+    } if (date_fin) {
       match_params = {
-        ...this.list_match_pagination,
-        periode : {
-          date_debut : new Date(this.matchDate.controls.start.value).toLocaleDateString('fr-CA'),
-          date_fin: new Date(this.matchDate.controls.end.value).toLocaleDateString('fr-CA')
-        }
+        ...match_params,
+        date_fin: new Date(date_fin).toLocaleDateString('fr-CA')
       }
     }
+
+    console.log(match_params);
     this.getListMatch(match_params);
+  }
+
+  finish() {
+    console.log("Finish");
   }
 
 }

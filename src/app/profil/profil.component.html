@@ -19,24 +19,22 @@
                     </fieldset>
                 </div>
 
-
-
                 <div class="row">
                     <div class="col-md-1"></div>
                     <div class="col-md-10 text-center">
                         <div class="button-row">
                             <button type="submit" class="uni-btn-danger">
-                                Annuler
+                                <mat-icon>cancel</mat-icon>
                             </button>
                             <button class="uni-btn-primary" routerLink="/nouvel-utilisateur">
-                                Valider le modifications
+                                <mat-icon>check</mat-icon>
                             </button>
                         </div>
                     </div>
                 </div>
             </form>
             <ngx-ui-loader [loaderId]="'loader-profil'"
-                           [fgsType]="'square-jelly-box'"
+                           [fgsType]="'three-bounce'"
                            [hasProgressBar]="false"
                            [fgsColor]="loaderColor"
                            [text]="loaderText"

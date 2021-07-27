@@ -274,3 +274,30 @@ a {
     background: #9D9D9D;
     border-radius: 5px;
 }
+
+.token {
+    cursor: pointer;
+    margin: 5px;
+    display: inline-block;
+    font-weight: 100;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 40px;
+    letter-spacing: normal;
+    text-align: center;
+    color: #333333;
+    padding: 0 15px;
+    background-color: white;
+    border: solid 1px #FFCC33 !important;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+    border-radius: 5%;
+    font-size: 17px;
+
+    &:hover {
+        color: #ffffff;
+        background-color: #27273A;
+        border: solid 2px #FFCC33 !important;
+    }
+}

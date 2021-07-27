@@ -4,6 +4,8 @@ import {User} from '../shared/models/user';
 import {UserService} from '../shared/services/user.service';
 import {MatDialog} from '@angular/material/dialog';
 import {AuthComponent} from '../auth/auth.component';
+import {ErrorTracker} from '../shared/models/error-tracker';
+import {DesignService} from '../shared/services/design.service';
 
 
 @Component({
@@ -13,13 +15,14 @@ import {AuthComponent} from '../auth/auth.component';
 })
 export class ToolbarComponent implements OnInit {
   loggedUser: User = new User('', '', '');
-
   token: any;
+  solde: number = 0;
 
   constructor(
     private router: Router,
     private userService: UserService,
-    private _dialog: MatDialog
+    private _dialog: MatDialog,
+    private designService: DesignService
   ) {
   }
 
@@ -27,6 +30,14 @@ export class ToolbarComponent implements OnInit {
     // TOKEN , GET CURRENT USER
     if (this.userService.isLoggedIn()) {
       this.loggedUser = this.userService.getCurrentUser();
+      this.userService.profil().subscribe(
+        (user) => {
+          this.solde = user.solde;
+        }, (error: ErrorTracker) => {
+          const errors = (error.userMessage != undefined) ? error.userMessage : 'Une erreur s\'est produite, recommencer l\'opération';
+          this.designService.openErrorSnackBar(errors);
+        }
+      )
     } else {
       this.router.navigateByUrl(`/`);
     }

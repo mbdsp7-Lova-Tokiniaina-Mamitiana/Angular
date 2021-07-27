@@ -69,7 +69,8 @@
                                         </label>
                                     </mat-form-field>
                                     <div class="pari-detail-action">
-                                        <a class="btn-yellow" (click)="onBetting(pari._id, pari.cote, pari.description)"> Parier
+                                        <a class="btn-yellow"
+                                           (click)="onBetting(pari._id, pari.cote, pari.description)"> Parier
                                             &nbsp;<mat-icon svgIcon="token"></mat-icon>
                                         </a>
                                     </div>
@@ -87,16 +88,31 @@
                 <h2>Les matchs à venir</h2>
             </div>
             <div class="suggests-matchs-content p-2">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusantium asperiores at atque cumque, debitis earum id illum ipsum nam nemo nisi odit quidem, rem, similique soluta sunt vitae voluptas.
+                <div class="row">
+                    <div class="col-md-12" *ngFor="let randomm of randomMatch">
+                        <a [routerLink]="['/detail-match', randomm._id]">
+                            <div class="row header-card">
+                                <div class="col-md-4 text-center p-4 equipe-title-random">{{randomm.equipe1.nom}}</div>
+                                <div class="col-md-4 text-center vs-title-random">
+                                    <div class="uni-entry-body text-left">
+                                        <div class="uni-entry-time">
+                                            <li class="day"> {{randomm?.date_match | date: 'dd'}} </li>
+                                            <li class="month"> {{randomm?.date_match | date : 'MM' | convertmonthDate }} </li>
+                                            <li class="year"> {{randomm?.date_match | date: 'yyyy'}} </li>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-center p-4 equipe-title-random">{{randomm.equipe2.nom}}</div>
+                            </div>
+                        </a>
+                    </div>
+                    <a routerLink="/" class="btn-yellow">Liste des matchs &nbsp;<mat-icon svgIcon="back"></mat-icon></a>
+                </div>
             </div>
-
         </div>
 
-        <div class="col-md-8 map">
-            <div class="tg-widget tg-catagories-widget">
-                <h4>Localisation</h4>
-            </div>
-            <div class="map" #mapCard id="map" class="match-parent"></div>
+        <div class="col-md-8 map mt-5">
+            <div #mapCard id="map" class="match-parent"></div>
         </div>
     </div>
 </div>
@@ -110,14 +126,14 @@
 </ng-template>
 
 <ngx-ui-loader [loaderId]="'loader-info'"
-               [fgsType]="'square-jelly-box'"
+               [fgsType]="'three-bounce'"
                [hasProgressBar]="false"
                [fgsColor]="loaderColor"
                [text]="loaderText"
                [overlayColor]="'rgba(50,53,57,0.8)'">
 </ngx-ui-loader>
 <ngx-ui-loader [loaderId]="'loader-bet'"
-               [fgsType]="'square-jelly-box'"
+               [fgsType]="'three-bounce'"
                [hasProgressBar]="false"
                [fgsColor]="loaderColor"
                [text]="loaderTextParier"

@@ -4,6 +4,9 @@
   </button>
   <span *ngIf="loggedUser.login">{{loggedUser.login}}</span>
   <span class="spacer"></span>
+
+  <p *ngIf="loggedUser.login" class="token">{{solde}}<mat-icon svgIcon="token"></mat-icon></p>
+
   <button mat-icon-button (click)="viewProfil()" *ngIf="loggedUser.email" matTooltip="Votre profil">
     <mat-icon>account_circle</mat-icon>
   </button>

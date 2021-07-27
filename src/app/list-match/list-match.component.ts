@@ -219,8 +219,5 @@ export class ListMatchComponent implements OnInit {
     this.getListMatch(match_params);
   }
 
-  finish() {
-    console.log("Finish");
-  }
 
 }

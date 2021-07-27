@@ -35,7 +35,7 @@ export class AuthComponent implements OnInit {
             this.userService.login(this.authForm.value).subscribe(
                 (loggedData) => {
                     if (loggedData.auth && loggedData.token) {
-                        console.log('Professor logged in');
+                        console.log('User logged in');
                         localStorage.setItem('token', loggedData.token);
                         localStorage.setItem('isLogged', 'true');
                         window.location.reload();

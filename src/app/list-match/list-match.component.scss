@@ -77,10 +77,16 @@
     background-image: url("../../assets/gif/circles-menu.gif");
 }
 
+
+.header-card {
+    background-image: url("../../assets/img/bg-vs.jpg") !important;
+}
+
 .today-match {
     padding: 10px;
     text-align: center;
-    background-image: url("../../assets/img/bg-flag.jpg");
+    //background-image: url("../../assets/img/bg-flag.jpg");
+    background-image: url("../../assets/img/bg-vs.jpg") !important;
     color: whitesmoke;
 
     .vs-title-today-match {

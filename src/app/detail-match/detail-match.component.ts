@@ -39,8 +39,9 @@ export class DetailMatchComponent implements OnInit {
   logo = 'assets/logo/logo_transparent.png';
 
   mise: number = 1;
-
   userInfo: any;
+
+  randomMatch: Match[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -85,7 +86,7 @@ export class DetailMatchComponent implements OnInit {
     this.getMatchDetail();
     this.qrCode = this.route.snapshot.params.idMatch;
     this.userInfo = JSON.parse(localStorage.getItem('_userInfo_')!);
-
+    this.randomFuturMatch();
   }
 
   onBetting(id_pari: any, cote: number, description: string) {
@@ -107,53 +108,76 @@ export class DetailMatchComponent implements OnInit {
           this.designService.openErrorSnackBar('Montant de la mise ne peut pas être 0');
         }, 1000);
       } else {
-      const matchDetail = this.match;
-      const dateMatchDetail = new Date(this.match.date_match);
-      const dateMatch = `${+dateMatchDetail.getFullYear()}-${+dateMatchDetail.getMonth() + 1}-${+dateMatchDetail.getDay()} ${+dateMatchDetail.getHours()}:${+dateMatchDetail.getMinutes()}`;
-      const dateNow = `${+new Date().getFullYear()}-${+new Date().getMonth() + 1}-${+new Date().getDay()} ${+new Date().getHours()}:${+new Date().getMinutes()}`;
+        const matchDetail = this.match;
+        const dateMatchDetail = new Date(this.match.date_match);
+        const dateMatch = `${+dateMatchDetail.getFullYear()}-${+dateMatchDetail.getMonth() + 1}-${+dateMatchDetail.getDay()} ${+dateMatchDetail.getHours()}:${+dateMatchDetail.getMinutes()}`;
+        const dateNow = `${+new Date().getFullYear()}-${+new Date().getMonth() + 1}-${+new Date().getDay()} ${+new Date().getHours()}:${+new Date().getMinutes()}`;
 
-      const formData = new FormData();
-      formData.append('idmatch', this.match._id);
-      formData.append('idpari', id_pari);
-      formData.append('iduser', this.userInfo._id);
-      formData.append('cote', cote.toString());
-      formData.append('equipe1', this.match.equipe1.nom);
-      formData.append('equipe2', this.match.equipe2.nom);
-      formData.append('textpari', description);
-      formData.append('montant', this.mise.toString());
-      formData.append('localisationx', this.match.longitude.toString());
-      formData.append('localisationy', this.match.latitude.toString());
-      formData.append('date', dateMatch);
-      formData.append('avatar1', `${this.photo_url}${this.match.equipe1.avatar}`);
-      formData.append('avatar2', `${this.photo_url}${this.match.equipe2.avatar}`);
-      formData.append('dateHisto', dateNow);
+        const formData = new FormData();
+        formData.append('idmatch', this.match._id);
+        formData.append('idpari', id_pari);
+        formData.append('iduser', this.userInfo._id);
+        formData.append('cote', cote.toString());
+        formData.append('equipe1', this.match.equipe1.nom);
+        formData.append('equipe2', this.match.equipe2.nom);
+        formData.append('textpari', description);
+        formData.append('montant', this.mise.toString());
+        formData.append('localisationx', this.match.longitude.toString());
+        formData.append('localisationy', this.match.latitude.toString());
+        formData.append('date', dateMatch);
+        formData.append('avatar1', `${this.photo_url}${this.match.equipe1.avatar}`);
+        formData.append('avatar2', `${this.photo_url}${this.match.equipe2.avatar}`);
+        formData.append('dateHisto', dateNow);
 
-      /*console.log(`idmatch`, matchDetail._id);
-      console.log(`idpari`, id_pari);
-      console.log(`iduser`, this.userInfo._id);
-      console.log('cote', cote.toString());
-      console.log(`equipe1`, matchDetail.equipe1.nom);
-      console.log(`equipe2`, matchDetail.equipe2.nom);
-      console.log(`textpari`, description);
-      console.log(`montant`, '');
-      console.log(`localisationx`, matchDetail.longitude.toString());
-      console.log(`localisationy`, matchDetail.latitude.toString());
+        /*console.log(`idmatch`, matchDetail._id);
+        console.log(`idpari`, id_pari);
+        console.log(`iduser`, this.userInfo._id);
+        console.log('cote', cote.toString());
+        console.log(`equipe1`, matchDetail.equipe1.nom);
+        console.log(`equipe2`, matchDetail.equipe2.nom);
+        console.log(`textpari`, description);
+        console.log(`montant`, '');
+        console.log(`localisationx`, matchDetail.longitude.toString());
+        console.log(`localisationy`, matchDetail.latitude.toString());
 
-      console.log(`date`, dateMatch);
-      console.log(`avatar1`, `${this.photo_url}${this.match.equipe1.avatar}`);
-      console.log(`avatar2`, `${this.photo_url}${this.match.equipe2.avatar}`);
-      console.log(`dateHisto`, dateNow);*/
+        console.log(`date`, dateMatch);
+        console.log(`avatar1`, `${this.photo_url}${this.match.equipe1.avatar}`);
+        console.log(`avatar2`, `${this.photo_url}${this.match.equipe2.avatar}`);
+        console.log(`dateHisto`, dateNow);*/
 
-      this.userService.addPersonnalHistory(formData).subscribe(
-        (dataResult) => {
-          console.log(dataResult);
-          this.ngxLoader.stopLoader('loader-bet');
-          setTimeout(()=> {
-            this.designService.openSuccessSnackBar('Votre pari a été prise en charge ...');
-          }, 1000)
-        }
-      );
+        this.userService.addPersonnalHistory(formData).subscribe(
+          (dataResult) => {
+            console.log(dataResult);
+            this.ngxLoader.stopLoader('loader-bet');
+            setTimeout(() => {
+              this.designService.openSuccessSnackBar('Votre pari a été prise en charge ...');
+            }, 1000);
+          }
+        );
       }
     }
+  }
+
+
+  randomFuturMatch() {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate()+1);
+
+    let params = {
+      limit: 3,
+      page: 1,
+      date_debut: tomorrow.toLocaleDateString('fr-CA')
+    };
+    //this.ngxLoader.startLoader('loader-random-test');
+    this.matchService.getAll(params).subscribe(
+      (dataResult) => {
+        this.randomMatch = dataResult.docs;
+        console.log(this.randomMatch);
+        //this.ngxLoader.stopLoader('loader-random-test');
+      }, (error: ErrorTracker) => {
+        const errors = (error.userMessage != undefined) ? error.userMessage : 'Une erreur s\'est produite, recommencer l\'opération';
+        this.designService.openErrorSnackBar(errors);
+      }
+    );
   }
 }

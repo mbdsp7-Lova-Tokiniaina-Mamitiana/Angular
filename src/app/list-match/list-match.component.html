@@ -6,7 +6,7 @@
                 <div class="row">
                     <div class="col-md-1"></div>
 
-                    <div class="col-md-3 text-center p-4 equipe-title">{{todayMatch.equipe1.nom}}</div>
+                    <div class="col-md-3 text-end p-4 equipe-title">{{todayMatch.equipe1.nom}}</div>
                     <div class="col-md-1"><img src="{{photo_url + todayMatch.equipe1.avatar}}" alt=""
                                                class="equipe-avatar">
                     </div>
@@ -16,7 +16,7 @@
                     <div class="col-md-1"><img src="{{photo_url + todayMatch.equipe2.avatar}}" alt=""
                                                class="equipe-avatar">
                     </div>
-                    <div class="col-md-3 text-center p-4 equipe-title">{{todayMatch.equipe2.nom}}</div>
+                    <div class="col-md-3 text-start p-4 equipe-title">{{todayMatch.equipe2.nom}}</div>
 
                     <div class="col-md-1"></div>
                 </div>
@@ -138,7 +138,7 @@
                                                                        class="equipe-avatar">
                                             </div>
 
-                                            <div class="col-md-2 text-center p-4 vs-title">VS</div>
+                                            <div class="col-md-2 text-center p-4 vs-logo"><img src="../../assets/img/vs.png" alt="" class="gif" width="50"/></div>
 
                                             <div class="col-md-1"><img src="{{photo_url + match.equipe2.avatar}}" alt=""
                                                                        class="equipe-avatar">
@@ -167,7 +167,7 @@
             </ng-template>
             <!-- Liste des matchs -->
             <ngx-ui-loader [loaderId]="'loader-liste-match'"
-                           [fgsType]="'square-jelly-box'"
+                           [fgsType]="'three-bounce'"
                            [hasProgressBar]="false"
                            [fgsColor]="loaderColor"
                            [text]="loaderText"
@@ -235,7 +235,11 @@
         </ngx-slick-carousel>
         <div class="section-heading">
         </div>
-        <ngx-ui-loader [loaderId]="'loader-liste-equipe'" [hasProgressBar]="false"></ngx-ui-loader>
+        <ngx-ui-loader [loaderId]="'loader-liste-equipe'" [fgsType]="'three-bounce'"
+                       [hasProgressBar]="false"
+                       [fgsColor]="loaderColor"
+                       [text]="loaderText"
+                       [overlayColor]="'rgba(50,53,57,0.8)'"></ngx-ui-loader>
     </div>
 </div>
 <ngx-ui-loader></ngx-ui-loader>

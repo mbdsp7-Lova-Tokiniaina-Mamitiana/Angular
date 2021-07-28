@@ -14,7 +14,6 @@ import {FormControl, FormGroup} from '@angular/forms';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import {AppLoader} from '../shared/constant';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { filter, map, pairwise, throttleTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list-match',
@@ -211,58 +210,11 @@ export class ListMatchComponent implements OnInit {
     this.getListMatch(match_params);
   }
 
-  /*ngAfterViewInit() {
-    console.log("here");
-    this.scroller
-      .elementScrolled()
-      .pipe(
-        map((event) => {
-          console.log("here 2");
-          return this.scroller.measureScrollOffset("bottom");
-        }),
-        pairwise(),
-        filter(([y1, y2]) => y2 < y1 && y2 < 50),
-        throttleTime(1000)
-      )
-      .subscribe((dist) => {
-        this.ngZone.run(() => {
-          if (this.hasNextPage) {
-            console.log(this.page);
-            this.page = this.nextPage || 1;
-            console.log(this.page);
-            this.listMatchScroll(this.list_match_pagination);
-          }
-        });
-      });
-  }
-
-  listMatchScroll(params) {
-    this.matchService.getAll(params).subscribe(
-      (data) => {
-        this.limit = data.limit;
-        this.page = data.page;
-        this.totalPages = data.totalDocs;
-        this.hasNextPage = data.hasNextPage;
-        this.hasPrevPage = data.hasPrevPage;
-        this.nextPage = data.nextPage;
-        this.prevPage = data.prevPage;
-        this.listMatch = data.docs;
-        this.matchCount = data.totalDocs;
-      },
-      (error: ErrorTracker) => {
-        const errors = (error.userMessage != undefined) ? error.userMessage : 'Une erreur s\'est produite, recommencer l\'opération';
-        this.designService.openErrorSnackBar(errors);
-      }
-    )
-  }*/
-
-
   searchPari(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.pariService.getAll(filterValue).subscribe(
       (dataResult) => {
         this.listPari = dataResult;
-        //this.ngxLoader.stopLoader('loader-liste-pari');
       }, (error: ErrorTracker) => {
         const errors = (error.userMessage != undefined) ? error.userMessage : 'Une erreur s\'est produite, recommencer l\'opération';
         this.designService.openErrorSnackBar(errors);

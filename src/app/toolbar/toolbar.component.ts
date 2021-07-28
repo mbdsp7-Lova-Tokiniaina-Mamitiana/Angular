@@ -5,6 +5,7 @@ import {UserService} from '../shared/services/user.service';
 import {MatDialog} from '@angular/material/dialog';
 import {AuthComponent} from '../auth/auth.component';
 import {ErrorTracker} from '../shared/models/error-tracker';
+import { DesignService } from '../shared/services/design.service';
 
 
 @Component({

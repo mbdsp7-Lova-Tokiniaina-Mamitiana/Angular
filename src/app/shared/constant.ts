@@ -8,5 +8,6 @@ export const AppLoader = {
   loaderColor: '#F4C433',
   loaderTextMatch: 'Chargement des matchs ...',
   loaderTextDetailMatch: 'Chargement détail du match ...',
-  loaderTextParier: 'Envoie de votre pari en cours ...'
+  loaderTextParier: 'Envoie de votre pari en cours ...',
+  loaderTextUtilsateur: 'Création d\'un nouveau compte utilisateur en cours ...'
 }

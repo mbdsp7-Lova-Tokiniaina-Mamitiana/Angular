@@ -30,6 +30,11 @@
   background:#fafafa;
   list-style: none;
   padding: 5px 20px;
+
+  &:hover {
+    background-color: #FFCC33;
+    color: whitesmoke;
+  }
 }
 .tg-widget ul li {
   width: 100%;

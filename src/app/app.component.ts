@@ -35,6 +35,10 @@ export class AppComponent {
       'flag',
       this.domSatinizer.bypassSecurityTrustResourceUrl('../assets/icons/flag.svg')
     );
+    this.matIconRegistry.addSvgIcon(
+      'loss',
+      this.domSatinizer.bypassSecurityTrustResourceUrl('../assets/icons/loss.svg')
+    );
 
   }
 }

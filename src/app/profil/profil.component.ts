@@ -9,6 +9,7 @@ import {AppLoader} from '../shared/constant';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {MatTableDataSource} from '@angular/material/table';
 import {ErrorTracker} from '../shared/models/error-tracker';
+import {DialogInfoPariComponent} from './dialog-info-pari/dialog-info-pari.component';
 
 @Component({
   selector: 'app-profil',
@@ -26,9 +27,7 @@ import {ErrorTracker} from '../shared/models/error-tracker';
 export class ProfilComponent implements OnInit {
 
   user: User;
-  //displayedColumns: string[] = ['dateHisto', 'textePari', 'montant', 'nomEquipe1', 'avatarEquipe1', 'nomEquipe1', 'avatarEquipe1', 'cote', 'dateMatch'];
-  displayedColumns: string[] = ['dateHisto', 'textePari', 'montant', 'cote', 'dateMatch'];
-  //displayedColumns: string[] = ['Date du pari', 'Pari', 'Mise', 'Cote', 'Date du match'];
+  displayedColumns: string[] = ['dateHisto', 'textePari', 'montant', 'cote', 'dateMatch', 'id'];
   histoPersoList: any[] = [];
   dataSource = new MatTableDataSource(this.histoPersoList);
   actualToken: number = 0;
@@ -85,8 +84,18 @@ export class ProfilComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         console.log("Result", result);
-        this.designService.openSuccessSnackBar("Ajout de jeton avec succès !!!");
         this.initializeProfil();
+      }
+    });
+  }
+
+  detail(histoMatch: any) {
+    const dialogRef = this._dialog.open(DialogInfoPariComponent, {
+      data: histoMatch
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log("Result", result);
       }
     });
   }

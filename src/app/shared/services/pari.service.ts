@@ -17,11 +17,18 @@ export class PariService {
   ) {
   }
 
-  getAll() {
-    return this.http.get<any>(`${this.api}/paris`)
-      .pipe(
-        catchError(err => this.errorService.handleHttpError(err))
-      );
+  getAll(search?: string) {
+    if (search) {
+      return this.http.post<any>(`${this.api}/paris`, {pari: search})
+        .pipe(
+          catchError(err => this.errorService.handleHttpError(err))
+        );
+    } else {
+      return this.http.get<any>(`${this.api}/paris`)
+        .pipe(
+          catchError(err => this.errorService.handleHttpError(err))
+        );
+    }
   }
 
   getById(id_pari: number) {

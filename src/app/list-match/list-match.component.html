@@ -1,5 +1,5 @@
 <div class="today-match">
-    <img src="../../assets/gif/bell-gif.gif" alt="" class="gif" width="100"/>
+    <img src="../../assets/logo/logo_transparent.png" alt="" class="gif" width="150"/>
     <div class="row">
         <ul class="flex-container" *ngIf="listMatchToday.length>0, else noTodayMatch">
             <li class="flex-item" *ngFor="let todayMatch of listMatchToday">
@@ -24,7 +24,8 @@
         </ul>
         <ng-template #noTodayMatch>
             <div class="flex-item no-today-match">
-                Aucuns matchs disponible pour aujourd'hui !
+                <img src="../../assets/img/colorful1.png" alt="" class="gif" width="130"/> Aucuns matchs disponible pour
+                aujourd'hui ! <img src="../../assets/img/colorful2.png" alt="" class="gif" width="130"/>
             </div>
         </ng-template>
     </div>
@@ -58,7 +59,8 @@
                             <div class="col-md-3 p-2">
                                 <div class="tg-form">
                                     <fieldset>
-                                        <input matInput placeholder='Type de pari : null' [(ngModel)]="pari" class="form-control">
+                                        <input matInput placeholder='Type de pari : null' [(ngModel)]="pari"
+                                               class="form-control">
                                     </fieldset>
                                 </div>
                             </div>
@@ -96,14 +98,14 @@
             <ng-template #SearchResult>
                 <div class="row p-3">
                     <div class="col-md-5 result-count text-end">
-                        <p [countUp]="listMatch.length" [options]="options"></p>
+                        <p [countUp]="listMatch.length" [options]="countNumbersOptions"></p>
                     </div>
                     <div class="col-md-7 result-count text-start">
                         <p>résultat(s) trouvé(s)</p>
                     </div>
                 </div>
                 <!-- Liste des matchs -->
-                <cdk-virtual-scroll-viewport itemSize="200" class="viewport box">
+                <cdk-virtual-scroll-viewport #scroller itemSize="5" class="viewport box">
                     <div class="box m-1 link-detail-match m-3 p-3" *cdkVirtualFor="let match of listMatch">
                         <a routerLink="/detail-match/{{match._id}}">
                             <div class="row">
@@ -138,7 +140,8 @@
                                                                        class="equipe-avatar">
                                             </div>
 
-                                            <div class="col-md-2 text-center p-4 vs-logo"><img src="../../assets/img/vs.png" alt="" class="gif" width="50"/></div>
+                                            <div class="col-md-2 text-center p-4 vs-logo"><img
+                                                    src="../../assets/img/vs.png" alt="" class="gif" width="50"/></div>
 
                                             <div class="col-md-1"><img src="{{photo_url + match.equipe2.avatar}}" alt=""
                                                                        class="equipe-avatar">
@@ -178,13 +181,23 @@
         <div class="section-heading">
         </div>
 
-        <div class="tg-widget tg-catagories-widget">
+        <div class="tg-widget">
             <h3>Différents types de pari</h3>
-            <ul *ngFor="let pari of listPari">
-                <li>
-                    <a><em>{{pari.description}}</em><i>{{pari.cote}}</i></a>
-                </li>
-            </ul>
+            <div class="tg-form pt-2 pb-1">
+                <fieldset>
+                    <input matInput (keyup)="searchPari($event)" #input placeholder='Recherche pari...'
+                           class="form-control">
+                </fieldset>
+            </div>
+
+            <cdk-virtual-scroll-viewport #scroller itemSize="5" class="viewport">
+                <ul *cdkVirtualFor="let pari of listPari">
+                    <li class="p-2">
+                        <a matTooltip="Lister les matchs avec {{pari.description}}"
+                           (click)="listMatchWithPari(pari.description)"><em>{{pari.description}}</em><i>{{pari.cote}}</i></a>
+                    </li>
+                </ul>
+            </cdk-virtual-scroll-viewport>
             <!--<ngx-ui-loader [loaderId]="'loader-liste-pari'"></ngx-ui-loader>-->
         </div>
     </div>
@@ -193,21 +206,20 @@
     <div class="col-sm-12 col-xs-12">
         <div class="tg-statistics d-flex">
             <div class="tg-statistic">
-
-
-                <h2><span class="tg-statistic-count" [countUp]="matchCount" [options]="options">{{matchCount}}</span></h2>
+                <h2><span [countUp]="matchCount" [options]="countNumbersOptions">{{matchCount}}</span></h2>
                 <h3>Matchs</h3>
             </div>
             <div class="tg-statistic">
-                <h2><span class="tg-statistic-count" [countUp]="userCount" [options]="options">{{userCount}}</span></h2>
+                <h2><span [countUp]="userCount" [options]="countNumbersOptions">{{userCount}}</span></h2>
                 <h3>Parieurs actifs</h3>
             </div>
             <div class="tg-statistic">
-                <h2><span class="tg-statistic-count" [countUp]="listPari.length" [options]="options">{{listPari.length}}</span></h2>
+                <h2><span [countUp]="listPari.length" [options]="countNumbersOptions">{{listPari.length}}</span></h2>
                 <h3>Pari</h3>
             </div>
             <div class="tg-statistic">
-                <h2><span class="tg-statistic-count" [countUp]="listEquipe.length" [options]="options">{{listEquipe.length}}</span></h2>
+                <h2><span [countUp]="listEquipe.length" [options]="countNumbersOptions">{{listEquipe.length}}</span>
+                </h2>
                 <h3>Equipes</h3>
             </div>
         </div>

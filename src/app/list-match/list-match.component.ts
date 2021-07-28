@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, NgZone, OnInit, ViewChild} from '@angular/core';
 import {ErrorTracker} from '../shared/models/error-tracker';
 import {DesignService} from '../shared/services/design.service';
 import {Match} from '../shared/interfaces/match';
@@ -13,6 +13,8 @@ import {Equipe} from '../shared/interfaces/equipe';
 import {FormControl, FormGroup} from '@angular/forms';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import {AppLoader} from '../shared/constant';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { filter, map, pairwise, throttleTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list-match',
@@ -36,8 +38,7 @@ export class ListMatchComponent implements OnInit {
 
   matchCount: number = 0;
 
-  page: number = 1;
-  limit:number = 2;
+
 
   photo_url: string = environment.photo_endpoint;
 
@@ -49,15 +50,29 @@ export class ListMatchComponent implements OnInit {
 
 
   list_match_pagination = {
-    limit: 10000,
+    limit: 5,
     page: 1
   }
 
-   options = {
+   countNumbersOptions = {
     startVal: 0,
     duration: 5,
     separator: " "
   };
+
+  page: number = 1;
+  limit: number = 5;
+  totalPages?: number;
+  hasNextPage: boolean = false;
+  hasPrevPage: boolean = false;
+  nextPage?: number;
+  prevPage?: number;
+  pageSizeOptions: number[] = [5, 10, 25];
+
+  @ViewChild("scroller")
+  scroller!: CdkVirtualScrollViewport;
+
+
   constructor(
     private matchService: MatchService,
     private designService: DesignService,
@@ -65,7 +80,8 @@ export class ListMatchComponent implements OnInit {
     private _dialog: MatDialog,
     private pariService: PariService,
     private equipeService: EquipeService,
-    private ngxLoader: NgxUiLoaderService
+    private ngxLoader: NgxUiLoaderService,
+    private ngZone: NgZone
   ) {
     this.matchDate = new FormGroup({
       start: new FormControl(),
@@ -86,10 +102,10 @@ export class ListMatchComponent implements OnInit {
     );
   }
 
-  getMatchCount(params) {
-    this.matchService.getAll(params).subscribe(
+  getTotalMatchCount() {
+    this.matchService.getMatchCount().subscribe(
       (dataResult) => {
-        this.matchCount = dataResult.docs.length;
+        this.matchCount = dataResult;
       }, (error: ErrorTracker) => {
         const errors = (error.userMessage != undefined) ? error.userMessage : 'Une erreur s\'est produite, recommencer l\'opération';
         this.designService.openErrorSnackBar(errors);
@@ -140,7 +156,7 @@ export class ListMatchComponent implements OnInit {
 
   ngOnInit(): void {
     this.getListMatch(this.list_match_pagination);
-    this.getMatchCount(this.list_match_pagination);
+    this.getTotalMatchCount();
     this.getListPari();
     this.getListEquipe();
     this.getListMatchToday();
@@ -155,33 +171,11 @@ export class ListMatchComponent implements OnInit {
     )
   }
 
-  parier() {
-    if (this.userService.isLoggedIn()) {
-      console.log('Peux parier');
-    } else {
-      this.designService.openInfoSnackBar('Vous devez vous connecter avant de parier sur un match !');
-    }
-  }
-
-
   slideConfig = {"slidesToShow": 10, "slidesToScroll": 4};
-
-
-  slickInit(e) {
-    console.log('slick initialized');
-  }
-
-  breakpoint(e) {
-    console.log('breakpoint');
-  }
-
-  afterChange(e) {
-    console.log('afterChange');
-  }
-
-  beforeChange(e) {
-    console.log('beforeChange');
-  }
+  slickInit(e) {}
+  breakpoint(e) {}
+  afterChange(e) {}
+  beforeChange(e) {}
 
   search() {
     let match_params: any;
@@ -214,10 +208,73 @@ export class ListMatchComponent implements OnInit {
         date_fin: new Date(date_fin).toLocaleDateString('fr-CA')
       }
     }
-
-    console.log(match_params);
     this.getListMatch(match_params);
   }
 
+  /*ngAfterViewInit() {
+    console.log("here");
+    this.scroller
+      .elementScrolled()
+      .pipe(
+        map((event) => {
+          console.log("here 2");
+          return this.scroller.measureScrollOffset("bottom");
+        }),
+        pairwise(),
+        filter(([y1, y2]) => y2 < y1 && y2 < 50),
+        throttleTime(1000)
+      )
+      .subscribe((dist) => {
+        this.ngZone.run(() => {
+          if (this.hasNextPage) {
+            console.log(this.page);
+            this.page = this.nextPage || 1;
+            console.log(this.page);
+            this.listMatchScroll(this.list_match_pagination);
+          }
+        });
+      });
+  }
 
+  listMatchScroll(params) {
+    this.matchService.getAll(params).subscribe(
+      (data) => {
+        this.limit = data.limit;
+        this.page = data.page;
+        this.totalPages = data.totalDocs;
+        this.hasNextPage = data.hasNextPage;
+        this.hasPrevPage = data.hasPrevPage;
+        this.nextPage = data.nextPage;
+        this.prevPage = data.prevPage;
+        this.listMatch = data.docs;
+        this.matchCount = data.totalDocs;
+      },
+      (error: ErrorTracker) => {
+        const errors = (error.userMessage != undefined) ? error.userMessage : 'Une erreur s\'est produite, recommencer l\'opération';
+        this.designService.openErrorSnackBar(errors);
+      }
+    )
+  }*/
+
+
+  searchPari(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.pariService.getAll(filterValue).subscribe(
+      (dataResult) => {
+        this.listPari = dataResult;
+        //this.ngxLoader.stopLoader('loader-liste-pari');
+      }, (error: ErrorTracker) => {
+        const errors = (error.userMessage != undefined) ? error.userMessage : 'Une erreur s\'est produite, recommencer l\'opération';
+        this.designService.openErrorSnackBar(errors);
+      }
+    );
+  }
+
+  listMatchWithPari(description: string) {
+    let match_params = {
+      ...this.list_match_pagination,
+      pari: description
+    }
+    this.getListMatch(match_params);
+  }
 }

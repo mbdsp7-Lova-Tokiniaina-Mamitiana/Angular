@@ -62,6 +62,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import {DialogAddTokenComponent} from './profil/dialog-add-token/dialog-add-token.component';
 
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { DialogInfoPariComponent } from './profil/dialog-info-pari/dialog-info-pari.component';
 
 const routes: Routes = [
     {
@@ -83,6 +84,10 @@ const routes: Routes = [
     {
         path: 'detail-match/:idMatch',
         component: DetailMatchComponent
+    },
+    {
+        path: 'detail',
+        component: DialogInfoPariComponent
     }
 
 ];
@@ -133,7 +138,8 @@ const materialModule = [
         ConvertmonthDatePipe,
         ParierMatchComponent,
         DetailMatchComponent,
-        DialogAddTokenComponent
+        DialogAddTokenComponent,
+        DialogInfoPariComponent
     ],
     imports: [
         BrowserModule,

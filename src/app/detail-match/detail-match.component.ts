@@ -6,7 +6,7 @@ import {ErrorTracker} from '../shared/models/error-tracker';
 import {DesignService} from '../shared/services/design.service';
 import {environment} from '../../environments/environment';
 import * as mapboxgl from 'mapbox-gl';
-import {AppLoader, mapboxConfig} from '../shared/constant';
+import {AppLoader} from '../shared/constant';
 import {UserService} from '../shared/services/user.service';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {MatDialog} from '@angular/material/dialog';
@@ -28,12 +28,14 @@ export class DetailMatchComponent implements OnInit {
   loaderText = AppLoader.loaderTextDetailMatch;
   loaderTextParier = AppLoader.loaderTextParier;
 
+  // Localisaiton
   @ViewChild('mapCard', {static: true, read: ElementRef})
   mapCard: ElementRef;
+  mapboxContent: mapboxgl.Map;
+
   photo_url: string = environment.photo_endpoint;
   match?: Match;
   qrCode: any;
-  mapboxContent: mapboxgl.Map;
   latitude: number;
   longitude: number;
   logo = 'assets/logo/logo_transparent.png';
@@ -42,6 +44,7 @@ export class DetailMatchComponent implements OnInit {
   userInfo: any;
 
   randomMatch: Match[] = [];
+  idMatch?: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -53,27 +56,14 @@ export class DetailMatchComponent implements OnInit {
   ) {
   }
 
-  viewMap(longitude: number, latitude: number) {
-    this.mapboxContent = new mapboxgl.Map({
-      container: this.mapCard.nativeElement,
-      style: mapboxConfig.style,
-      zoom: 13,
-      center: [longitude, latitude],
-      accessToken: mapboxConfig.accessToken
-    });
-    this.mapboxContent.addControl(new mapboxgl.NavigationControl());
-    new mapboxgl.Marker()
-      .setLngLat([longitude, latitude])
-      .addTo(this.mapboxContent);
-  }
 
-  getMatchDetail() {
-    const idMatch: string = this.route.snapshot.params.idMatch;
+
+  getMatchDetail(idMatch) {
     this.matchService.getById(idMatch).subscribe(
       (matchDetail) => {
         this.match = matchDetail;
         this.ngxLoader.stopLoader('loader-info');
-        this.viewMap(this.match.longitude, this.match.latitude);
+        this.matchService.viewMap(this.mapboxContent, this.match.longitude, this.match.latitude, this.mapCard);
       }, (error: ErrorTracker) => {
         const errors = (error.userMessage != undefined) ? error.userMessage : 'Une erreur s\'est produite, recommencer l\'opération';
         this.designService.openErrorSnackBar(errors);
@@ -83,7 +73,8 @@ export class DetailMatchComponent implements OnInit {
 
   ngOnInit(): void {
     this.ngxLoader.startLoader('loader-info');
-    this.getMatchDetail();
+    this.idMatch = this.route.snapshot.params.idMatch;
+    this.getMatchDetail(this.idMatch);
     this.qrCode = this.route.snapshot.params.idMatch;
     this.userInfo = JSON.parse(localStorage.getItem('_userInfo_')!);
     this.randomFuturMatch();
@@ -108,7 +99,6 @@ export class DetailMatchComponent implements OnInit {
           this.designService.openErrorSnackBar('Montant de la mise ne peut pas être 0');
         }, 1000);
       } else {
-        const matchDetail = this.match;
         const dateMatchDetail = new Date(this.match.date_match);
         const dateMatch = `${+dateMatchDetail.getFullYear()}-${+dateMatchDetail.getMonth() + 1}-${+dateMatchDetail.getDay()} ${+dateMatchDetail.getHours()}:${+dateMatchDetail.getMinutes()}`;
         const dateNow = `${+new Date().getFullYear()}-${+new Date().getMonth() + 1}-${+new Date().getDay()} ${+new Date().getHours()}:${+new Date().getMinutes()}`;
@@ -179,5 +169,9 @@ export class DetailMatchComponent implements OnInit {
         this.designService.openErrorSnackBar(errors);
       }
     );
+  }
+
+  getMatchDetailRandom(id) {
+    this.idMatch = id;
   }
 }

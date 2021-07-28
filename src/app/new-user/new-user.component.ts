@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {Router} from '@angular/router';
 import {DesignService} from '../shared/services/design.service';
 import {UserService} from '../shared/services/user.service';
 import {ErrorTracker} from '../shared/models/error-tracker';
@@ -17,8 +15,7 @@ export class NewUserComponent implements OnInit {
 
   constructor(
     public designService: DesignService,
-    public userService: UserService,
-    private router: Router
+    public userService: UserService
   ) {
     this.signUpForm = new FormGroup({
       login: new FormControl('', Validators.required),
@@ -51,6 +48,7 @@ export class NewUserComponent implements OnInit {
 
   onSignUp() {
     if (this.signUpForm.valid) {
+      this.designService.openSuccessSnackBar("Création d'un nouveau compte utilisateur en cours, veuillez patienter ...");
       console.log(this.signUpForm.value);
       const userParams = {
         login: this.signUpForm.controls.login.value,
@@ -65,9 +63,6 @@ export class NewUserComponent implements OnInit {
           console.log(data);
           const idUser = data.id;
           this.completeUserInfo(idUser);
-          /*setTimeout(() => {
-            this.router.navigateByUrl('/home');
-          }, 2000);*/
         }
       );
     } else {

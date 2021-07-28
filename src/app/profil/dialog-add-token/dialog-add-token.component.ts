@@ -32,16 +32,19 @@ export class DialogAddTokenComponent implements OnInit {
   }
 
   onAddToken() {
-    if (this.addTokenForm.valid) {
+    if (this.addTokenForm.valid && +this.addTokenForm.controls.token.value>10) {
       const token = this.addTokenForm.controls.token.value;
       this.userService.addToken(token).subscribe(
         (dataResult) => {
           console.log(dataResult);
+          this.designService.openSuccessSnackBar("Ajout de jeton avec succès !!!");
         }, (error: ErrorTracker) => {
           const errors = (error.userMessage != undefined) ? error.userMessage : 'Une erreur s\'est produite, recommencer l\'opération';
           this.designService.openErrorSnackBar(errors);
         }
       )
+    } else {
+      this.designService.openErrorSnackBar("Le montant à ajouter doit être supérieur ou égal à 10");
     }
   }
 }

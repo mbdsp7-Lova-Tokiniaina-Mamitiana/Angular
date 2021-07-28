@@ -30,24 +30,24 @@ export class AuthComponent implements OnInit {
   ngOnInit(): void {
   }
 
-    onLogin(): void {
-        if (this.authForm.valid) {
-            this.userService.login(this.authForm.value).subscribe(
-                (loggedData) => {
-                    if (loggedData.auth && loggedData.token) {
-                        console.log('User logged in');
-                        localStorage.setItem('token', loggedData.token);
-                        localStorage.setItem('isLogged', 'true');
-                        window.location.reload();
-                    } else {
-                        this.designService.openSnackBar('warning', 'Une erreur s\'est produite, rééssayez plus tard', 'OK');
-                    }
-                }
-            );
-        } else {
-            this.designService.openSnackBar('warning', 'Veuillez bien renseigner les informations nécessaires', 'OK');
+  onLogin(): void {
+    if (this.authForm.valid) {
+      this.userService.login(this.authForm.value).subscribe(
+        (loggedData) => {
+          if (loggedData.auth && loggedData.token) {
+            console.log('User logged in');
+            localStorage.setItem('token', loggedData.token);
+            localStorage.setItem('isLogged', 'true');
+            window.location.reload();
+          } else {
+            this.designService.openSnackBar('warning', 'Une erreur s\'est produite, rééssayez plus tard', 'OK');
+          }
         }
+      );
+    } else {
+      this.designService.openSnackBar('warning', 'Veuillez bien renseigner les informations nécessaires', 'OK');
     }
+  }
 
   onSignUp() {
     const dialogRef = this._dialog.open(NewUserComponent);

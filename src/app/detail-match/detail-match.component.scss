@@ -9,6 +9,40 @@
 }
 
 
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-container-list-pari {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+}
+.item-date-match{
+    width: 10%;
+    margin: 10px;
+}
+.item-detail-qr-code {
+    width: 10%;
+    margin: 10px;
+}
+
+.item-detail-equipe-title {
+    width: 20%;
+}
+.item-detail-equipe-avatar {
+    width: 10%;
+}
+.item-detail-vs-title {
+    width: 10%;
+}
+
+
 .pari-detail {
     font-family: "asap", serif;
     cursor: pointer;
@@ -16,6 +50,7 @@
     display: flex;
     justify-content: space-between;
     text-align: center;
+    padding: 5px;
 }
 
 .pari-detail-title {
@@ -84,6 +119,7 @@ mat-form-field {
 }
 
 .suggests-matchs {
+    width: 30%;
     .suggests-matchs-content {
         margin-left: 40px;
     }
@@ -175,3 +211,23 @@ a {
     text-decoration: none;
 }
 
+.map {
+    width: 70%;
+}
+
+.item {
+    padding: 10px;
+}
+
+@media screen and (max-width: 1024px) {
+    .flex-container {
+        display: block;
+    }
+    .map {
+        width: 100%;
+    }
+
+    .suggests-matchs {
+        width: 100%;
+    }
+}

@@ -3,36 +3,32 @@
     <div class="row">
         <ul class="flex-container" *ngIf="listMatchToday.length>0, else noTodayMatch">
             <li class="flex-item" *ngFor="let todayMatch of listMatchToday">
-                <div class="row">
-                    <div class="col-md-1"></div>
-
-                    <div class="col-md-3 text-end p-4 equipe-title">{{todayMatch.equipe1.nom}}</div>
-                    <div class="col-md-1"><img src="{{photo_url + todayMatch.equipe1.avatar}}" alt=""
-                                               class="equipe-avatar">
+                <a class="flex-item-container" routerLink="/detail-match/{{todayMatch._id}}">
+                    <div class="item flex-equipe-title">{{todayMatch.equipe1.nom}} <br>
+                        <img src="{{photo_url + todayMatch.equipe1.avatar}}" alt="" class="flex-equipe-avatar">
                     </div>
 
-                    <div class="col-md-2 text-center vs-title-today-match">{{todayMatch.date_match | date : 'HH:mm'}}</div>
+                    <div class="item vs-title-today-match">{{todayMatch.date_match | date : 'HH:mm'}}</div>
 
-                    <div class="col-md-1"><img src="{{photo_url + todayMatch.equipe2.avatar}}" alt=""
-                                               class="equipe-avatar">
+                    <div class="item flex-equipe-title">{{todayMatch.equipe2.nom}} <br>
+                        <img src="{{photo_url + todayMatch.equipe2.avatar}}" alt="" class="flex-equipe-avatar">
                     </div>
-                    <div class="col-md-3 text-start p-4 equipe-title">{{todayMatch.equipe2.nom}}</div>
 
-                    <div class="col-md-1"></div>
-                </div>
+                </a>
             </li>
         </ul>
         <ng-template #noTodayMatch>
-            <div class="flex-item no-today-match">
-                <img src="../../assets/img/colorful1.png" alt="" class="gif" width="130"/> Aucuns matchs disponible pour
+            <div class=" flex-item no-today-match">
+                <img src="../../assets/img/colorful1.png" alt="" class="gif" width="130"/> Aucuns matchs
+                disponible pour
                 aujourd'hui ! <img src="../../assets/img/colorful2.png" alt="" class="gif" width="130"/>
             </div>
         </ng-template>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-8 card-list">
+<div class="row-flex-container">
+    <div class="item-row-flex-container card-list">
         <div style="position: relative" bgsColor="#00ACC1">
             <!-- Recherche munticritère -->
             <div class="m-2">
@@ -91,25 +87,25 @@
             </div>
             <!-- Recherche munticritère -->
 
-            <div class="result-count"
+            <!--<div class="result-count"
                  *ngIf="listMatch.length == 0, else SearchResult">
                 Aucuns résultats
-            </div>
-            <ng-template #SearchResult>
-                <div class="row p-3">
+            </div>-->
+            <!--<ng-template #SearchResult>-->
+                <!--<div class="row p-3">
                     <div class="col-md-5 result-count text-end">
                         <p [countUp]="listMatch.length" [options]="countNumbersOptions"></p>
                     </div>
                     <div class="col-md-7 result-count text-start">
                         <p>résultat(s) trouvé(s)</p>
                     </div>
-                </div>
+                </div>-->
                 <!-- Liste des matchs -->
                 <cdk-virtual-scroll-viewport #scroller itemSize="5" class="viewport box">
                     <div class="box m-1 link-detail-match m-3 p-3" *cdkVirtualFor="let match of listMatch">
                         <a routerLink="/detail-match/{{match._id}}">
-                            <div class="row">
-                                <div class="col-md-1" *ngIf="!match.etat;else finishedMatch">
+                            <div class="list-match-flex-container">
+                                <div class="item item-date-match" *ngIf="!match.etat;else finishedMatch">
                                     <div class="uni-entry-body text-left">
                                         <div class="uni-entry-time">
                                             <li class="day"> {{match.date_match | date: 'dd'}} </li>
@@ -122,7 +118,7 @@
                                     </div>
                                 </div>
                                 <ng-template #finishedMatch>
-                                    <div class="col-md-1">
+                                    <div class="item item-date-match">
                                         <div class="finished-match">
                                             <li class="match">Match</li>
                                             <li class="finished">terminé</li>
@@ -130,31 +126,30 @@
                                     </div>
                                 </ng-template>
 
-                                <div class="col-md-11">
+                                <div class="item item-detail-match">
                                     <div class="header-card">
-                                        <div class="row">
-                                            <div class="col-md-1"></div>
-
-                                            <div class="col-md-3 text-center p-4 equipe-title">{{match.equipe1.nom}}</div>
-                                            <div class="col-md-1"><img src="{{photo_url + match.equipe1.avatar}}" alt=""
+                                        <div class="list-match-flex-container">
+                                            <div class="item1-detail-match text-center p-4 equipe-title">{{match.equipe1.nom}}</div>
+                                            <div class="item1-detail-match"><img src="{{photo_url + match.equipe1.avatar}}"
+                                                                       alt=""
                                                                        class="equipe-avatar">
                                             </div>
 
-                                            <div class="col-md-2 text-center p-4 vs-logo"><img
-                                                    src="../../assets/img/vs.png" alt="" class="gif" width="50"/></div>
+                                            <div class="item1-detail-match text-center p-4 vs-logo"><img
+                                                    src="../../assets/img/vs.png" alt="" class="gif" width="50"/>
+                                            </div>
 
-                                            <div class="col-md-1"><img src="{{photo_url + match.equipe2.avatar}}" alt=""
+                                            <div class="item1-detail-match"><img src="{{photo_url + match.equipe2.avatar}}"
+                                                                       alt=""
                                                                        class="equipe-avatar">
                                             </div>
-                                            <div class="col-md-3 text-center p-4 equipe-title">{{match.equipe2.nom}}</div>
-
-                                            <div class="col-md-1"></div>
+                                            <div class="item1-detail-match text-center p-4 equipe-title">{{match.equipe2.nom}}</div>
                                         </div>
                                     </div>
                                     <mat-divider></mat-divider>
-                                    <div class="col-md-10">
-                                        <div class="row pt-4">
-                                            <div *ngFor="let pari of match.pari" class="col-md-3">
+                                    <div class="item-detail-match">
+                                        <div class="flex-pari-list-container pt-4">
+                                            <div *ngFor="let pari of match.pari" class="flex-item-pari-list">
                                                 <button class="btn-yellow" matBadge="{{pari.cote}}"
                                                         matBadgePosition="after"
                                                         matBadgeColor="accent">{{pari.description}}</button>
@@ -167,7 +162,7 @@
                         </a>
                     </div>
                 </cdk-virtual-scroll-viewport>
-            </ng-template>
+           <!-- </ng-template>-->
             <!-- Liste des matchs -->
             <ngx-ui-loader [loaderId]="'loader-liste-match'"
                            [fgsType]="'three-bounce'"
@@ -177,11 +172,11 @@
                            [overlayColor]="'rgba(50,53,57,0.8)'"></ngx-ui-loader>
         </div>
     </div>
-    <div class="col-md-3 list-pari">
+    <div class="item-row-flex-container list-pari m-2">
         <div class="section-heading">
         </div>
 
-        <div class="tg-widget">
+        <div class="tg-widget m-2">
             <h3>Différents types de pari</h3>
             <div class="tg-form pt-2 pb-1">
                 <fieldset>
@@ -214,7 +209,8 @@
                 <h3>Parieurs actifs</h3>
             </div>
             <div class="tg-statistic">
-                <h2><span [countUp]="listPari.length" [options]="countNumbersOptions">{{listPari.length}}</span></h2>
+                <h2><span [countUp]="listPari.length" [options]="countNumbersOptions">{{listPari.length}}</span>
+                </h2>
                 <h3>Pari</h3>
             </div>
             <div class="tg-statistic">

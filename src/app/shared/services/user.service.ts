@@ -70,6 +70,7 @@ export class UserService {
   }
 
   getCurrentUser() {
+    console.log(localStorage.getItem('_userInfo_'));
     return JSON.parse(localStorage.getItem('_userInfo_')!);
   }
 

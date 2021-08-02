@@ -42,3 +42,32 @@ body .slick-next {
 .slick-next, .slick-arrow {
     background-color: red !important;
 }
+
+
+@media screen and (max-width: 1024px) {
+    .slick-slide img {
+        width: 50%;
+    }
+
+    .card-slick-slider {
+        text-align: center;
+        height: 120px;
+        background-image: url("../../img/bg-flag.jpg");
+        &:hover {
+            .card-slick-content {
+                color: #FFCC33;
+                font-weight: bold;
+            }
+            cursor: pointer;
+        }
+    }
+
+    .card-slick-content {
+        color: white;
+        font-family: "Oswald", serif;
+        font-size: 15px;
+        line-height: 15px;
+        text-align: center;
+        padding: 4px;
+    }
+}

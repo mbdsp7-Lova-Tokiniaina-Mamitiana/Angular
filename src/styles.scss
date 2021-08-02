@@ -2,6 +2,7 @@
 @import "assets/css/bootstrap-utilities.min.css";
 @import "assets/css/bootstrap-grid.min.css";
 @import "assets/css/template/main.scss";
+@import "assets/css/template/flex-container.scss";
 
 * {
     margin: 0px;
@@ -12,14 +13,12 @@ html,
 body {
     position: relative;
     height: 100%;
-}
-
-body {
     color: #373542;
     background: #fff;
     overflow-x: hidden;
     font: 400 14px/20px 'Open Sans', Arial, Helvetica, sans-serif;
 }
+
 
 @font-face {
     font-family: 'legacy';
@@ -133,12 +132,6 @@ body {
 
 .button-row .mat-button-base {
     margin: 8px 8px 8px 0;
-}
-
-.flex-container {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
 }
 
 .button-container {

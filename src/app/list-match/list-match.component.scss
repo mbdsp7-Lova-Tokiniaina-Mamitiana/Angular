@@ -60,6 +60,8 @@
 .viewport {
     height: 600px;
     width: 100%;
+    overflow-y: scroll;
+    flex: none;
 }
 .action-buttons {
     padding-bottom: 20px;

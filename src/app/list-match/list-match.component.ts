@@ -14,6 +14,8 @@ import {FormControl, FormGroup} from '@angular/forms';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import {AppLoader} from '../shared/constant';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+//import { NgxSpinnerService } from 'ngx-spinner';
+
 
 @Component({
   selector: 'app-list-match',
@@ -61,6 +63,7 @@ export class ListMatchComponent implements OnInit {
 
   page: number = 1;
   limit: number = 5;
+
   totalPages?: number;
   hasNextPage: boolean = false;
   hasPrevPage: boolean = false;
@@ -68,9 +71,11 @@ export class ListMatchComponent implements OnInit {
   prevPage?: number;
   pageSizeOptions: number[] = [5, 10, 25];
 
+  listMatchScroll: Match[] = [];
+
   @ViewChild("scroller")
   scroller!: CdkVirtualScrollViewport;
-
+  // Infinite Scroll
 
   constructor(
     private matchService: MatchService,
@@ -79,8 +84,7 @@ export class ListMatchComponent implements OnInit {
     private _dialog: MatDialog,
     private pariService: PariService,
     private equipeService: EquipeService,
-    private ngxLoader: NgxUiLoaderService,
-    private ngZone: NgZone
+    private ngxLoader: NgxUiLoaderService
   ) {
     this.matchDate = new FormGroup({
       start: new FormControl(),
@@ -89,17 +93,19 @@ export class ListMatchComponent implements OnInit {
   }
 
   getListMatch(params) {
-    this.ngxLoader.startLoader('loader-liste-match');
+    //this.spinner.show();
     this.matchService.getAll(params).subscribe(
       (dataResult) => {
         this.listMatch = dataResult.docs;
-        this.ngxLoader.stopLoader('loader-liste-match');
+        //this.spinner.hide();
       }, (error: ErrorTracker) => {
         const errors = (error.userMessage != undefined) ? error.userMessage : 'Une erreur s\'est produite, recommencer l\'opération';
         this.designService.openErrorSnackBar(errors);
       }
     );
   }
+
+
 
   getTotalMatchCount() {
     this.matchService.getMatchCount().subscribe(
@@ -228,5 +234,13 @@ export class ListMatchComponent implements OnInit {
       pari: description
     }
     this.getListMatch(match_params);
+  }
+
+  onScroll() {
+    console.log("Scroll Up");
+    /*if (this.hasNextPage) {
+      this.ngxLoader.startLoader('loader-liste-match');
+      this.loadNextListMatch(this.nextPage);
+    }*/
   }
 }

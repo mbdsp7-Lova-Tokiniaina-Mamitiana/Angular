@@ -5,8 +5,8 @@ import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { DATE_FORMATS } from './shared/Date-format';
 import { NgxKjuaModule } from 'ngx-kjua';
 import { NgxUiLoaderModule } from "ngx-ui-loader";
-
 import { CountUpModule } from 'ngx-countup';
+
 /** Import des modules angular */
 import {ReactiveFormsModule} from '@angular/forms';
 import {FormsModule} from '@angular/forms';

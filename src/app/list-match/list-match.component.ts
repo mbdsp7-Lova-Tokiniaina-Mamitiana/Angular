@@ -95,11 +95,11 @@ export class ListMatchComponent implements OnInit {
   }
 
   getListMatch(params) {
-    //this.spinner.show();
+  this.ngxLoader.startLoader('loader-liste-match')
     this.matchService.getAll(params).subscribe(
       (dataResult) => {
         this.listMatch = dataResult.docs;
-        //this.spinner.hide();
+        this.ngxLoader.stopLoader('loader-liste-match')
       }, (error: ErrorTracker) => {
         const errors = (error.userMessage != undefined) ? error.userMessage : 'Une erreur s\'est produite, recommencer l\'opération';
         this.designService.openErrorSnackBar(errors);

@@ -86,9 +86,9 @@
             <!--<div class="result-count"
                  *ngIf="listMatch.length == 0, else SearchResult">
                 Aucuns résultats
-            </div>-->
-            <!--<ng-template #SearchResult>-->
-                <!--<div class="row p-3">
+            </div>
+            <ng-template #SearchResult>
+                <div class="row p-3">
                     <div class="col-md-5 result-count text-end">
                         <p [countUp]="listMatch.length" [options]="countNumbersOptions"></p>
                     </div>
@@ -160,7 +160,7 @@
                 </cdk-virtual-scroll-viewport>
 
 
-           <!-- </ng-template>-->
+            <!--</ng-template>-->
             <!-- Liste des matchs -->
             <ngx-ui-loader [loaderId]="'loader-liste-match'"
                            [fgsType]="'three-bounce'"

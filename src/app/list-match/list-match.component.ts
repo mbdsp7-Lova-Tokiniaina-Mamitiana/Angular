@@ -11,9 +11,10 @@ import {environment} from 'src/environments/environment';
 import {EquipeService} from '../shared/services/equipe.service';
 import {Equipe} from '../shared/interfaces/equipe';
 import {FormControl, FormGroup} from '@angular/forms';
-import { NgxUiLoaderService } from 'ngx-ui-loader';
+import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {AppLoader} from '../shared/constant';
-import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
+
 //import { NgxSpinnerService } from 'ngx-spinner';
 
 
@@ -40,7 +41,6 @@ export class ListMatchComponent implements OnInit {
   matchCount: number = 0;
 
 
-
   photo_url: string = environment.photo_endpoint;
 
 
@@ -53,12 +53,12 @@ export class ListMatchComponent implements OnInit {
   list_match_pagination = {
     limit: 5,
     page: 1
-  }
+  };
 
-   countNumbersOptions = {
+  countNumbersOptions = {
     startVal: 0,
     duration: 5,
-    separator: " "
+    separator: ' '
   };
 
   page: number = 1;
@@ -73,8 +73,9 @@ export class ListMatchComponent implements OnInit {
 
   listMatchScroll: Match[] = [];
 
-  @ViewChild("scroller")
+  @ViewChild('scroller')
   scroller!: CdkVirtualScrollViewport;
+
   // Infinite Scroll
 
   constructor(
@@ -106,7 +107,6 @@ export class ListMatchComponent implements OnInit {
   }
 
 
-
   getTotalMatchCount() {
     this.matchService.getMatchCount().subscribe(
       (dataResult) => {
@@ -122,7 +122,7 @@ export class ListMatchComponent implements OnInit {
     let paramsListMatchToday = {
       ...this.list_match_pagination,
       isToday: true
-    }
+    };
     this.matchService.getAll(paramsListMatchToday).subscribe(
       (dataResult) => {
         this.listMatchToday = dataResult.docs;
@@ -130,12 +130,12 @@ export class ListMatchComponent implements OnInit {
         const errors = (error.userMessage != undefined) ? error.userMessage : 'Une erreur s\'est produite, recommencer l\'opération';
         this.designService.openErrorSnackBar(errors);
       }
-    )
+    );
   }
 
   getListEquipe() {
     this.ngxLoader.startLoader('loader-liste-equipe');
-    this.equipeService.getAll(1,10000).subscribe(
+    this.equipeService.getAll(1, 10000).subscribe(
       (dataResult) => {
         this.listEquipe = dataResult.docs;
         this.ngxLoader.stopLoader('loader-liste-equipe');
@@ -173,14 +173,42 @@ export class ListMatchComponent implements OnInit {
         const errors = (error.userMessage != undefined) ? error.userMessage : 'Une erreur s\'est produite, recommencer l\'opération';
         this.designService.openErrorSnackBar(errors);
       }
-    )
+    );
   }
 
-  slideConfig = {"slidesToShow": 10, "slidesToScroll": 4};
-  slickInit(e) {}
-  breakpoint(e) {}
-  afterChange(e) {}
-  beforeChange(e) {}
+  slideConfig = {
+    'slidesToShow': 10,
+    'slidesToScroll': 4,
+    'responsive':
+      [
+        {
+          'breakpoint': 1024,
+          'settings': {
+            'slidesToShow': 7,
+            'slidesToScroll': 3,
+          }
+        },
+        {
+          'breakpoint': 760,
+          'settings': {
+            'slidesToShow': 5,
+            'slidesToScroll': 2,
+          }
+        }
+      ]
+  };
+
+  slickInit(e) {
+  }
+
+  breakpoint(e) {
+  }
+
+  afterChange(e) {
+  }
+
+  beforeChange(e) {
+  }
 
   search() {
     let match_params: any;
@@ -191,27 +219,30 @@ export class ListMatchComponent implements OnInit {
 
     match_params = {
       ...this.list_match_pagination
-    }
-    if (equipe.length > 0 ) {
+    };
+    if (equipe.length > 0) {
       match_params = {
         ...match_params,
         equipe: equipe
-      }
-    } if (pari.length > 0) {
+      };
+    }
+    if (pari.length > 0) {
       match_params = {
         ...match_params,
         pari: pari
-      }
-    } if (date_debut) {
+      };
+    }
+    if (date_debut) {
       match_params = {
         ...match_params,
         date_debut: new Date(date_debut).toLocaleDateString('fr-CA')
-      }
-    } if (date_fin) {
+      };
+    }
+    if (date_fin) {
       match_params = {
         ...match_params,
         date_fin: new Date(date_fin).toLocaleDateString('fr-CA')
-      }
+      };
     }
     this.getListMatch(match_params);
   }
@@ -232,12 +263,12 @@ export class ListMatchComponent implements OnInit {
     let match_params = {
       ...this.list_match_pagination,
       pari: description
-    }
+    };
     this.getListMatch(match_params);
   }
 
   onScroll() {
-    console.log("Scroll Up");
+    console.log('Scroll Up');
     /*if (this.hasNextPage) {
       this.ngxLoader.startLoader('loader-liste-match');
       this.loadNextListMatch(this.nextPage);

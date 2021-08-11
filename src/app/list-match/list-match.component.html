@@ -102,9 +102,6 @@
                 </div>-->
                 <!-- Liste des matchs -->
                <cdk-virtual-scroll-viewport #scroller itemSize="5" class="viewport box">
-                   <!--<ngx-spinner [fullScreen]="false" type="ball-clip-rotate-multiple" size="medium">
-                       <p class="loading">Loading Awesomeness...</p>
-                   </ngx-spinner>-->
                     <div class="box m-1 link-detail-match m-3 p-3" *cdkVirtualFor="let match of listMatch">
                         <a routerLink="/detail-match/{{match._id}}">
                             <div class="list-match-flex-container">

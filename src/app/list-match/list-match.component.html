@@ -19,9 +19,7 @@
         </ul>
         <ng-template #noTodayMatch>
             <div class=" flex-item no-today-match">
-                <img src="../../assets/img/colorful1.png" alt="" class="gif" width="130"/> Aucuns matchs
-                disponible pour
-                aujourd'hui ! <img src="../../assets/img/colorful2.png" alt="" class="gif" width="130"/>
+                <img src="../../assets/img/colorful1.png" alt="" class="gif" width="130"/> {{'NoMatchToday' | translate}} <img src="../../assets/img/colorful2.png" alt="" class="gif" width="130"/>
             </div>
         </ng-template>
     </div>
@@ -36,10 +34,10 @@
                     <mat-expansion-panel>
                         <mat-expansion-panel-header>
                             <mat-panel-title>
-                                Recherche
+                                {{"Search" | translate}}
                             </mat-panel-title>
                             <mat-panel-description>
-                                Recherche avec des critères
+                                {{"SearchWithriteria" | translate}}
                                 <mat-icon svgIcon="search"></mat-icon>
                             </mat-panel-description>
                         </mat-expansion-panel-header>
@@ -47,7 +45,7 @@
                             <div class="col-md-3 p-2">
                                 <div class="tg-form">
                                     <fieldset>
-                                        <input matInput placeholder='Equipe : Italy' [(ngModel)]="equipe"
+                                        <input matInput placeholder="{{'Team' | translate}} : Italy" [(ngModel)]="equipe"
                                                class="form-control">
                                     </fieldset>
                                 </div>
@@ -55,31 +53,29 @@
                             <div class="col-md-3 p-2">
                                 <div class="tg-form">
                                     <fieldset>
-                                        <input matInput placeholder='Type de pari : null' [(ngModel)]="pari"
+                                        <input matInput placeholder="{{'BetType' | translate}} : Italy" [(ngModel)]="pari"
                                                class="form-control">
                                     </fieldset>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <mat-form-field appearance="outline">
-                                    <mat-label>Entrer la date du match</mat-label>
+                                    <mat-label>{{'MatchDate' | translate}}</mat-label>
                                     <mat-date-range-input [formGroup]="matchDate" [rangePicker]="picker">
-                                        <input matStartDate formControlName="start" placeholder="Début">
-                                        <input matEndDate formControlName="end" placeholder="Fin">
+                                        <input matStartDate formControlName="start" placeholder="{{'Start' | translate}}">
+                                        <input matEndDate formControlName="end" placeholder="{{'End' | translate}}">
                                     </mat-date-range-input>
                                     <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
                                     <mat-date-range-picker #picker></mat-date-range-picker>
 
-                                    <mat-error *ngIf="matchDate.controls.start.hasError('matStartDateInvalid')">La
-                                        date de début est invalide
+                                    <mat-error *ngIf="matchDate.controls.start.hasError('matStartDateInvalid')">{{'InvalidStartDate' | translate}}
                                     </mat-error>
-                                    <mat-error *ngIf="matchDate.controls.end.hasError('matEndDateInvalid')">Les
-                                        dates de début et fin sont invalides
+                                    <mat-error *ngIf="matchDate.controls.end.hasError('matEndDateInvalid')">{{'InvalidEndDate' | translate}}
                                     </mat-error>
                                 </mat-form-field>
                             </div>
                             <div class="col-md-2">
-                                <button class="btn-yellow" (click)="search()">Rechercher</button>
+                                <button class="btn-yellow" (click)="search()">{{'SearchButton' | translate}}</button>
                             </div>
                         </div>
                     </mat-expansion-panel>
@@ -121,7 +117,7 @@
                                     <div class="item item-date-match">
                                         <div class="finished-match">
                                             <li class="match">Match</li>
-                                            <li class="finished">terminé</li>
+                                            <li class="finished">{{'EndedMatch' | translate}}</li>
                                         </div>
                                     </div>
                                 </ng-template>
@@ -179,7 +175,7 @@
         </div>
 
         <div class="tg-widget m-2">
-            <h3>Différents types de pari</h3>
+            <h3>{{'BetDifferents' | translate}}</h3>
             <div class="tg-form pt-2 pb-1">
                 <fieldset>
                     <input matInput (keyup)="searchPari($event)" #input placeholder='Recherche pari...'
@@ -208,17 +204,17 @@
             </div>
             <div class="tg-statistic">
                 <h2><span [countUp]="userCount" [options]="countNumbersOptions">{{userCount}}</span></h2>
-                <h3>Parieurs actifs</h3>
+                <h3>{{'ActiveBettors'| translate}}</h3>
             </div>
             <div class="tg-statistic">
                 <h2><span [countUp]="listPari.length" [options]="countNumbersOptions">{{listPari.length}}</span>
                 </h2>
-                <h3>Pari</h3>
+                <h3>{{'Bet' | translate}}</h3>
             </div>
             <div class="tg-statistic">
                 <h2><span [countUp]="listEquipe.length" [options]="countNumbersOptions">{{listEquipe.length}}</span>
                 </h2>
-                <h3>Equipes</h3>
+                <h3>{{'Teams' | translate}}</h3>
             </div>
         </div>
     </div>

@@ -14,9 +14,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {AppLoader} from '../shared/constant';
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
-
-//import { NgxSpinnerService } from 'ngx-spinner';
-
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-list-match',
@@ -85,12 +83,15 @@ export class ListMatchComponent implements OnInit {
     private _dialog: MatDialog,
     private pariService: PariService,
     private equipeService: EquipeService,
-    private ngxLoader: NgxUiLoaderService
+    private ngxLoader: NgxUiLoaderService,
+    public translate: TranslateService
   ) {
     this.matchDate = new FormGroup({
       start: new FormControl(),
       end: new FormControl()
     });
+
+    translate.setDefaultLang((localStorage.getItem('lang')! || 'fr'));
   }
 
   getListMatch(params) {

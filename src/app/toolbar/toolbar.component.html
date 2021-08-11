@@ -1,23 +1,39 @@
 <mat-toolbar class="toolbar">
-  <button mat-icon-button [routerLink]="['/']">
-    <mat-icon>home</mat-icon>
-  </button>
-  <span *ngIf="loggedUser.login">{{loggedUser.login}}</span>
-  <span class="spacer"></span>
-
-  <p *ngIf="loggedUser.login" class="token">{{solde}}<mat-icon svgIcon="token"></mat-icon></p>
-
-  <button mat-icon-button (click)="viewProfil()" *ngIf="loggedUser.email" matTooltip="Votre profil">
-    <mat-icon>account_circle</mat-icon>
-  </button>
-  <button *ngIf="loggedUser.email!=''; else signIn_template" mat-icon-button matTooltip="Se déconnecter"
-          (click)="onLogOut()">
-    <mat-icon>power_settings_new</mat-icon>
-  </button>
-
-  <ng-template #signIn_template>
-    <button mat-icon-button matTooltip="Se connecter" (click)="auth()">
-      <mat-icon>login</mat-icon>
+    <button mat-icon-button [routerLink]="['/']">
+        <mat-icon>home</mat-icon>
     </button>
-  </ng-template>
+    <span *ngIf="loggedUser.login">{{loggedUser.login}}</span>
+    <span class="spacer"></span>
+
+    <p *ngIf="loggedUser.login" class="token">{{solde}}
+        <mat-icon svgIcon="token"></mat-icon>
+    </p>
+
+    <button mat-icon-button (click)="viewProfil()" *ngIf="loggedUser.email" matTooltip="{{'Profile' | translate}}">
+        <mat-icon>account_circle</mat-icon>
+    </button>
+    <button *ngIf="loggedUser.email!=''; else signIn_template" mat-icon-button matTooltip="{{'LogOut' | translate}}"
+            (click)="onLogOut()">
+        <mat-icon>power_settings_new</mat-icon>
+    </button>
+
+    <ng-template #signIn_template>
+        <button mat-icon-button matTooltip="{{'Connect' | translate }}" (click)="auth()">
+            <mat-icon>login</mat-icon>
+        </button>
+    </ng-template>
+
+
+    <span class="form-inline">
+  <select
+          class="form-control"
+          #selectedLang
+          (change)="switchLang(selectedLang.value)">
+    <option *ngFor="let language of translate.getLangs()"
+            [value]="language"
+            [selected]="language === translate.currentLang">
+      {{ language }}
+    </option>
+  </select>
+</span>
 </mat-toolbar>

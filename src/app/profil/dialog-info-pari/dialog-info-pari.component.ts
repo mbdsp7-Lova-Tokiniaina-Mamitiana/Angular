@@ -26,7 +26,7 @@ export class DialogInfoPariComponent implements OnInit {
 
   ngOnInit(): void {
     this.match = this.data;
-    this.matchService.viewMap(this.mapboxContent, this.match.localisationy, this.match.localisationx, this.map);
+    this.matchService.viewMap(this.mapboxContent, this.match.localisationx, this.match.localisationy, this.map);
   }
 
 }

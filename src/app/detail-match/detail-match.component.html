@@ -5,7 +5,7 @@
             <div class="uni-entry-body text-left">
                 <div class="uni-entry-time">
                     <li class="day"> {{match?.date_match | date: 'dd'}} </li>
-                    <li class="month"> {{match?.date_match | date : 'MM' | convertmonthDate }} </li>
+                    <li class="month"> {{match?.date_match | date : 'MMM'}} </li>
                     <li class="year"> {{match?.date_match | date: 'yyyy'}} </li>
                 </div>
             </div>
@@ -47,7 +47,7 @@
         <div class="col-md-12 mt-5 row">
             <div class="col-md-10 offset-1">
                 <div class="section-heading">
-                    <h2>Les paris disponibles pour ce match</h2>
+                    <h2>{{'BetDisponibleForMatch' | translate}}</h2>
                 </div>
 
                 <div class="flex-container-list-pari" *ngIf="!match?.etat;else finishedPari">
@@ -66,14 +66,14 @@
                                 </mat-expansion-panel-header>
                                 <div class="row p-3 form-content">
                                     <mat-form-field appearance="outline">
-                                        <mat-label>Mise</mat-label>
+                                        <mat-label>{{'Mise' | translate}}</mat-label>
                                         <label>
                                             <input matInput [(ngModel)]="mise" type="number" min="1">
                                         </label>
                                     </mat-form-field>
                                     <div class="pari-detail-action">
                                         <a class="btn-yellow"
-                                           (click)="onBetting(pari._id, pari.cote, pari.description)"> Parier
+                                           (click)="onBetting(pari._id, pari.cote, pari.description)"> {{'Parier' | translate}}
                                             &nbsp;<mat-icon svgIcon="token"></mat-icon>
                                         </a>
                                     </div>
@@ -88,7 +88,7 @@
     <div class="flex-container mt-5">
         <div class="item suggests-matchs mt-5">
             <div class="tg-section-name">
-                <h2>Les matchs à venir</h2>
+                <h2>{{"UpcomingMatch" | translate}}</h2>
             </div>
             <div class="suggests-matchs-content p-2">
                 <div class="row">
@@ -109,7 +109,7 @@
                             </div>
                         </a>
                     </div>
-                    <a routerLink="/" class="btn-yellow">Liste des matchs &nbsp;<mat-icon svgIcon="back"></mat-icon></a>
+                    <a routerLink="/" class="btn-yellow">{{'MatchList'|translate}}<mat-icon svgIcon="back"></mat-icon></a>
                 </div>
             </div>
         </div>
@@ -123,14 +123,14 @@
 <!--Templates-->
 <ng-template #finishedPari>
     <h3 class="text-center finishedPari">
-        <mat-icon svgIcon="flag"></mat-icon>&nbsp;Le match est déjà terminé !!!&nbsp;<mat-icon
+        <mat-icon svgIcon="flag"></mat-icon>&nbsp;Match {{'EndedMatch' | translate}}&nbsp;<mat-icon
             svgIcon="flag"></mat-icon>
     </h3>
 </ng-template>
 
 <ng-template #emptyPari>
     <h3 class="text-center emptyPari">
-        Aucuns paris disponible pour ce match pour le moment !
+        {{'NoBetForMatch' | translate}}
     </h3>
 </ng-template>
 <ngx-ui-loader [loaderId]="'loader-info'"

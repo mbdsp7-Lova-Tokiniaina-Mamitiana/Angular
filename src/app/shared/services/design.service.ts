@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {TranslateService} from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class DesignService {
 
   constructor(
-    public _snackBar: MatSnackBar
+    public _snackBar: MatSnackBar,
   ) { }
 
   /**------------------------------------------------------------------------------------------------
@@ -88,4 +89,6 @@ export class DesignService {
     }
     this._openSnackBar(snackBar);
   }
+
+
 }

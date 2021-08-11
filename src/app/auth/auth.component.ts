@@ -5,6 +5,7 @@ import {DesignService} from '../shared/services/design.service';
 import {UserService} from '../shared/services/user.service';
 import {MatDialog} from '@angular/material/dialog';
 import {NewUserComponent} from '../new-user/new-user.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-auth',
@@ -19,12 +20,14 @@ export class AuthComponent implements OnInit {
     private userService: UserService,
     public designService: DesignService,
     private router: Router,
-    private _dialog: MatDialog
+    private _dialog: MatDialog,
+    public translate: TranslateService
   ) {
     this.authForm = new FormGroup({
       login: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
     });
+    translate.setDefaultLang((localStorage.getItem('lang')! || 'fr'));
   }
 
   ngOnInit(): void {

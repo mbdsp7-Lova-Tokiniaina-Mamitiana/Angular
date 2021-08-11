@@ -1,9 +1,9 @@
 <form [formGroup]="authForm" (ngSubmit)="onLogin()">
     <mat-dialog-content class="mat-typography">
-        <h1 class="text-center">Se connecter</h1>
+        <h1 class="text-center">{{'Connect' | translate}}</h1>
         <mat-form-field appearance="outline" class="input-full-width">
             <mat-label>
-                Pseudonyme
+                {{'Pseudonyme' | translate}}
             </mat-label>
             <label>
                 <input matInput formControlName="login" placeholder="Pseudonyme" autocomplete=false>
@@ -12,8 +12,8 @@
 
         <mat-form-field appearance="outline" class="input-full-width">
             <mat-label>
-                <mat-icon>lock_open</mat-icon>
-                Mot de passe
+                <mat-icon>lock_open</mat-icon>²
+                {{'Password' | translate}}
             </mat-label>
             <label>
                 <input matInput formControlName="password" placeholder="Mot de passe" autocomplete=false
@@ -22,7 +22,7 @@
         </mat-form-field>
     </mat-dialog-content>
     <mat-dialog-actions align="center">
-        <button type="submit" class="uni-btn-danger" [mat-dialog-close]="true">Se connecter</button>
-        <button class="uni-btn-primary" (click)="onSignUp()" [mat-dialog-close]="true" cdkFocusInitial> S'inscrire </button>
+        <button type="submit" class="uni-btn-danger" [mat-dialog-close]="true">{{'Connect' | translate}}</button>
+        <button class="uni-btn-primary" (click)="onSignUp()" [mat-dialog-close]="true" cdkFocusInitial> {{'Register' | translate}} </button>
     </mat-dialog-actions>
 </form>

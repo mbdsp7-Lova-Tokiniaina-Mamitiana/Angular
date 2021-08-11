@@ -6,6 +6,8 @@ import { DATE_FORMATS } from './shared/Date-format';
 import { NgxKjuaModule } from 'ngx-kjua';
 import { NgxUiLoaderModule } from "ngx-ui-loader";
 import { CountUpModule } from 'ngx-countup';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 /** Import des modules angular */
 import {ReactiveFormsModule} from '@angular/forms';
@@ -31,7 +33,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
@@ -151,7 +153,14 @@ const materialModule = [
         SlickCarouselModule,
         NgxKjuaModule,
         CountUpModule,
-        RouterModule.forRoot(routes)
+        RouterModule.forRoot(routes),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: httpTranslateLoader,
+                deps: [HttpClient]
+            }
+        })
     ],
     providers: [
         {provide: ErrorHandler, useClass: ErrorService},
@@ -161,5 +170,7 @@ const materialModule = [
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule {
+export class AppModule {}
+export function httpTranslateLoader(http: HttpClient) {
+    return new TranslateHttpLoader(http);
 }

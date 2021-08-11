@@ -6,6 +6,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {AuthComponent} from '../auth/auth.component';
 import {ErrorTracker} from '../shared/models/error-tracker';
 import { DesignService } from '../shared/services/design.service';
+import {TranslateService} from '@ngx-translate/core';
 
 
 @Component({
@@ -23,8 +24,11 @@ export class ToolbarComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private _dialog: MatDialog,
-    private designService: DesignService
+    private designService: DesignService,
+    public translate: TranslateService
   ) {
+    translate.addLangs(['fr','en']);
+    translate.setDefaultLang('fr');
   }
 
   ngOnInit(): void {
@@ -59,5 +63,10 @@ export class ToolbarComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
+  }
+
+  switchLang(lang: string) {
+    this.translate.use(lang);
+    localStorage.setItem('lang', lang);
   }
 }

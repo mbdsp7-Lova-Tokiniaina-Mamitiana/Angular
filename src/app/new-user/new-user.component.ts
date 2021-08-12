@@ -3,6 +3,8 @@ import {FormGroup, FormControl, Validators} from '@angular/forms';
 import {DesignService} from '../shared/services/design.service';
 import {UserService} from '../shared/services/user.service';
 import {ErrorTracker} from '../shared/models/error-tracker';
+import {NgxUiLoaderService} from 'ngx-ui-loader';
+import {AppLoader} from '../shared/constant';
 
 @Component({
   selector: 'app-new-user',
@@ -13,9 +15,15 @@ export class NewUserComponent implements OnInit {
 
   signUpForm: FormGroup;
 
+  // loader
+  loaderLogo = AppLoader.loaderLogo;
+  loaderColor = AppLoader.loaderColor;
+  loaderText = "Insertion d'un nouveau utilisation en cours ...";
+
   constructor(
     public designService: DesignService,
-    public userService: UserService
+    public userService: UserService,
+    private ngxLoader: NgxUiLoaderService,
   ) {
     this.signUpForm = new FormGroup({
       login: new FormControl('', Validators.required),
@@ -39,15 +47,20 @@ export class NewUserComponent implements OnInit {
     this.userService.registerUserInfo(userInfo).subscribe(
       (data) => {
         this.designService.openSuccessSnackBar('Enregistrement avec succès, veuillez vous reconnecter !');
+        this.ngxLoader.stop()
       }, (error: ErrorTracker) => {
-        const errors = (error.userMessage != undefined) ? error.userMessage : 'Une erreur s\'est produite, recommencer l\'opération';
-        this.designService.openErrorSnackBar(errors);
+        this.ngxLoader.stop()
+        setTimeout(() => {
+          const errors = (error.userMessage != undefined) ? error.userMessage : 'Une erreur s\'est produite, recommencer l\'opération';
+          this.designService.openErrorSnackBar(errors);
+        },1000)
       }
     );
   }
 
   onSignUp() {
     if (this.signUpForm.valid) {
+      this.ngxLoader.start()
       this.designService.openSuccessSnackBar("Création d'un nouveau compte utilisateur en cours, veuillez patienter ...");
       console.log(this.signUpForm.value);
       const userParams = {
@@ -63,6 +76,12 @@ export class NewUserComponent implements OnInit {
           console.log(data);
           const idUser = data.id;
           this.completeUserInfo(idUser);
+        }, (error: ErrorTracker) => {
+          this.ngxLoader.stop()
+          setTimeout(() => {
+            const errors = (error.userMessage != undefined) ? error.userMessage : 'Une erreur s\'est produite, recommencer l\'opération';
+            this.designService.openErrorSnackBar(errors);
+          },1000)
         }
       );
     } else {

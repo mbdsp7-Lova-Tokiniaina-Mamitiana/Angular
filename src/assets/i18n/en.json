@@ -33,7 +33,8 @@
   "PersonnalHistory": "Personnal histories",
   "CurrentBalance": "Current balance",
   "BetDate" : "Bet Date",
-  "MatchDate": "Match date",
+  "MatchDateHeader": "Match date",
   "MatchDetails": "Match details",
   "AddBalance": "Add my balances"
+
 }

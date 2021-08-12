@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {TranslateService} from '@ngx-translate/core';
+import {catchError} from 'rxjs/operators';
+import {ErrorService} from './error.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +11,8 @@ export class DesignService {
 
   constructor(
     public _snackBar: MatSnackBar,
+    private translate: TranslateService,
+    private errorService: ErrorService
   ) { }
 
   /**------------------------------------------------------------------------------------------------
@@ -88,6 +92,16 @@ export class DesignService {
       status: "info"
     }
     this._openSnackBar(snackBar);
+  }
+
+  getTranslation(key: string) {
+    let value = "";
+    this.translate.get(key).subscribe(
+      (dataResult) => {
+        value = dataResult;
+      }
+    )
+    return value;
   }
 
 

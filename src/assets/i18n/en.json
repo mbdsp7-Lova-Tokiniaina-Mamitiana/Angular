@@ -35,6 +35,22 @@
   "BetDate" : "Bet Date",
   "MatchDateHeader": "Match date",
   "MatchDetails": "Match details",
-  "AddBalance": "Add my balances"
+  "AddBalance": "Add my balances",
+
+  "snackBarInformation" : {
+    "ErrorProd": "An error has occurred, repeat the operation",
+    "detail-match": {
+      "EnoughBalance": "Please recharge your account to bet on this bet",
+      "LoadingBetOk": "Your bet has been taken care of ...",
+      "AmountCouldNot0": "Bet amount cannot be 0",
+      "ConnectBeforeBet": "Please login before betting!"
+    }
+  },
+
+  "loader": {
+    "waitingBet": "Sending your current bet ...",
+    "loadingMatchDetail": "Loading match details ...",
+    "loadingMatch": "Loading match ..."
+  }
 
 }

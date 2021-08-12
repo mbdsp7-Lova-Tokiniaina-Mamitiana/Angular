@@ -28,7 +28,7 @@ export class ListMatchComponent implements OnInit {
   // loader
   loaderLogo = AppLoader.loaderLogo;
   loaderColor = AppLoader.loaderColor;
-  loaderText = AppLoader.loaderTextMatch;
+  loaderText = this.designService.getTranslation("loader.loadingMatch");
 
   listMatch: Match[] = [];
   listPari: Pari[] = [];

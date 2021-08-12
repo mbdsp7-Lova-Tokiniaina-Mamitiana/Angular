@@ -35,5 +35,24 @@
   "BetDate" : "Date du pari",
   "MatchDateHeader": "Date du match",
   "MatchDetails": "Détail du match",
-  "AddBalance": "Ajouter mes soldes"
+  "AddBalance": "Ajouter mes soldes",
+
+
+  "snackBarInformation" : {
+    "ErrorProd": "Une erreur s'est produite, recommencer l'opération",
+    "detail-match": {
+      "EnoughBalance": "Veuillez recharger votre compte pour miser sur ce pari",
+      "LoadingBetOk": "Votre pari a été prise en charge ...",
+      "AmountCouldNot0": "Montant de la mise ne peut pas être 0",
+      "ConnectBeforeBet": "Veuillez vous connecter avant de parier !"
+    }
+  },
+
+  "loader": {
+    "waitingBet": "Envoie de votre pari en cours ...",
+    "loadingMatchDetail": "Chargement détail du match ...",
+    "loadingMatch": "Chargement des matchs ..."
+  }
+
+
 }

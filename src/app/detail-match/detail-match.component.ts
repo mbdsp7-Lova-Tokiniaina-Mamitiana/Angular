@@ -11,6 +11,7 @@ import {UserService} from '../shared/services/user.service';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {MatDialog} from '@angular/material/dialog';
 import {AuthComponent} from '../auth/auth.component';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-detail-match',
@@ -25,8 +26,8 @@ export class DetailMatchComponent implements OnInit {
   // loader
   loaderLogo = AppLoader.loaderLogo;
   loaderColor = AppLoader.loaderColor;
-  loaderText = AppLoader.loaderTextDetailMatch;
-  loaderTextParier = AppLoader.loaderTextParier;
+  loaderText = this.designService.getTranslation("loader.loadingMatchDetail");
+  loaderTextParier = this.designService.getTranslation("loader.waitingBet");
 
   // Localisaiton
   @ViewChild('mapCard', {static: true, read: ElementRef})
@@ -52,7 +53,8 @@ export class DetailMatchComponent implements OnInit {
     private designService: DesignService,
     private userService: UserService,
     private ngxLoader: NgxUiLoaderService,
-    private _dialog: MatDialog
+    private _dialog: MatDialog,
+    private translate: TranslateService
   ) {
   }
 
@@ -86,7 +88,7 @@ export class DetailMatchComponent implements OnInit {
     if (!this.userInfo) {
       this.ngxLoader.stopLoader('loader-bet');
       setTimeout(() => {
-        this.designService.openErrorSnackBar('Veuillez vous connectez avant de parier !');
+        this.designService.openErrorSnackBar(this.designService.getTranslation("snackBarInformation.detail-match.ConnectBeforeBet"));
         const dialogRef = this._dialog.open(AuthComponent);
         dialogRef.afterClosed().subscribe(result => {
           console.log(`Dialog result: ${result}`);
@@ -96,9 +98,10 @@ export class DetailMatchComponent implements OnInit {
       if (+this.mise <= 0) {
         this.ngxLoader.stopLoader('loader-bet');
         setTimeout(() => {
-          this.designService.openErrorSnackBar('Montant de la mise ne peut pas être 0');
+          this.designService.openErrorSnackBar(this.designService.getTranslation("snackBarInformation.detail-match.AmountCouldNot0"));
         }, 1000);
       } else {
+        console.log("passer 1");
         const dateMatchDetail = new Date(this.match.date_match);
         const dateMatch = `${+dateMatchDetail.getFullYear()}-${+dateMatchDetail.getMonth() + 1}-${+dateMatchDetail.getDay()} ${+dateMatchDetail.getHours()}:${+dateMatchDetail.getMinutes()}`;
         const dateNow = `${+new Date().getFullYear()}-${+new Date().getMonth() + 1}-${+new Date().getDay()} ${+new Date().getHours()}:${+new Date().getMinutes()}`;
@@ -119,29 +122,27 @@ export class DetailMatchComponent implements OnInit {
         formData.append('avatar2', `${this.photo_url}${this.match.equipe2.avatar}`);
         formData.append('dateHisto', dateNow);
 
-        /*console.log(`idmatch`, matchDetail._id);
-        console.log(`idpari`, id_pari);
-        console.log(`iduser`, this.userInfo._id);
-        console.log('cote', cote.toString());
-        console.log(`equipe1`, matchDetail.equipe1.nom);
-        console.log(`equipe2`, matchDetail.equipe2.nom);
-        console.log(`textpari`, description);
-        console.log(`montant`, '');
-        console.log(`localisationx`, matchDetail.longitude.toString());
-        console.log(`localisationy`, matchDetail.latitude.toString());
-
-        console.log(`date`, dateMatch);
-        console.log(`avatar1`, `${this.photo_url}${this.match.equipe1.avatar}`);
-        console.log(`avatar2`, `${this.photo_url}${this.match.equipe2.avatar}`);
-        console.log(`dateHisto`, dateNow);*/
-
+        console.log("passer 2");
         this.userService.addPersonnalHistory(formData).subscribe(
           (dataResult) => {
+            console.log("passer 3");
             console.log(dataResult);
             this.ngxLoader.stopLoader('loader-bet');
+            window.location.reload();
             setTimeout(() => {
-              this.designService.openSuccessSnackBar('Votre pari a été prise en charge ...');
+              this.designService.openSuccessSnackBar(this.designService.getTranslation("snackBarInformation.detail-match.LoadingBetOk"));
             }, 1000);
+          }, (error: ErrorTracker) => {
+            if (error.errorNumber == 403) {
+              this.ngxLoader.stopLoader('loader-bet');
+              setTimeout(() => {
+                this.designService.openErrorSnackBar(this.designService.getTranslation("snackBarInformation.detail-match.EnoughBalance"));
+              }, 1000);
+            } else {
+              const errors = (error.userMessage != undefined) ? error.userMessage : this.designService.getTranslation("snackBarInformation.ErrorProd");
+              this.designService.openErrorSnackBar(errors);
+            }
+
           }
         );
       }
